@@ -1,4 +1,9 @@
+.header .mobileHeader {
+  z-index: 2;
+}
+
 .header .mobileHeader .mobileHeaderFirst {
+  z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7,7 +12,7 @@
   left: 0;
   width: calc(100vw - 20%);
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 2% 10%;
+  padding: 5px 10%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -29,6 +34,7 @@
 }
 
 .header .mobileHeader .mobileNavigationDiv {
+  z-index: 3;
   position: absolute;
   top: 0;
   right: -100vw;
@@ -92,6 +98,14 @@
   text-align: center;
 }
 
+.header .mobileHeader .mobileNavigationDiv .navList h2 {
+  cursor: pointer;
+}
+
+.header .mobileHeader .mobileNavigationDiv .navList h2:hover {
+  opacity: .8;
+}
+
 .header .mobileHeader .mobileNavigationDiv .singInDiv {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -102,6 +116,11 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  cursor: pointer;
+}
+
+.header .mobileHeader .mobileNavigationDiv .singInDiv:hover {
+  opacity: .8;
 }
 
 .header .mobileHeader .mobileNavigationDiv .singInDiv h4 {
@@ -120,6 +139,7 @@
 }
 
 .header .pcHeader {
+  z-index: 2;
   position: absolute;
   left: 0;
   top: 0;
@@ -162,6 +182,15 @@
   margin-right: 10px;
 }
 
+.header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .navLink {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .navLink:hover {
+  opacity: .8;
+}
+
 .header .pcHeader .pcHeaderFirst .singInDiv {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -170,17 +199,18 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
+}
+
+.header .pcHeader .pcHeaderFirst .singInDiv:hover {
+  opacity: .8;
 }
 
 .header .pcHeader .pcHeaderFirst .singInDiv h4 {
   margin-left: 5px;
 }
 
-.header .pcHeader .pcHeaderFirst .navLink {
-  font-size: 13px;
-}
-
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 550px) {
   .mobileHeader {
     display: none;
   }

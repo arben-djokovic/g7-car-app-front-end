@@ -1,13 +1,15 @@
 .header{
     .mobileHeader{
+        z-index: 2;
         .mobileHeaderFirst{
+            z-index: 2;
             display: flex;
             position: absolute;
             top: 0;
             left: 0;
             width: calc(100vw - 20%);
             background-color: rgba(0, 0, 0, 0.1);
-            padding: 2% 10%;
+            padding: 5px 10%;
             justify-content: space-between;
             align-items: center;
             .logo{
@@ -22,6 +24,7 @@
             }
         }
         .mobileNavigationDiv{
+            z-index: 3;
             position: absolute;
             top: 0;
             right: -100vw;
@@ -58,11 +61,21 @@
                 min-height: 200px;
                 margin: 40px 0px;
                 text-align: center;
+                h2{
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
             }
             .singInDiv{
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
                 h4{
                     margin-left: 5px;
                 }
@@ -77,6 +90,7 @@
         }
     }
     .pcHeader{
+        z-index: 2;
         position: absolute;
         left: 0;
         top: 0;
@@ -100,22 +114,30 @@
                     height: 28px;
                     margin-right: 10px;
                 }
+                .navLink{
+                    font-size: 15px;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
             }
             .singInDiv{
                 display: flex;
                 margin-left: 10px;
                 align-items: center;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
                 h4{
                     margin-left: 5px;
                 }
             }
-            .navLink{
-                font-size: 13px;
-            }
         }
     }
 }
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 550px) {
     .mobileHeader{
         display: none;
     }

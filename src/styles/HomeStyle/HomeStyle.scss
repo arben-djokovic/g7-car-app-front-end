@@ -1,0 +1,159 @@
+.mySwiper{
+    height: 100vh;
+}
+.swiper-pagination-bullet{
+    background-color: #007CC7;
+}
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+    margin: 8px;
+}
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+    bottom: 150px;
+}
+.homePage{
+    background-color: #0B0C10;
+}
+.firstSection{
+    margin-bottom: 3100px;
+    .sliderSection{
+        position: relative;
+        height: 100vh;
+        img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100%;
+        }
+        .textSlider{
+            position: absolute;
+            left: 15vw;
+            top: 30vh;
+            width: 30vw;
+            min-width: 150px;
+            h1{
+                font-size: 40px;
+            }
+            h2{
+                font-size: 18px;
+            }
+        }
+    }
+    .searchDiv{
+        background-color: #071620;
+        padding: 30px 10px;
+        position: absolute;
+        bottom: -130px;
+        z-index: 2;
+        width: 60vw;
+        min-width: 500px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        .searchHeader{
+            display: flex;
+            justify-content: center;
+            &>h2{
+                padding: 10px 30px;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+            .searchSelected{
+                color: #007CC7;
+                border-bottom: 2px solid #007CC7;
+            }
+            .searchNotSelected{
+                color: #026fb3;
+                border-bottom: 2px solid transparent;
+            }
+        }
+        .searchSecondDiv{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            .searchSecondDivInput{
+                position: relative;
+                height: 38px;
+                input{
+                    height: 100%;
+                    border: none;
+                    background-color: #152836;
+                    padding-left: 35px;
+                    color: white;
+                    font-size: 18px;
+                    width: 30vw;
+                }
+                .fa-search{
+                    position: absolute;
+                    top: 10px;
+                    left: 8px;
+                    font-size: 18px;
+                }
+            }
+            .select{
+                border: none;
+                background-color: #152836;
+                color: white;
+                padding: 10px 20px;
+            }
+        }
+        .searchThirdDiv{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            .searchSecondDivInput{
+                position: relative;
+                height: 38px;
+                input{
+                    height: 100%;
+                    border: none;
+                    background-color: #152836;
+                    padding-left: 35px;
+                    color: white;
+                    font-size: 18px;
+                }
+                .fa-map-marker{
+                    position: absolute;
+                    top: 10px;
+                    left: 8px;
+                    font-size: 18px;
+                }
+            }
+            .submit{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #007CC7;
+                padding: 10px 25px;
+                cursor: pointer;
+                max-height: 20px;
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
+            .price{
+                display: flex;
+                text-align: center;
+                .priceText{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .firstSection{
+        .searchDiv{
+            bottom: -150px;
+        }
+        .searchThirdDiv{
+            .price{
+                flex-direction: column;
+                .priceText{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+  }
