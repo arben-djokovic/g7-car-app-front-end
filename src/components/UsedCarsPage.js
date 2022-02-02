@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from './Header';
 
 export default function UsedCarsPage() {
-  return <div>UsedCars</div>;
+  return <div>
+  <Header />
+    UsedCars</div>;
 }

@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from './Header';
 
 export default function LogInPage() {
-  return <div>Log in</div>;
+  return <div>
+  <Header />
+    Log in</div>;
 }

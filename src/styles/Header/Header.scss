@@ -1,0 +1,125 @@
+.header{
+    .mobileHeader{
+        .mobileHeaderFirst{
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100vw - 20%);
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 2% 10%;
+            justify-content: space-between;
+            align-items: center;
+            .logo{
+                height: 25px;
+            }
+            .bars{
+                font-size: 23px;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 8px 13px;
+                border-radius: 50%;
+            }
+        }
+        .mobileNavigationDiv{
+            position: absolute;
+            top: 0;
+            right: -100vw;
+            display: none;
+            background-color: #071620;
+            height: 100vh;
+            width: 100vw;
+            color: white;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            transition: all 0.4s;
+            .navLogoDiv{
+                position: relative;
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .navLogo{
+                    height: 60%;
+                }
+                .fa-times{
+                    position: absolute;
+                    right: 10%;
+                    top: 0px;
+                    font-size: 23px;
+                }
+            }
+            .navList{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 40%;
+                min-height: 200px;
+                margin: 40px 0px;
+                text-align: center;
+            }
+            .singInDiv{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                h4{
+                    margin-left: 5px;
+                }
+                .fa-user{
+                    font-size: 23px;
+                }
+            }
+        }
+        .mobileNavShow{
+            display: flex;
+            right: 0;
+        }
+    }
+    .pcHeader{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        display: none;
+        color: white;
+        .pcHeaderFirst{
+            display: flex;
+            justify-content: center;    
+            align-items: center;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            .pcHeaderFirtstContent{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 93vw;
+                padding: 10px 0px;
+                max-width: 750px;
+                .logo{
+                    height: 28px;
+                    margin-right: 10px;
+                }
+            }
+            .singInDiv{
+                display: flex;
+                margin-left: 10px;
+                align-items: center;
+                h4{
+                    margin-left: 5px;
+                }
+            }
+            .navLink{
+                font-size: 13px;
+            }
+        }
+    }
+}
+@media only screen and (min-width: 500px) {
+    .mobileHeader{
+        display: none;
+    }
+    .pcHeader{
+        display: flex !important;
+    }
+  }

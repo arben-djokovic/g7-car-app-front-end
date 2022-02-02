@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from './Header';
 
 export default function SearchPage() {
-  return <div>Search</div>;
+  return <div>
+  <Header />
+    Search</div>;
 }

@@ -1,0 +1,193 @@
+.header .mobileHeader .mobileHeaderFirst {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 20%);
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 2% 10%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .mobileHeader .mobileHeaderFirst .logo {
+  height: 25px;
+}
+
+.header .mobileHeader .mobileHeaderFirst .bars {
+  font-size: 23px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 13px;
+  border-radius: 50%;
+}
+
+.header .mobileHeader .mobileNavigationDiv {
+  position: absolute;
+  top: 0;
+  right: -100vw;
+  display: none;
+  background-color: #071620;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.header .mobileHeader .mobileNavigationDiv .navLogoDiv {
+  position: relative;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .mobileHeader .mobileNavigationDiv .navLogoDiv .navLogo {
+  height: 60%;
+}
+
+.header .mobileHeader .mobileNavigationDiv .navLogoDiv .fa-times {
+  position: absolute;
+  right: 10%;
+  top: 0px;
+  font-size: 23px;
+}
+
+.header .mobileHeader .mobileNavigationDiv .navList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 40%;
+  min-height: 200px;
+  margin: 40px 0px;
+  text-align: center;
+}
+
+.header .mobileHeader .mobileNavigationDiv .singInDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header .mobileHeader .mobileNavigationDiv .singInDiv h4 {
+  margin-left: 5px;
+}
+
+.header .mobileHeader .mobileNavigationDiv .singInDiv .fa-user {
+  font-size: 23px;
+}
+
+.header .mobileHeader .mobileNavShow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  right: 0;
+}
+
+.header .pcHeader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  display: none;
+  color: white;
+}
+
+.header .pcHeader .pcHeaderFirst {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 93vw;
+  padding: 10px 0px;
+  max-width: 750px;
+}
+
+.header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .logo {
+  height: 28px;
+  margin-right: 10px;
+}
+
+.header .pcHeader .pcHeaderFirst .singInDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .pcHeader .pcHeaderFirst .singInDiv h4 {
+  margin-left: 5px;
+}
+
+.header .pcHeader .pcHeaderFirst .navLink {
+  font-size: 13px;
+}
+
+@media only screen and (min-width: 500px) {
+  .mobileHeader {
+    display: none;
+  }
+  .pcHeader {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+}
+/*# sourceMappingURL=Header.css.map */

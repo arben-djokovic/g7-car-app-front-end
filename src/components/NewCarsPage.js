@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from './Header';
 
 export default function NewCarsPage() {
-  return <div>NewCars</div>;
+  return <div>
+    <Header />
+    NewCars</div>;
 }
