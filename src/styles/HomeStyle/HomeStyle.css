@@ -3,31 +3,35 @@
 }
 
 .swiper-pagination-bullet {
-  background-color: #007CC7;
+  background-color: #007cc7;
 }
 
-.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
   margin: 8px;
 }
 
-.swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
   bottom: 150px;
 }
 
 .homePage {
-  background-color: #0B0C10;
+  background-color: #0b0c10;
 }
 
-.firstSection {
-  margin-bottom: 3100px;
+.homePage .firstSection {
+  margin-bottom: 300px;
 }
 
-.firstSection .sliderSection {
+.homePage .firstSection .sliderSection {
   position: relative;
   height: 100vh;
 }
 
-.firstSection .sliderSection img {
+.homePage .firstSection .sliderSection img {
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +39,7 @@
   height: 100%;
 }
 
-.firstSection .sliderSection .textSlider {
+.homePage .firstSection .sliderSection .textSlider {
   position: absolute;
   left: 15vw;
   top: 30vh;
@@ -43,17 +47,17 @@
   min-width: 150px;
 }
 
-.firstSection .sliderSection .textSlider h1 {
+.homePage .firstSection .sliderSection .textSlider h1 {
   font-size: 40px;
 }
 
-.firstSection .sliderSection .textSlider h2 {
+.homePage .firstSection .sliderSection .textSlider h2 {
   font-size: 18px;
 }
 
-.firstSection .searchDiv {
+.homePage .firstSection .searchDiv {
   background-color: #071620;
-  padding: 30px 10px;
+  padding: 30px;
   position: absolute;
   bottom: -130px;
   z-index: 2;
@@ -64,7 +68,7 @@
           transform: translate(-50%, 0%);
 }
 
-.firstSection .searchDiv .searchHeader {
+.homePage .firstSection .searchDiv .searchHeader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -73,40 +77,48 @@
           justify-content: center;
 }
 
-.firstSection .searchDiv .searchHeader > h2 {
+.homePage .firstSection .searchDiv .searchHeader > h2 {
   padding: 10px 30px;
+  padding-top: 0px;
   cursor: pointer;
 }
 
-.firstSection .searchDiv .searchHeader > h2:hover {
-  opacity: .8;
+.homePage .firstSection .searchDiv .searchHeader > h2:hover {
+  opacity: 0.8;
 }
 
-.firstSection .searchDiv .searchHeader .searchSelected {
-  color: #007CC7;
-  border-bottom: 2px solid #007CC7;
+.homePage .firstSection .searchDiv .searchHeader .searchSelected {
+  color: #007cc7;
+  border-bottom: 2px solid #007cc7;
 }
 
-.firstSection .searchDiv .searchHeader .searchNotSelected {
+.homePage .firstSection .searchDiv .searchHeader .searchNotSelected {
   color: #026fb3;
   border-bottom: 2px solid transparent;
 }
 
-.firstSection .searchDiv .searchSecondDiv {
+.homePage .firstSection .searchDiv .seconAndFirst {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.homePage .firstSection .searchDiv .searchSecondDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-top: 30px;
 }
 
-.firstSection .searchDiv .searchSecondDiv .searchSecondDivInput {
+.homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput {
   position: relative;
   height: 38px;
 }
 
-.firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
+.homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
   height: 100%;
   border: none;
   background-color: #152836;
@@ -116,35 +128,36 @@
   width: 30vw;
 }
 
-.firstSection .searchDiv .searchSecondDiv .searchSecondDivInput .fa-search {
+.homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput .fa-search {
   position: absolute;
   top: 10px;
   left: 8px;
   font-size: 18px;
 }
 
-.firstSection .searchDiv .searchSecondDiv .select {
+.homePage .firstSection .searchDiv .searchSecondDiv .select {
   border: none;
   background-color: #152836;
   color: white;
   padding: 10px 20px;
 }
 
-.firstSection .searchDiv .searchThirdDiv {
+.homePage .firstSection .searchDiv .searchThirdDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-top: 30px;
 }
 
-.firstSection .searchDiv .searchThirdDiv .searchSecondDivInput {
+.homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput {
   position: relative;
   height: 38px;
 }
 
-.firstSection .searchDiv .searchThirdDiv .searchSecondDivInput input {
+.homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput input {
   height: 100%;
   border: none;
   background-color: #152836;
@@ -153,14 +166,14 @@
   font-size: 18px;
 }
 
-.firstSection .searchDiv .searchThirdDiv .searchSecondDivInput .fa-map-marker {
+.homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput .fa-map-marker {
   position: absolute;
   top: 10px;
   left: 8px;
   font-size: 18px;
 }
 
-.firstSection .searchDiv .searchThirdDiv .submit {
+.homePage .firstSection .searchDiv .searchThirdDiv .submit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,25 +183,96 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #007CC7;
+  background-color: #007cc7;
   padding: 10px 25px;
   cursor: pointer;
   max-height: 20px;
 }
 
-.firstSection .searchDiv .searchThirdDiv .submit:hover {
+.homePage .firstSection .searchDiv .searchThirdDiv .submit:hover {
   opacity: 0.8;
 }
 
-.firstSection .searchDiv .searchThirdDiv .price {
+.homePage .firstSection .searchDiv .searchThirdDiv .price {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   text-align: center;
 }
 
-.firstSection .searchDiv .searchThirdDiv .price .priceText {
+.homePage .firstSection .searchDiv .searchThirdDiv .price .priceText {
   margin-right: 10px;
+}
+
+.homePage .recommendedCars {
+  background-color: #071620;
+  width: 60vw;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 2%;
+}
+
+.homePage .recommendedCars .recommendedHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.homePage .recommendedCars .recommendedHeader p {
+  color: #007cc7;
+  cursor: pointer;
+}
+
+.homePage .recommendedCars .recommendedHeader p:hover {
+  opacity: 0.8;
+}
+
+.homePage .recommendedCars .recommendedHeader .selecting {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.homePage .recommendedCars .recommendedHeader .selecting h2 {
+  padding: 10px 30px;
+  padding-top: 0px;
+  cursor: pointer;
+}
+
+.homePage .recommendedCars .recommendedHeader .selecting h2:hover {
+  opacity: 0.8;
+}
+
+.homePage .recommendedCars .recommendedHeader .selecting .selected {
+  color: #007cc7;
+  border-bottom: 2px solid #007cc7;
+}
+
+.homePage .recommendedCars .recommendedHeader .selecting .unSelected {
+  color: #026fb3;
+  border-bottom: 2px solid transparent;
+}
+
+.homePage .recommendedCars .recommendedNewCarsPc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 30px;
+}
+
+.homePage .recommendedCars .recommendedNewCarMobile {
+  display: none;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -203,6 +287,119 @@
   }
   .firstSection .searchThirdDiv .price .priceText {
     margin-bottom: 10px;
+  }
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-pagination-custom,
+  .swiper-pagination-fraction {
+    bottom: 200px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .homePage .firstSection {
+    margin-bottom: 50px;
+  }
+  .homePage .firstSection .sliderSection .textSlider {
+    top: 17vh;
+    width: 50vw;
+  }
+  .homePage .firstSection .searchDiv {
+    min-width: 100px;
+    position: static;
+    width: calc(80vw - 20px);
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+    margin-top: 50px;
+  }
+  .homePage .firstSection .searchDiv .searchHeader h2 {
+    font-size: 21px;
+    padding: 10px 20px;
+    margin-top: 0px;
+  }
+  .homePage .firstSection .searchDiv .searchSecondDiv {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .homePage .firstSection .searchDiv .searchSecondDiv .select {
+    margin: 20px 0px;
+  }
+  .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
+    width: auto;
+    max-width: 60vw;
+  }
+  .homePage .firstSection .searchDiv .searchThirdDiv {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput input {
+    width: auto;
+    max-width: 60vw;
+  }
+  .homePage .firstSection .searchDiv .price {
+    margin: 20px 0px;
+  }
+  .homePage .recommendedCars {
+    margin-bottom: 50px;
+    min-width: 100px;
+    padding: 30px;
+    width: calc(80vw - 20px);
+  }
+  .homePage .recommendedCars .recommendedHeader .selecting > h2 {
+    font-size: 21px;
+    padding: 10px 20px;
+    margin-top: 0px;
+  }
+  .homePage .recommendedCars .recommendedNewCarsPc {
+    display: none;
+  }
+  .homePage .recommendedCars .recommendedNewCarMobile {
+    display: block;
+  }
+  .homePage .recommendedCars .recommendedNewCarMobile .mySwiper {
+    height: auto;
+    padding: 40px 0px;
+    width: 110%;
+    margin-left: -5%;
+  }
+  .homePage .recommendedCars .recommendedNewCarMobile .swiper-horizontal > .swiper-pagination-bullets,
+  .homePage .recommendedCars .recommendedNewCarMobile .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .homePage .recommendedCars .recommendedNewCarMobile .swiper-pagination-custom,
+  .homePage .recommendedCars .recommendedNewCarMobile .swiper-pagination-fraction {
+    bottom: 0px;
+  }
+  .homePage .recommendedCars .recommendedNewCarMobile .swiper-slide {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .homePage .swiper-horizontal > .swiper-pagination-bullets,
+  .homePage .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .homePage .swiper-pagination-custom,
+  .homePage .swiper-pagination-fraction {
+    bottom: 30px;
+  }
+  .homePage .mySwiper {
+    height: 80vh;
+    width: 100vw;
   }
 }
 /*# sourceMappingURL=HomeStyle.css.map */

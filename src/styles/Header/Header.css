@@ -12,7 +12,7 @@
   left: 0;
   width: calc(100vw - 20%);
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px 10%;
+  padding: 2% 10%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -23,6 +23,7 @@
 
 .header .mobileHeader .mobileHeaderFirst .logo {
   height: 25px;
+  cursor: pointer;
 }
 
 .header .mobileHeader .mobileHeaderFirst .bars {
@@ -180,6 +181,11 @@
 .header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .logo {
   height: 28px;
   margin-right: 10px;
+  cursor: pointer;
+}
+
+.header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .logo:hover {
+  opacity: .9;
 }
 
 .header .pcHeader .pcHeaderFirst .pcHeaderFirtstContent .navLink {

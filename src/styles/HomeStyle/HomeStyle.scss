@@ -1,159 +1,329 @@
-.mySwiper{
+.mySwiper {
     height: 100vh;
 }
-.swiper-pagination-bullet{
-    background-color: #007CC7;
+.swiper-pagination-bullet {
+    background-color: #007cc7;
 }
-.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
     margin: 8px;
 }
-.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
     bottom: 150px;
 }
-.homePage{
-    background-color: #0B0C10;
-}
-.firstSection{
-    margin-bottom: 3100px;
-    .sliderSection{
-        position: relative;
-        height: 100vh;
-        img{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100%;
-        }
-        .textSlider{
-            position: absolute;
-            left: 15vw;
-            top: 30vh;
-            width: 30vw;
-            min-width: 150px;
-            h1{
-                font-size: 40px;
+.homePage {
+    background-color: #0b0c10;
+    .firstSection {
+        margin-bottom: 300px;
+        .sliderSection {
+            position: relative;
+            height: 100vh;
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100%;
             }
-            h2{
-                font-size: 18px;
+            .textSlider {
+                position: absolute;
+                left: 15vw;
+                top: 30vh;
+                width: 30vw;
+                min-width: 150px;
+                h1 {
+                    font-size: 40px;
+                }
+                h2 {
+                    font-size: 18px;
+                }
+            }
+        }
+        .searchDiv {
+            background-color: #071620;
+            padding: 30px;
+            position: absolute;
+            bottom: -130px;
+            z-index: 2;
+            width: 60vw;
+            min-width: 500px;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            .searchHeader {
+                display: flex;
+                justify-content: center;
+                & > h2 {
+                    padding: 10px 30px;
+                    padding-top: 0px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+                .searchSelected {
+                    color: #007cc7;
+                    border-bottom: 2px solid #007cc7;
+                }
+                .searchNotSelected {
+                    color: #026fb3;
+                    border-bottom: 2px solid transparent;
+                }
+            }
+            .seconAndFirst {
+                max-width: 860px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .searchSecondDiv {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                .searchSecondDivInput {
+                    position: relative;
+                    height: 38px;
+                    input {
+                        height: 100%;
+                        border: none;
+                        background-color: #152836;
+                        padding-left: 35px;
+                        color: white;
+                        font-size: 18px;
+                        width: 30vw;
+                    }
+                    .fa-search {
+                        position: absolute;
+                        top: 10px;
+                        left: 8px;
+                        font-size: 18px;
+                    }
+                }
+                .select {
+                    border: none;
+                    background-color: #152836;
+                    color: white;
+                    padding: 10px 20px;
+                }
+            }
+            .searchThirdDiv {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                .searchSecondDivInput {
+                    position: relative;
+                    height: 38px;
+                    input {
+                        height: 100%;
+                        border: none;
+                        background-color: #152836;
+                        padding-left: 35px;
+                        color: white;
+                        font-size: 18px;
+                    }
+                    .fa-map-marker {
+                        position: absolute;
+                        top: 10px;
+                        left: 8px;
+                        font-size: 18px;
+                    }
+                }
+                .submit {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #007cc7;
+                    padding: 10px 25px;
+                    cursor: pointer;
+                    max-height: 20px;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+                .price {
+                    display: flex;
+                    text-align: center;
+                    .priceText {
+                        margin-right: 10px;
+                    }
+                }
             }
         }
     }
-    .searchDiv{
+    .recommendedCars {
         background-color: #071620;
-        padding: 30px 10px;
-        position: absolute;
-        bottom: -130px;
-        z-index: 2;
         width: 60vw;
         min-width: 500px;
-        left: 50%;
-        transform: translate(-50%, 0%);
-        .searchHeader{
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 2%;
+        .recommendedHeader {
             display: flex;
-            justify-content: center;
-            &>h2{
-                padding: 10px 30px;
-                cursor: pointer;
-                &:hover{
-                    opacity: .8;
-                }
-            }
-            .searchSelected{
-                color: #007CC7;
-                border-bottom: 2px solid #007CC7;
-            }
-            .searchNotSelected{
-                color: #026fb3;
-                border-bottom: 2px solid transparent;
-            }
-        }
-        .searchSecondDiv{
-            display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-top: 30px;
-            .searchSecondDivInput{
-                position: relative;
-                height: 38px;
-                input{
-                    height: 100%;
-                    border: none;
-                    background-color: #152836;
-                    padding-left: 35px;
-                    color: white;
-                    font-size: 18px;
-                    width: 30vw;
-                }
-                .fa-search{
-                    position: absolute;
-                    top: 10px;
-                    left: 8px;
-                    font-size: 18px;
-                }
-            }
-            .select{
-                border: none;
-                background-color: #152836;
-                color: white;
-                padding: 10px 20px;
-            }
-        }
-        .searchThirdDiv{
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            .searchSecondDivInput{
-                position: relative;
-                height: 38px;
-                input{
-                    height: 100%;
-                    border: none;
-                    background-color: #152836;
-                    padding-left: 35px;
-                    color: white;
-                    font-size: 18px;
-                }
-                .fa-map-marker{
-                    position: absolute;
-                    top: 10px;
-                    left: 8px;
-                    font-size: 18px;
-                }
-            }
-            .submit{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #007CC7;
-                padding: 10px 25px;
+            align-items: center;
+            p {
+                color: #007cc7;
                 cursor: pointer;
-                max-height: 20px;
-                &:hover{
+                &:hover {
                     opacity: 0.8;
                 }
             }
-            .price{
+            .selecting {
                 display: flex;
-                text-align: center;
-                .priceText{
-                    margin-right: 10px;
+                h2 {
+                    padding: 10px 30px;
+                    padding-top: 0px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+                .selected {
+                    color: #007cc7;
+                    border-bottom: 2px solid #007cc7;
+                }
+                .unSelected {
+                    color: #026fb3;
+                    border-bottom: 2px solid transparent;
                 }
             }
         }
+        .recommendedNewCarsPc {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .recommendedNewCarMobile{
+            display: none;
+        }
     }
 }
+
 @media only screen and (max-width: 1000px) {
-    .firstSection{
-        .searchDiv{
+    .firstSection {
+        .searchDiv {
             bottom: -150px;
         }
-        .searchThirdDiv{
-            .price{
+        .searchThirdDiv {
+            .price {
                 flex-direction: column;
-                .priceText{
+                .priceText {
                     margin-bottom: 10px;
                 }
             }
         }
     }
-  }
+    .swiper-horizontal > .swiper-pagination-bullets,
+    .swiper-pagination-bullets.swiper-pagination-horizontal,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction {
+        bottom: 200px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .homePage {
+        .firstSection {
+            margin-bottom: 50px;
+            .sliderSection {
+                .textSlider {
+                    top: 17vh;
+                    width: 50vw;
+                }
+            }
+            .searchDiv {
+                min-width: 100px;
+                position: static;
+                width: calc(80vw - 20px);
+                margin-left: auto;
+                margin-right: auto;
+                transform: translate(0, 0);
+                margin-top: 50px;
+                .searchHeader {
+                    h2 {
+                        font-size: 21px;
+                        padding: 10px 20px;
+                        margin-top: 0px;
+                    }
+                }
+                .searchSecondDiv {
+                    flex-direction: column;
+                    align-items: center;
+                    .select {
+                        margin: 20px 0px;
+                    }
+                    .searchSecondDivInput {
+                        input {
+                            width: auto;
+                            max-width: 60vw;
+                        }
+                    }
+                }
+                .searchThirdDiv {
+                    flex-direction: column;
+                    align-items: center;
+                    .searchSecondDivInput {
+                        input {
+                            width: auto;
+                            max-width: 60vw;
+                        }
+                    }
+                }
+                .price {
+                    margin: 20px 0px;
+                }
+            }
+        }
+        .recommendedCars{
+            margin-bottom: 50px;
+            min-width: 100px;
+            padding: 30px;
+            width: calc(80vw - 20px);
+            .recommendedHeader{
+                .selecting{
+                    &>h2{
+                        font-size: 21px;
+                        padding: 10px 20px;
+                        margin-top: 0px;
+                    }
+                }
+            }
+            .recommendedNewCarsPc{
+                display: none;
+            }
+            .recommendedNewCarMobile{
+                display: block;
+
+                .mySwiper{
+                    height: auto;
+                    padding: 40px 0px;
+                    width: 110%;
+                    margin-left: -5%;
+                }
+                .swiper-horizontal > .swiper-pagination-bullets,
+                .swiper-pagination-bullets.swiper-pagination-horizontal,
+                .swiper-pagination-custom,
+                .swiper-pagination-fraction {
+                    bottom: 0px;
+                }
+                .swiper-slide{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+        .swiper-horizontal > .swiper-pagination-bullets,
+        .swiper-pagination-bullets.swiper-pagination-horizontal,
+        .swiper-pagination-custom,
+        .swiper-pagination-fraction {
+            bottom: 30px;
+        }
+        .mySwiper {
+            height: 80vh;
+            width: 100vw;
+        }
+    }
+}

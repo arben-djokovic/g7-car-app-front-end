@@ -1,0 +1,53 @@
+.car{
+    width: 50%;
+    max-width: 400px;
+    margin: 0px 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #007CC7;
+    padding: 10px;
+    .carImages{
+        width: 100%;
+    }
+    .newBage{
+        padding: 5px 15px;
+        border: 1px solid #007CC7;
+        color: #007CC7;
+        width: auto;
+        margin: 10px 0px;
+        font-size: 14px;
+    }
+    .carName{
+        margin-bottom: 10px;
+    }
+    .carPrice{
+        color: #007CC7;
+        margin-bottom: 10px;
+    }
+    .carLocation{
+        margin-bottom: 10px;
+    }
+    .carInfos{
+        margin-left: -10px;
+        &>div{
+            display: inline-block;
+            font-size: 15px;
+            margin: 5px 10px;
+            &>div{
+                display: flex;
+            }
+            img{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 550px) {
+    .car{
+        .carInfos{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
