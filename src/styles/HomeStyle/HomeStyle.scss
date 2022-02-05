@@ -32,6 +32,7 @@
             position: relative;
             height: 100vh;
             img {
+                filter: brightness(70%);
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -119,7 +120,7 @@
                     border: none;
                     background-color: #152836;
                     color: white;
-                    padding: 0px 20px;
+                    padding: 0px 2%;
                 }
             }
             .searchThirdDiv {
@@ -164,7 +165,7 @@
         }
     }
     .recommendedCars {
-        background-color: #071620;
+        // background-color: #071620;
         width: 60vw;
         min-width: 500px;
         margin-left: auto;
@@ -208,13 +209,17 @@
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
+            .car{
+                width: calc(30% - 20px);
+                margin: 0;
+            }
         }
         .recommendedNewCarMobile{
             display: none;
         }
     }
     .compareCars{
-        background-color: #071620;
+        // background-color: #071620;
         width: 60vw;
         min-width: 500px;
         margin-left: auto;
@@ -226,12 +231,17 @@
         }
         .compareCarsSecond{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
+            .car{
+                width: calc(40% - 20px);
+                margin: 0;
+            }
             .versus{
                 background-color: #007cc7;
                 padding: 2%;
                 border-radius: 50%;
+                margin: 5px;
             }
         }
         .compareBtn{
@@ -240,7 +250,7 @@
             margin-left: auto;
             margin-right: auto;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 50px;
             &:hover{
                 opacity: .8;
             }
@@ -252,20 +262,163 @@
             }
         }
     }
+
+    .aboutUs{
+        display: grid;
+        width: calc(100vw - 8%);
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        padding: 4%;
+        background-color: #12232E;
+        margin-bottom: 50px;
+        img{
+            width: 40vw;
+            grid-column: 2;
+        }
+        .text{
+            grid-column: 1;
+            grid-row: 1;
+            width: 40vw;
+            .textFirst{
+                h2{
+                    margin-bottom: 15px;
+                    font-size: 33px;
+                }
+                p{
+                    width: 90%;
+                    font-size: 18px;
+                }
+            }
+            .textSecond{
+                margin-top: 60px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 20px;
+                text-align: center;
+                // width: 220%;
+                &>div{
+                    font-size: 18px;
+                    &>h2{
+                        padding-bottom: 5px;
+                        border-bottom: 1px solid #007cc7;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .ourService{
+        padding: 2% 10%;
+        margin-bottom: 100px;
+        margin-top: 100px;
+        h2{
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .second{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            &>div{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid white;
+                padding: 1% 0%;
+                width: 20%;
+                max-width: 200px;
+                min-width: 135px;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+        }
+    }
+    .contactForm{
+        margin-top: 50px;
+        background: url('../../../public/assets/form-background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3%;
+        margin-bottom: 100px;
+        h2{
+            margin-bottom: 20px;
+        }
+        .form{
+            &>div{
+                margin: 20px 0px;
+                input, textarea{
+                    width: 100%;
+                    margin-top: 5px;
+                    background-color: #152836;
+                    border: none;
+                    padding: 8px;
+                    font-size: 15px;
+                    color: #A9A9A9;
+                }
+            }
+            .sendBtn{
+                width: 100%;
+                font-size: 16px;
+                border: none;
+                padding: 8px;
+                color: white;
+                background-color: #007cc7;
+                text-align: center;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+        }
+    }
+    .sponsors{
+        margin-bottom: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        img{
+            margin: 0px 10px;
+        }
+    }
 }
 
 @media only screen and (max-width: 1000px) {
-    .firstSection {
-        .searchDiv {
-            bottom: -150px;
-        }
-        .searchThirdDiv {
-            .price {
-                flex-direction: column;
-                .priceText {
-                    margin-bottom: 10px;
+    .homePage{
+        .firstSection {
+            .searchDiv {
+                bottom: -150px;
+            }
+            .searchThirdDiv {
+                .price {
+                    flex-direction: column;
+                    .priceText {
+                        margin-bottom: 10px;
+                    }
                 }
             }
+        }    
+        .contactForm{
+            padding: 10% 0;
+        }   
+        .sponsors{
+            justify-content: flex-start;
+            width: 100vw;
+            overflow-x: auto;
+            padding: 10px;
         }
     }
     .swiper-horizontal > .swiper-pagination-bullets,
@@ -281,6 +434,9 @@
         .firstSection {
             margin-bottom: 50px;
             .sliderSection {
+                img{
+                    width: auto;
+                }
                 .textSlider {
                     top: 17vh;
                     width: 50vw;
@@ -311,7 +467,7 @@
                         padding: 0;
                     }
                     input {
-                        width: 50vw;
+                        width: calc(100% - 38px);
                     }
                     .searchSecondDivInput {
                         width: 90%;
@@ -381,9 +537,49 @@
         .compareCars{
             margin-bottom: 50px;
             min-width: 100px;
-            padding: 5%;
-            width: calc(80vw - 20px);
+            padding: 2%;
+            width: calc(100vw - 4%);
+            .compareCarsSecond{
+                .car{
+                    font-size: 13px;
+                }
+            }
         }
+        
+        .aboutUs{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .text{
+                text-align: center;
+                width: 70vw;
+                .textFirst{
+                    margin-right: 0;
+                }
+                .textSecond{
+                    width: 100% !important; //bez !important ne radi
+                }
+            }
+            img{
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 30px;
+                 width: 55vw;
+            }
+        }
+        .ourService{
+            h2{
+                text-align: center;
+            }
+            .second{
+                flex-direction: column;
+                &>div{
+                    margin: 20px;
+                }
+            }
+        }
+
         .swiper-horizontal > .swiper-pagination-bullets,
         .swiper-pagination-bullets.swiper-pagination-horizontal,
         .swiper-pagination-custom,
@@ -391,8 +587,33 @@
             bottom: 30px;
         }
         .mySwiper {
-            height: calc(100vh - 30px);
+            height: 100vh;
             width: 100vw;
         }
     }
+    
+}
+@media only screen and (max-width: 800px) {
+    .homePage{
+        .firstSection{
+            .searchDiv{
+                .searchSecondDiv{
+                    .select{
+                        padding: 0px;
+                    }
+                }
+            }
+        }
+        .aboutUs{
+            .text{
+                .textSecond{
+                    width: 220%;
+                }
+            }
+            img{
+                align-self: flex-start;
+            }
+        }
+    }
+    
 }

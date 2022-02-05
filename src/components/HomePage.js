@@ -9,6 +9,7 @@ import '../styles/HomeStyle/HomeStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
 import Select from 'react-select'
+import Footer from './Footer';
 
 export default function HomePage() {
   let [selectedAll, setSelectedAll] = useState(true)
@@ -84,7 +85,7 @@ export default function HomePage() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="sliderSection">
-              <img src="./assets/background-image1.png" alt="" />
+              <img src="./assets/background-image3.jpg" alt="" />
               <div className="textSlider">
                 <h1>Find your dream car</h1>
                 <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
@@ -93,7 +94,7 @@ export default function HomePage() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="sliderSection">
-              <img src="./assets/background-image1.png" alt="" />
+              <img src="./assets/background-image5.jpg" alt="" />
               <div className="textSlider">
                 <h1>Find your dream car</h1>
                 <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
@@ -102,7 +103,7 @@ export default function HomePage() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="sliderSection">
-              <img src="./assets/background-image1.png" alt="" />
+              <img src="./assets/background-image4.jpg" alt="" />
               <div className="textSlider">
                 <h1>Find your dream car</h1>
                 <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
@@ -153,7 +154,7 @@ export default function HomePage() {
                 </div>
                 <div className="range">
                   <h2>{'$'  + selectedRange}</h2>
-                  <input step={1000} onChange={(e)=>{setSelectedRange(e.target.value)}} type="range" min={1000} max={3000000} />
+                  <input step={1000} onChange={(e)=>{setSelectedRange(e.target.value)}}  type="range" min={1000} max={3000000} />
                 </div>
               </div>
               <div className='submit'>Search</div>
@@ -224,5 +225,84 @@ export default function HomePage() {
           </div>
       </div>
 
+      <div className="aboutUs">
+        <img src="./assets/about-us-car.png" alt="" />
+        <div className="text">
+          <div className="textFirst">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel aliquet tortor ut sit sit. Velit imperdiet integer elementum a scelerisque pulvinar venenatis sodales. Quis nulla euismod feugiat at interdum in. Venenatis arcu semper lectus quis sit in rhoncus auctor.</p>
+          </div>
+          <div className="textSecond">
+            <div>
+              <h2>150</h2>
+              <p>Vehicle In Stock</p>
+            </div>
+            <div>
+              <h2>40</h2>
+              <p>Sold Car</p>
+            </div>
+            <div>
+              <h2>38</h2>
+              <p>Happy Customer</p>
+            </div>
+            <div>
+              <h2>5</h2>
+              <p>Awards</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="ourService">
+        <h2>Our Service</h2>
+        <div className="second">
+          <div onClick={()=>{navigate('new-cars')}}>
+            <img src="./assets/buy-car-icon.png" alt="" />
+            <p>Buy a new car</p>
+          </div>
+          <div onClick={()=>{navigate('used-cars')}}>
+            <img src="./assets/buy-used-car-icon.png" alt="" />
+            <p>Buy an used car</p>
+          </div>
+          <div onClick={()=>{navigate('sell')}}>
+            <img src="./assets/sell-car-icon.png" alt="" />
+            <p>Sell my car</p>
+          </div>
+        </div>
+        
+      </div>
+
+      <div className="contactForm">
+        <h2>Contact</h2>
+        <div className="form">
+          <div>
+            <p>Name</p>
+            <input placeholder='Full name' type="name" />
+          </div>
+          <div>
+            <p>Email</p>
+            <input placeholder='email@gmail.com' type="email" />
+          </div>
+          <div>
+            <p>Phone</p>
+            <input placeholder='000-000-000' type="tel" />
+          </div>
+          <div>
+            <p>Comment</p>
+            <textarea placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
+          </div>
+        <p className="sendBtn">Send</p>
+        </div>
+      </div>
+
+      <div className="sponsors">
+        <img src="./assets/tesla-logo.png" alt="" />
+        <img src="./assets/audi-logo.png" alt="" />
+        <img src="./assets/fiat-logo.png" alt="" />
+        <img src="./assets/huandai-logo.png" alt="" />
+        <img src="./assets/peugeot-logo.png" alt="" />
+        <img src="./assets/volvo-logo.png" alt="" />
+      </div>
+      <Footer />
   </div>;
 }
