@@ -8,6 +8,7 @@ import {  Navigation, Pagination, Mousewheel, Keyboard  } from "swiper";
 import '../styles/HomeStyle/HomeStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
+import Select from 'react-select'
 
 export default function HomePage() {
   let [selectedAll, setSelectedAll] = useState(true)
@@ -17,7 +18,48 @@ export default function HomePage() {
   let [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
   let [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
   const navigate = useNavigate()
+  const optionsLocation = [
+    {value: 'any', label: 'any'},
+    {value: 'Podgorica', label: 'Podgorica'},
+    {value: 'Tuzi', label: 'Tuzi'},
+    {value: 'Berane', label: 'Berane'},
+    {value: 'Plav', label: 'Plav'},
+    {value: 'Petnjica', label: 'Petnjica'},
+    {value: 'Bijelo Polje', label: 'Bijelo Polje'},
+    {value: 'Kolasin', label: 'Kolasin'},
+    {value: 'Ulcinj', label: 'Ulcinj'},
+    {value: 'Niksic', label: 'Niksic'},
+    {value: 'Pljevlja', label: 'Pljevlja'},
+    {value: 'Rozaje', label: 'Rozaje'},
+    {value: 'Tivat', label: 'Tivat'},
+  ]
+  const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: '1px dotted pink',
+    color: 'white',
+    backgroundColor: '#152836',
+    padding: 20,
+    margin: 0,
+    cursor: 'pointer'
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    color: 'white'
+  }),
+  control: () => ({
+    // // none of react-select's styles are passed to <Control />
+    // width: 200,
+    display: 'flex',
+    color: 'white',
+  }),
+  singleValue: (provided, state) => {
+    const transition = 'opacity 300ms';
+    const color = 'color: white'
 
+    return { ...provided, transition, color };
+  }
+}
 
   return <div className='homePage'>
     <Header />
@@ -92,21 +134,13 @@ export default function HomePage() {
                 <i className="fa fa-search" aria-hidden="true"></i>
                 <input placeholder='Search' type="text" />
               </div>
-              <select className='select' name="Model" id="1">
-                <option value="1">Model</option>
-                <option value="2">Golf</option>
-                <option value="3">Audi</option>
-              </select>
-              <select className='select' name="Brand" id="2">
-                <option value="1">Brand</option>
-                <option value="2">Brand 1</option>
-                <option value="3">Brand 2</option>
-              </select>
+              <Select className='select' styles={customStyles} placeholder={'Models...'} options={optionsLocation} />
+              <Select className='select' styles={customStyles} placeholder={'Brands...'} options={optionsLocation} />
             </div>
             <div className="searchThirdDiv">
               <div className="searchSecondDivInput">
               <i className="fa fa-map-marker" aria-hidden="true"></i>
-                <input placeholder='Search' type="text" />
+              <Select className='select' styles={customStyles} placeholder={'Location...'} options={optionsLocation} />
               </div>
               <div className="price">
                 <div className="priceText">
@@ -114,15 +148,15 @@ export default function HomePage() {
                     Price Range
                   </div>
                   <div className="priceTextSecond">
-                    $0 - $30,000
+                    $1000 - $3,000,000
                   </div>
                 </div>
                 <div className="range">
                   <h2>{'$'  + selectedRange}</h2>
-                  <input step={100} onChange={(e)=>{setSelectedRange(e.target.value)}} type="range" min={0} max={30000} />
+                  <input step={1000} onChange={(e)=>{setSelectedRange(e.target.value)}} type="range" min={1000} max={3000000} />
                 </div>
               </div>
-              <div className='submit'>Submit</div>
+              <div className='submit'>Search</div>
             </div>
           </div>
           
@@ -142,14 +176,19 @@ export default function HomePage() {
               setSelectedRecomendedUsed(true)
             }} className='unSelected'>Used</h2>}
           </div>
-          <p onClick={()=>{
+          {selectedRecomendedUsed ? <p onClick={()=>{
+            navigate('/used-cars')
+          }}>{'See more >'}</p> : <p onClick={()=>{
             navigate('/new-cars')
-          }}>See more {'>'}</p>
+          }}>{'See more >'}</p>}
         </div>
         <div className="recommendedNewCarsPc">
+          {selectedRecomendedUsed ? <><Car isNew={false} />
+          <Car isNew={false} />
+          <Car isNew={false} /></> : <><Car isNew={true} />
           <Car isNew={true} />
-          <Car isNew={true} />
-          <Car isNew={true} />
+          <Car isNew={true} /></>}
+          
         </div>
         <div className="recommendedNewCarMobile">
           <Swiper
@@ -163,11 +202,26 @@ export default function HomePage() {
           modules={[Pagination, Navigation]}
           className="mySwiper"
           >
+            {selectedRecomendedUsed ? <><SwiperSlide><Car isNew={false} /></SwiperSlide>
+            <SwiperSlide><Car isNew={false} /></SwiperSlide>
+            <SwiperSlide><Car isNew={false} /></SwiperSlide></> : <><SwiperSlide><Car isNew={true} /></SwiperSlide>
             <SwiperSlide><Car isNew={true} /></SwiperSlide>
-            <SwiperSlide><Car isNew={true} /></SwiperSlide>
-            <SwiperSlide><Car isNew={true} /></SwiperSlide>
+            <SwiperSlide><Car isNew={true} /></SwiperSlide></>}
+            
           </Swiper>
         </div>
+      </div>
+
+      <div className="compareCars"> 
+          <h2>Compare Cars</h2>
+          <div className="compareCarsSecond">
+            <Car isNew={true} />
+            <div className="versus">VS</div>
+            <Car isNew={true} />
+          </div>
+          <div onClick={()=>{navigate('compare')}} className="compareBtn">
+            <h2>Compare Car</h2>
+          </div>
       </div>
 
   </div>;

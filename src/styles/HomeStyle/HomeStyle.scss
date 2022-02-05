@@ -14,6 +14,16 @@
 .swiper-pagination-fraction {
     bottom: 150px;
 }
+.css-319lph-ValueContainer{
+    color: white ;
+    .css-6j8wv5-Input{
+        color: white ;
+        &>input{
+            color: white ;
+        }
+}
+
+}
 .homePage {
     background-color: #0b0c10;
     .firstSection {
@@ -84,6 +94,11 @@
                 .searchSecondDivInput {
                     position: relative;
                     height: 38px;
+                    background-color: #152836;
+                    .select{
+                        width: 30vw;
+                        margin: 10px;
+                    }
                     input {
                         height: 100%;
                         border: none;
@@ -91,7 +106,7 @@
                         padding-left: 35px;
                         color: white;
                         font-size: 18px;
-                        width: 30vw;
+                        width: 20vw;
                     }
                     .fa-search {
                         position: absolute;
@@ -104,7 +119,7 @@
                     border: none;
                     background-color: #152836;
                     color: white;
-                    padding: 10px 20px;
+                    padding: 0px 20px;
                 }
             }
             .searchThirdDiv {
@@ -114,13 +129,10 @@
                 .searchSecondDivInput {
                     position: relative;
                     height: 38px;
-                    input {
-                        height: 100%;
-                        border: none;
-                        background-color: #152836;
-                        padding-left: 35px;
-                        color: white;
-                        font-size: 18px;
+                    background-color: #152836;
+                    .select{
+                        width: calc(20vw + 15px);
+                        margin-left: 20px;
                     }
                     .fa-map-marker {
                         position: absolute;
@@ -158,6 +170,7 @@
         margin-left: auto;
         margin-right: auto;
         padding: 30px 2%;
+        margin-bottom: 50px;
         .recommendedHeader {
             display: flex;
             justify-content: space-between;
@@ -172,6 +185,7 @@
             }
             .selecting {
                 display: flex;
+                align-items: center;
                 h2 {
                     padding: 10px 30px;
                     padding-top: 0px;
@@ -197,6 +211,45 @@
         }
         .recommendedNewCarMobile{
             display: none;
+        }
+    }
+    .compareCars{
+        background-color: #071620;
+        width: 60vw;
+        min-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 2%;
+        margin-bottom: 50px;
+        &>h2{
+            margin-bottom: 30px;
+        }
+        .compareCarsSecond{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            .versus{
+                background-color: #007cc7;
+                padding: 2%;
+                border-radius: 50%;
+            }
+        }
+        .compareBtn{
+            width: 60%;
+            border: 1px solid white;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-top: 30px;
+            &:hover{
+                opacity: .8;
+            }
+            h2{
+                font-size: 20px;
+                padding: 5px 0px;
+                cursor: pointer;
+                background-color: #071620;
+            }
         }
     }
 }
@@ -241,6 +294,7 @@
                 margin-right: auto;
                 transform: translate(0, 0);
                 margin-top: 50px;
+                padding: 5%;
                 .searchHeader {
                     h2 {
                         font-size: 21px;
@@ -253,11 +307,16 @@
                     align-items: center;
                     .select {
                         margin: 20px 0px;
+                        width: 90%;
+                        padding: 0;
+                    }
+                    input {
+                        width: 50vw;
                     }
                     .searchSecondDivInput {
-                        input {
-                            width: auto;
-                            max-width: 60vw;
+                        width: 90%;
+                        input{
+                           width: 50vw;
                         }
                     }
                 }
@@ -265,6 +324,10 @@
                     flex-direction: column;
                     align-items: center;
                     .searchSecondDivInput {
+                        width: 90%;
+                        .select{
+                            width: auto;
+                        }
                         input {
                             width: auto;
                             max-width: 60vw;
@@ -279,7 +342,7 @@
         .recommendedCars{
             margin-bottom: 50px;
             min-width: 100px;
-            padding: 30px;
+            padding: 5%;
             width: calc(80vw - 20px);
             .recommendedHeader{
                 .selecting{
@@ -315,6 +378,12 @@
                 }
             }
         }
+        .compareCars{
+            margin-bottom: 50px;
+            min-width: 100px;
+            padding: 5%;
+            width: calc(80vw - 20px);
+        }
         .swiper-horizontal > .swiper-pagination-bullets,
         .swiper-pagination-bullets.swiper-pagination-horizontal,
         .swiper-pagination-custom,
@@ -322,7 +391,7 @@
             bottom: 30px;
         }
         .mySwiper {
-            height: 80vh;
+            height: calc(100vh - 30px);
             width: 100vw;
         }
     }

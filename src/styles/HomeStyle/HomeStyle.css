@@ -18,6 +18,18 @@
   bottom: 150px;
 }
 
+.css-319lph-ValueContainer {
+  color: white;
+}
+
+.css-319lph-ValueContainer .css-6j8wv5-Input {
+  color: white;
+}
+
+.css-319lph-ValueContainer .css-6j8wv5-Input > input {
+  color: white;
+}
+
 .homePage {
   background-color: #0b0c10;
 }
@@ -116,6 +128,12 @@
 .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput {
   position: relative;
   height: 38px;
+  background-color: #152836;
+}
+
+.homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput .select {
+  width: 30vw;
+  margin: 10px;
 }
 
 .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
@@ -125,7 +143,7 @@
   padding-left: 35px;
   color: white;
   font-size: 18px;
-  width: 30vw;
+  width: 20vw;
 }
 
 .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput .fa-search {
@@ -139,7 +157,7 @@
   border: none;
   background-color: #152836;
   color: white;
-  padding: 10px 20px;
+  padding: 0px 20px;
 }
 
 .homePage .firstSection .searchDiv .searchThirdDiv {
@@ -155,15 +173,12 @@
 .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput {
   position: relative;
   height: 38px;
+  background-color: #152836;
 }
 
-.homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput input {
-  height: 100%;
-  border: none;
-  background-color: #152836;
-  padding-left: 35px;
-  color: white;
-  font-size: 18px;
+.homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput .select {
+  width: calc(20vw + 15px);
+  margin-left: 20px;
 }
 
 .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput .fa-map-marker {
@@ -211,6 +226,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 30px 2%;
+  margin-bottom: 50px;
 }
 
 .homePage .recommendedCars .recommendedHeader {
@@ -239,6 +255,9 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .homePage .recommendedCars .recommendedHeader .selecting h2 {
@@ -273,6 +292,57 @@
 
 .homePage .recommendedCars .recommendedNewCarMobile {
   display: none;
+}
+
+.homePage .compareCars {
+  background-color: #071620;
+  width: 60vw;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 2%;
+  margin-bottom: 50px;
+}
+
+.homePage .compareCars > h2 {
+  margin-bottom: 30px;
+}
+
+.homePage .compareCars .compareCarsSecond {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.homePage .compareCars .compareCarsSecond .versus {
+  background-color: #007cc7;
+  padding: 2%;
+  border-radius: 50%;
+}
+
+.homePage .compareCars .compareBtn {
+  width: 60%;
+  border: 1px solid white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.homePage .compareCars .compareBtn:hover {
+  opacity: .8;
+}
+
+.homePage .compareCars .compareBtn h2 {
+  font-size: 20px;
+  padding: 5px 0px;
+  cursor: pointer;
+  background-color: #071620;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -313,6 +383,7 @@
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
     margin-top: 50px;
+    padding: 5%;
   }
   .homePage .firstSection .searchDiv .searchHeader h2 {
     font-size: 21px;
@@ -330,10 +401,17 @@
   }
   .homePage .firstSection .searchDiv .searchSecondDiv .select {
     margin: 20px 0px;
+    width: 90%;
+    padding: 0;
+  }
+  .homePage .firstSection .searchDiv .searchSecondDiv input {
+    width: 50vw;
+  }
+  .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput {
+    width: 90%;
   }
   .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
-    width: auto;
-    max-width: 60vw;
+    width: 50vw;
   }
   .homePage .firstSection .searchDiv .searchThirdDiv {
     -webkit-box-orient: vertical;
@@ -343,6 +421,12 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput {
+    width: 90%;
+  }
+  .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput .select {
+    width: auto;
   }
   .homePage .firstSection .searchDiv .searchThirdDiv .searchSecondDivInput input {
     width: auto;
@@ -354,7 +438,7 @@
   .homePage .recommendedCars {
     margin-bottom: 50px;
     min-width: 100px;
-    padding: 30px;
+    padding: 5%;
     width: calc(80vw - 20px);
   }
   .homePage .recommendedCars .recommendedHeader .selecting > h2 {
@@ -391,6 +475,12 @@
         -ms-flex-align: center;
             align-items: center;
   }
+  .homePage .compareCars {
+    margin-bottom: 50px;
+    min-width: 100px;
+    padding: 5%;
+    width: calc(80vw - 20px);
+  }
   .homePage .swiper-horizontal > .swiper-pagination-bullets,
   .homePage .swiper-pagination-bullets.swiper-pagination-horizontal,
   .homePage .swiper-pagination-custom,
@@ -398,7 +488,7 @@
     bottom: 30px;
   }
   .homePage .mySwiper {
-    height: 80vh;
+    height: calc(100vh - 30px);
     width: 100vw;
   }
 }
