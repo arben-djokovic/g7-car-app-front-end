@@ -1,13 +1,20 @@
 import React from 'react';
 import '../styles/FooterStyle/FooterStyle.css'
+import { useNavigate } from 'react-router';
+
 export default function Footer() {
+  const navigate = useNavigate()
   return <div className='footer'>
     <img className='logo' src="./assets/logo.png" alt="" />
     <div className="footerSecond">
       <div className='links'>
-        <p>ABOUT US</p>
+        <p onClick={()=>{
+          navigate('/about')
+        }}>ABOUT US</p>
         <p>FAQ</p>
-        <p>CONTACT</p>
+        <p onClick={()=>{
+          navigate('/contact')
+        }}>CONTACT</p>
       </div>
       <div>
         <p>CUSTOMER SERVICE</p>

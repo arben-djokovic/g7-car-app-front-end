@@ -1,0 +1,124 @@
+.login{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10vw;
+    padding-top: 200px;
+    min-height: calc(100vh - 250px - 20vw);
+    grid-gap: 20px;
+    background-color: #0B0C10;
+    .form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .formInputDiv{
+            width: 70%;
+            min-width: 250px;
+            margin-bottom: 20px;
+            input{
+                margin-top: 5px;
+                width: calc(100% - 16px);
+                background-color: #152836;
+                border: none;
+                padding: 8px;
+                font-size: 15px;
+                color: #A9A9A9;
+            }
+        }
+        .loginBtn{
+            margin-top: 5px;
+            width: calc(70% - 16px);
+            background-color: #007CC7;
+            text-align: center;
+            border: none;
+            padding: 8px;
+            font-size: 16px;
+            color: white;
+            margin-bottom: 10px;
+            cursor: pointer;
+            &:hover{
+                opacity: .8;
+            }
+        }
+        .register{
+            &>span{
+                color: #007CC7;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+        }
+    }
+    .welcome{
+        display: flex;
+        justify-self: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #152836;
+        padding: 30px;
+        .welcomeContent{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border: 1px solid gray;
+            max-height: 160px;
+            .logo{
+                height: 3vw;
+                min-height: 30px;
+            }
+                .text{
+                    margin: 20px 0px;
+                    width: 20vw;
+                    max-width: 250px;
+                    text-align: center;
+                    max-height: 160px;
+                    h1{
+                        text-align: center;
+                        margin-bottom: 5px;
+                    }
+                }
+                .icons{
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    &>img{
+                        margin: 10px;
+                        cursor: pointer;
+                        &:hover{
+                            opacity: .8;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 550px) {
+        .login{
+            display: flex;
+            flex-direction: column-reverse;
+            grid-gap: 50px;
+            padding-bottom: 200px;
+            .form{
+                width: 70vw;
+                .formInputDiv{
+                    width: 100%;
+                }
+                .loginBtn{
+                    width: calc(100% - 16px);
+                }
+            }
+            .welcome{
+                .welcomeContent{
+                    .text{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }

@@ -287,7 +287,6 @@
                     font-size: 33px;
                 }
                 p{
-                    width: 90%;
                     font-size: 18px;
                 }
             }
@@ -297,7 +296,6 @@
                 grid-template-columns: repeat(2, 1fr);
                 grid-gap: 20px;
                 text-align: center;
-                // width: 220%;
                 &>div{
                     font-size: 18px;
                     &>h2{
@@ -361,7 +359,7 @@
             &>div{
                 margin: 20px 0px;
                 input, textarea{
-                    width: 100%;
+                    width: calc(100% - 16px);
                     margin-top: 5px;
                     background-color: #152836;
                     border: none;
@@ -371,7 +369,7 @@
                 }
             }
             .sendBtn{
-                width: 100%;
+                width: calc(100% - 16px);
                 font-size: 16px;
                 border: none;
                 padding: 8px;

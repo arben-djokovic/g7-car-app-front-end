@@ -396,7 +396,6 @@
 }
 
 .homePage .aboutUs .text .textFirst p {
-  width: 90%;
   font-size: 18px;
 }
 
@@ -505,7 +504,7 @@
 }
 
 .homePage .contactForm .form > div input, .homePage .contactForm .form > div textarea {
-  width: 100%;
+  width: calc(100% - 16px);
   margin-top: 5px;
   background-color: #152836;
   border: none;
@@ -515,7 +514,7 @@
 }
 
 .homePage .contactForm .form .sendBtn {
-  width: 100%;
+  width: calc(100% - 16px);
   font-size: 16px;
   border: none;
   padding: 8px;

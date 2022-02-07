@@ -269,7 +269,6 @@ export default function HomePage() {
             <p>Sell my car</p>
           </div>
         </div>
-        
       </div>
 
       <div className="contactForm">
