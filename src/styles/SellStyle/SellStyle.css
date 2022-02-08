@@ -3,7 +3,7 @@
 }
 
 .sellPage .header {
-  background-color: #12232E;
+  background-color: #12232e;
   padding: 3.5vw;
   margin-bottom: 100px;
 }
@@ -15,6 +15,7 @@
 .sellPage .carDetails {
   padding: 4vw;
   background-color: #071620;
+  margin: 0px 2vw;
   margin-bottom: 50px;
 }
 
@@ -39,7 +40,8 @@
   margin-bottom: 5px;
 }
 
-.sellPage .carDetails .carDetailsMain > div input, .sellPage .carDetails .carDetailsMain > div .css-b62m3t-container {
+.sellPage .carDetails .carDetailsMain > div input,
+.sellPage .carDetails .carDetailsMain > div .css-b62m3t-container {
   width: 100%;
   padding: 5px;
   background-color: #152836;
@@ -78,10 +80,11 @@
 }
 
 .sellPage .carDetails .carDetailsMain .section2 .radioBtns .radioBtn:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
-.sellPage .carDetails .carDetailsMain .section2 .radioBtns .radioBtn input, .sellPage .carDetails .carDetailsMain .section2 .radioBtns .radioBtn p {
+.sellPage .carDetails .carDetailsMain .section2 .radioBtns .radioBtn input,
+.sellPage .carDetails .carDetailsMain .section2 .radioBtns .radioBtn p {
   cursor: pointer;
 }
 
@@ -101,14 +104,14 @@
 }
 
 .sellPage .carDetails .carDetailsMain .section7 .counter .fa {
-  background-color: #004A77;
+  background-color: #004a77;
   height: calc(100% + 28px);
   padding: 14px;
   cursor: pointer;
 }
 
 .sellPage .carDetails .carDetailsMain .section7 .counter .fa:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .sellPage .carDetails .carDetailsMain .section9 {
@@ -125,12 +128,303 @@
   font-size: 18px;
 }
 
+.sellPage .engineDetails {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .engineDetails h2 {
+  margin-bottom: 30px;
+}
+
+.sellPage .engineDetails .mainSecion {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 30px;
+}
+
+.sellPage .engineDetails .mainSecion .first {
+  justify-self: flex-start;
+}
+
+.sellPage .engineDetails .mainSecion .mid {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.sellPage .engineDetails .mainSecion .last {
+  justify-self: flex-end;
+}
+
+.sellPage .engineDetails .mainSecion > div {
+  width: 100%;
+  max-width: 350px;
+}
+
+.sellPage .engineDetails .mainSecion > div > p {
+  margin-bottom: 5px;
+}
+
+.sellPage .engineDetails .mainSecion > div .select {
+  color: white;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  background-color: #152836;
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.sellPage .engineDetails .mainSecion > div .select:focus {
+  border: 1px solid #858585;
+}
+
+.sellPage .engineDetails .mainSecion .inputDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sellPage .engineDetails .mainSecion .inputDiv input {
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  background-color: #152836;
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.sellPage .engineDetails .mainSecion .inputDiv input:focus {
+  border: 1px solid #858585;
+}
+
+.sellPage .engineDetails .mainSecion .inputDiv p {
+  background-color: #004a77;
+  width: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.sellPage .dimensions {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .dimensions h2 {
+  margin-bottom: 30px;
+}
+
+.sellPage .dimensions .dimensionSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sellPage .dimensions .dimensionSection .inputDiv > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 5px;
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.sellPage .dimensions .dimensionSection .inputDiv > div input {
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  background-color: #152836;
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.sellPage .dimensions .dimensionSection .inputDiv > div input:focus {
+  border: 1px solid #858585;
+}
+
+.sellPage .dimensions .dimensionSection .inputDiv > div p {
+  background-color: #004a77;
+  width: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.sellPage .features {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .features h2 {
+  margin-bottom: 30px;
+  font-size-adjust: 30px;
+}
+
+.sellPage .features .checkList {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  grid-gap: 20px;
+}
+
+.sellPage .features .checkList .checkDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.sellPage .features .checkList .checkDiv input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.sellPage .features .checkList .checkDiv p {
+  cursor: pointer;
+}
+
+.sellPage .features .textArea {
+  width: calc(100% - 14px);
+  padding: 7px;
+  background-color: #152836;
+  color: white;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.sellPage .location {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .location h2 {
+  margin-bottom: 30px;
+  font-size-adjust: 30px;
+}
+
+.sellPage .location .content input {
+  margin-top: 5px;
+  width: calc(100% - 20px);
+  padding: 10px;
+  background-color: #152836;
+  border: none;
+  color: white;
+  font-size: 18px;
+}
+
+.sellPage .price {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .price h2 {
+  margin-bottom: 30px;
+  font-size-adjust: 30px;
+}
+
+.sellPage .price .content .input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 5px;
+}
+
+.sellPage .price .content .input input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  background-color: #152836;
+  border: none;
+  color: white;
+  font-size: 18px;
+}
+
+.sellPage .price .content .input p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #004a77;
+  height: calc(100% + 20px);
+  padding: 10px 15px;
+  font-size: 17px;
+}
+
 @media only screen and (max-width: 550px) {
   .sellPage {
     margin-top: 59px;
   }
   .sellPage .carDetails {
     padding: 5vw;
+    margin: 0px 5vw;
+    margin-bottom: 50px;
   }
   .sellPage .carDetails h2 {
     text-align: center;
@@ -152,6 +446,56 @@
   }
   .sellPage .carDetails .carDetailsMain > div {
     width: 100%;
+  }
+  .sellPage .engineDetails {
+    padding: 5vw;
+    margin: 0px 5vw;
+    margin-bottom: 50px;
+  }
+  .sellPage .engineDetails h2 {
+    text-align: center;
+  }
+  .sellPage .engineDetails .mainSecion {
+    -ms-grid-columns: (auto)[1];
+        grid-template-columns: repeat(1, auto);
+  }
+  .sellPage .engineDetails .mainSecion .first, .sellPage .engineDetails .mainSecion .mid, .sellPage .engineDetails .mainSecion .last {
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
+  .sellPage .dimensions {
+    padding: 5vw;
+    margin: 0px 5vw;
+    margin-bottom: 50px;
+  }
+  .sellPage .dimensions h2 {
+    text-align: center;
+  }
+  .sellPage .dimensions .dimensionSection {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .sellPage .dimensions .dimensionSection .inputDiv {
+    margin: 10px 0px;
+  }
+  .sellPage .features {
+    padding: 5vw;
+    margin: 0px 5vw;
+    margin-bottom: 50px;
+  }
+  .sellPage .features h2 {
+    text-align: center;
+  }
+  .sellPage .features .checkList {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 /*# sourceMappingURL=SellStyle.css.map */
