@@ -11,6 +11,25 @@ export default function SellPage() {
     { value: '3', label: 'Opcija 3' },
     { value: '4', label: 'Opcija 4' }
   ]
+  
+  let inputImage = (e) => {
+
+    for(let i = 0;  i <= e.target.files.length; i++){
+      if (e.target.files && e.target.files[i]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          setImages(images => [...images, e.target.result])
+        };
+        reader.readAsDataURL(e.target.files[i]);
+      }
+    }
+    
+    
+  }
+
+  let [images, setImages] = useState([]);
+  let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
+  
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -37,12 +56,27 @@ export default function SellPage() {
 
       return { ...provided, transition, color };
     }
-  }
+  };
+
   let [passengerCapacity, setPassengerCapacity] = useState(2)
+  
+  const removeImage = (img1) => {
+    let newArray = [...images]
+
+    for( var i = 0; i < newArray.length; i++){               
+      if ( newArray[i] === img1) { 
+          newArray.splice(i, 1); 
+          i--; 
+      }
+    } 
+    setTimeout(() => {
+      setImages([...newArray])
+    }, 200);
+  }
 
   return <div>
     <Header />
-    <div className="sellPage">
+    <form className="sellPage">
       <div className="header">
         <h1>Sell Your Car</h1>
         <p>Homepage - Sell</p>
@@ -51,11 +85,11 @@ export default function SellPage() {
         <h2>Car Details</h2>
         <div className="carDetailsMain">
           <div className="section1">
-            <p>Title</p>
+            <p>Title<span className='required'>*required</span></p>
             <input type="text" />
           </div>
           <div className="section2">
-            <p>Condition</p>
+            <p>Condition<span className='required'>*required</span></p>
             <div className='radioBtns'>
               <div className="radioBtn">
                 <input type="radio" id='1' name="radioBtn" />
@@ -102,7 +136,7 @@ export default function SellPage() {
             </div>
           </div>
           <div className="section8">
-            <p>Exterior Color</p>
+            <p>Exterior Color<span className='required'>*required</span></p>
             <Select className='sectionFirst' styles={customStyles} options={options} />
           </div>
           <div className="section9">
@@ -116,7 +150,7 @@ export default function SellPage() {
         <h2>Engine Details</h2>
         <div className="mainSecion">
           <div className='first'>
-            <p>Fuel Type</p>
+            <p>Fuel Type<span className='required'>*required</span></p>
             <Select className='select' styles={customStyles} options={options} />
           </div>
           <div className='mid'>
@@ -275,23 +309,58 @@ export default function SellPage() {
       <div className="location">
         <h2>Location</h2>
         <div className="content">
-          <p>Adress:</p>
-          <input type="text" />
+          <p>City:<span className='required'>*required</span></p>
+          <Select className='selectLocation' options={options} styles={customStyles} />
         </div>
       </div>
 
       <div className="price">
         <h2>Price</h2>
         <div className="content">
-          <p>Full Price:</p>
+          <p>Full Price:<span className='required'>*required</span></p>
           <div className="input">
             <p>$</p>
             <input type="text" />
           </div>
+          
         </div>
       </div>
 
-    </div>
+      <div className="images">
+        <h2>Images<span className='required'>*required</span></h2>
+        <div className="content">
+          <div className="displayImages">
+            {images.length ? images.map((img1, i) => {
+              return(<div className='imagesDiv' key={i}>
+                <img src={img1} alt="" />
+                <i onClick={()=>{removeImage(img1)}} className='fa fa-close'></i>
+              </div>)
+            }) : <p>No image is selected</p>}
+          </div>
+          <input className='fileInput' id='fileInput' multiple type="file" onChange={inputImage} accept="image/gif, image/jpeg, image/png" />
+          <label className='labelInput' htmlFor="fileInput">
+            <p className='inputBtn'>Chose image</p>
+          </label>
+        </div>
+      </div>
+
+      <div className="vehicleHistory">
+        <h2>Vehicle History</h2>
+        <div className="selectInput">
+          <input className='fileInput' onChange={(e)=>{setVehicleHistoryFile(e.target.files[0].name)}} id='fileInputHistory' type="file" />
+          <label htmlFor="fileInputHistory">
+            <p className="choseFile">Chose File</p>
+          </label>
+          <div className="chosenFile">
+            <p>{vehicleHistoryFile ? vehicleHistoryFile : 'No file selected'}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="sellMyCar">
+        <p >Sell My Car</p>
+      </div>
+    </form>
     <Footer />
   </div>;
 }

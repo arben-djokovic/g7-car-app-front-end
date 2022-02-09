@@ -2,6 +2,19 @@
   margin-top: 50px;
 }
 
+.sellPage input::-webkit-outer-spin-button,
+.sellPage input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sellPage .required {
+  color: red;
+  font-size: 13px;
+  margin-left: 5px;
+  display: none;
+}
+
 .sellPage .header {
   background-color: #12232e;
   padding: 3.5vw;
@@ -357,12 +370,12 @@
   font-size-adjust: 30px;
 }
 
-.sellPage .location .content input {
+.sellPage .location .content .selectLocation {
   margin-top: 5px;
   width: calc(100% - 20px);
   padding: 10px;
   background-color: #152836;
-  border: none;
+  border: 1px solid #004a77;
   color: white;
   font-size: 18px;
 }
@@ -415,6 +428,155 @@
   height: calc(100% + 20px);
   padding: 10px 15px;
   font-size: 17px;
+}
+
+.sellPage .images {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .images h2 {
+  margin-bottom: 30px;
+  font-size-adjust: 30px;
+}
+
+.sellPage .images .fileInput {
+  display: none;
+}
+
+.sellPage .images .labelInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sellPage .images .labelInput .inputBtn {
+  background-color: #004a77;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.sellPage .images .labelInput .inputBtn:hover {
+  opacity: .8;
+}
+
+.sellPage .images .displayImages {
+  margin-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 30px;
+  overflow: auto;
+  padding: 20px 0px;
+}
+
+.sellPage .images .displayImages .imagesDiv {
+  position: relative;
+}
+
+.sellPage .images .displayImages .imagesDiv img {
+  height: 150px;
+  width: 150px;
+}
+
+.sellPage .images .displayImages .imagesDiv .fa-close {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  background-color: black;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 4px 6px 5px 6px;
+}
+
+.sellPage .images .displayImages .imagesDiv .fa-close:hover {
+  opacity: .8;
+}
+
+.sellPage .vehicleHistory {
+  padding: 4vw;
+  background-color: #071620;
+  margin: 0px 2vw;
+  margin-bottom: 50px;
+}
+
+.sellPage .vehicleHistory h2 {
+  margin-bottom: 30px;
+  font-size-adjust: 30px;
+}
+
+.sellPage .vehicleHistory .selectInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #12232e;
+}
+
+.sellPage .vehicleHistory .selectInput .fileInput {
+  display: none;
+}
+
+.sellPage .vehicleHistory .selectInput .choseFile {
+  background-color: #004a77;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 20px;
+  min-width: 70px;
+}
+
+.sellPage .vehicleHistory .selectInput .choseFile:hover {
+  opacity: .8;
+}
+
+.sellPage .vehicleHistory .selectInput .chosenFile {
+  overflow: auto;
+}
+
+.sellPage .sellMyCar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+
+.sellPage .sellMyCar p {
+  width: 50vw;
+  text-align: center;
+  padding: 10px 0px;
+  background-color: #004a77;
+  min-width: 150px;
+  max-width: 800px;
+  cursor: pointer;
+}
+
+.sellPage .sellMyCar p:hover {
+  opacity: .8;
 }
 
 @media only screen and (max-width: 550px) {
@@ -496,6 +658,14 @@
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+  .sellPage .location, .sellPage .price, .sellPage .images, .sellPage .vehicleHistory {
+    padding: 5vw;
+    margin: 0px 5vw;
+    margin-bottom: 50px;
+  }
+  .sellPage .location h2, .sellPage .price h2, .sellPage .images h2, .sellPage .vehicleHistory h2 {
+    text-align: center;
   }
 }
 /*# sourceMappingURL=SellStyle.css.map */
