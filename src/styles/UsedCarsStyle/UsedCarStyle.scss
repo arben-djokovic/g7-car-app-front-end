@@ -1,0 +1,271 @@
+.usedCars{
+    .header {
+        background-color: #12232e;
+        padding: 3.5vw;
+        padding-top: calc(60px + 3.5vw);
+        margin-bottom: 100px;
+        h1 {
+            margin-bottom: 5px;
+        }
+    }
+    .usedCarsContent{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        .filterSection{
+            width: 30vw;
+            padding: 20px;
+            max-width: 450px;
+            background-color: #071620;
+            margin-left: 0px;
+            .filterHeader{
+                color: white;
+                padding-bottom: 15px;
+                border-bottom: 1px solid white;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .fa{
+                    display: none;
+                    font-size: 25px;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
+            }
+            .selectSection{
+                background-color: #152836;
+                padding: 10px;
+                margin-top: 20px;
+                overflow: hidden;
+                .selectHeader{
+                    display: flex;
+                    justify-content: space-between;
+                    color: white;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid white;
+                    z-index: 12;
+                    cursor: pointer;
+                    background-color: #152836;
+                    &:hover{
+                        opacity: .8;
+                    }
+                    .arrow{
+                        pointer-events: none;
+                        height: 20px;
+                    }
+                    h3{
+                        pointer-events: none;
+                    }
+                }
+                .optionsOpen, .optionsClosed{
+                    z-index: 1;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px 0;
+                    grid-gap: 10px;
+                    display: none;
+                    transition: margin-top 1s;
+                    margin-top: -30px;
+                    &>div{
+                        display: flex;
+                        margin: 10px 0px;
+                        align-items: center;
+                        &>label{
+                            cursor: pointer;
+                            margin-left: 10px;
+                            &:hover{
+                                opacity: .8;
+                            }
+                        }
+                    }
+                }
+            }
+            .price {
+                margin: 30px 0;
+                text-align: center;
+                .priceText {
+                    margin-right: 10px;
+                    margin: 10px 0;
+                }
+                .priceTextSecond{
+                    margin: 10px 0;
+                }
+                input{
+
+                    width: 90%;
+                }
+            }
+            .resetFilters{
+                width: 100%;
+                border: 2px solid #007CC7;
+                color: #007CC7;
+                text-align: center;
+                padding: 10px 0;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+        }
+        .mainSeciton{
+            width: 50vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            grid-gap: 30px;
+            .searchSection{
+                width: 100%;
+                background-color: #152836;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 10px 0px 0px;
+                .fa{
+                    font-size: 25px;
+                    padding: 10px;
+                }
+                input{
+                    height: 100%;
+                    font-size: 25px;
+                    padding-left: 10px;
+                    color: white;
+                    width: 100%;
+                    background-color: #152836;
+                    border: none;
+                    outline: none;
+                }
+            }
+            .sortSection{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .select{
+                    padding: 5px;
+                    background-color: #12232e;
+                    color: white;
+                }
+                .second{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .filterIcon{
+                    margin-left: 20px;
+                    height: 100%;
+                    width: 100%;
+                    display: none;
+                    .fa{
+                        height: 100%;
+                        width: 100%;
+                        color: white;
+                    }
+                }
+                .icon{
+                    height: 100%;
+                    width: 100%;
+                    background-color: #152836;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    padding: 10px 2px;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
+            }
+            .carsSection{
+                padding-bottom: 100px;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                grid-gap: 20px;
+                .car{
+                    flex-direction: row;
+                    align-items: center ; 
+                    justify-content: space-around;
+                    width: calc(100% - 10px);
+                    padding: 10px 5px;
+                    max-width: 800px;
+                    margin: 0;
+                    grid-gap: 20px;
+                    img{
+                        max-width: 350px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .usedCars .usedCarsContent .mainSeciton .sortSection .filterIcon {
+        display: block;
+    }
+    .usedCars{
+        .usedCarsContent{
+            // position: relative;
+            .filterSection{
+                position: fixed;
+                z-index: 10;
+                left: 0;
+                top: 0;
+                padding: 30px 10vw;
+                width: calc(100vw - 20vw);
+                max-width: unset;
+                margin-left: -100vw;
+                transition: all 0.5s;
+                overflow: auto;
+                .filterSectionAll{
+                    height: calc(100vh - 100px);
+                    overflow: auto;
+                }
+                .filterHeader{
+                    .fa{
+                        display: block;
+                    }
+                }
+            }
+            .mainSeciton{
+                width: 90vw;
+                .carsSection{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    grid-gap: 20px;
+                    .car{
+                        flex-direction: column;
+                        align-items: center ; 
+                        justify-content: space-around;
+                        width: calc(70% - 10px);
+                        padding: 10px;
+                        max-width: 300px;
+                        margin: 0;
+                        grid-gap: 20px;
+                        img{
+                            max-width: 350px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+.usedCars{
+    .usedCarsContent{
+        .filterSection{
+            margin-left: 0 !important; // because  of inline style
+        }
+    }
+}
+}

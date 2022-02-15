@@ -1,0 +1,80 @@
+.productPage .sliderSection {
+  height: 70vh;
+}
+
+.productPage .productHeader {
+  margin-top: 50px;
+  padding: 5vh 10vw;
+}
+
+.productPage .swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.productPage .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.productPage .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.productPage .swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.productPage .swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.productPage .mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.productPage .mySwiper {
+  height: 20%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.productPage .mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.productPage .mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.productPage .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=ProductStyle.css.map */

@@ -1,11 +1,21 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from './Header';
 import Footer from './Footer';
 import '../styles/LoginStyle/LoginStyle.css'
 
 export default function LogInPage() {
+
+  let [emailInput, setEmailInput] = useState("")
+  let [passwordInput, setPasswordInput] = useState("")
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const navigate = useNavigate()
+
+  const logInBtn = () => {
+  }
 
   return <div className='loginPage'>
   <Header />
@@ -13,13 +23,13 @@ export default function LogInPage() {
     <div className="form">
       <div className="formInputDiv">
         <p>Email</p>
-        <input placeholder='name@mail.com' type="email" />
+        <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='name@mail.com' type="email" />
       </div>
       <div className="formInputDiv">
         <p>Password</p>
-        <input placeholder='password' type="password" />
+        <input onChange={(e)=>{setPasswordInput(e.target.value)}} placeholder='password' type="password" />
       </div>
-      <div className="loginBtn">Login</div>
+      <div onClick={logInBtn} className="loginBtn">Login</div>
       <p className='register'>Don’t have an account? <span onClick={()=>{
         navigate('/register')
       }}>Register here</span></p>

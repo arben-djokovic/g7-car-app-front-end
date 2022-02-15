@@ -64,6 +64,9 @@ export default function Header() {
         }}  className='navLogo' src="./assets/logo.png" alt="" />
         <i onClick={()=>{
         mobileNav.current.classList.remove("mobileNavShow")
+        setTimeout(() => {
+          mobileNav.current.style.display = 'none'
+        }, 310);
       }} className="fa fa-times" aria-hidden="true"></i>
       </div>
       <div className="navList">

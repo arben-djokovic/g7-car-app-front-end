@@ -8,6 +8,23 @@
     min-height: calc(100vh - 250px - 20vw);
     grid-gap: 20px;
     background-color: #0B0C10;
+    .required{
+        color: transparent;
+        font-size: 13px;
+        margin-left: 5px;
+    }
+    // Hide Arrows From Number Input 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    // end of Hide Arrows From Number Input 
     .form{
         display: flex;
         flex-direction: column;

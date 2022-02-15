@@ -3,9 +3,11 @@ import '../styles/FooterStyle/FooterStyle.css'
 import { useNavigate } from 'react-router';
 
 export default function Footer() {
+  
   const navigate = useNavigate()
+
   return <div className='footer'>
-    <img className='logo' src="./assets/logo.png" alt="" />
+    <img onClick={()=>{navigate('/')}} className='logo' src="./assets/logo.png" alt="" />
     <div className="footerSecond">
       <div className='links'>
         <p onClick={()=>{
@@ -18,11 +20,10 @@ export default function Footer() {
       </div>
       <div>
         <p>CUSTOMER SERVICE</p>
-        <p>info@car.com</p>
-        <p>069-405-596</p>
+        <p><a href='mailto:info@car.com'>info@car.com</a></p>
+        <p><a href='tel:+38269405596'>069-405-596</a></p>
       </div>
       <div>
-        <p>3926 Tuzi,</p>
         <p>3926 Podgorica,</p>
         <p>Montenegro</p>
         <div className="icons">

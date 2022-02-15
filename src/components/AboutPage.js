@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Header from './Header';
 import '../styles/AboutStyle/AboutStyle.css'
 import { useNavigate } from 'react-router';
@@ -6,7 +6,9 @@ import Footer from './Footer';
 
 export default function AboutPage() {
   const navigate = useNavigate()
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return <div className='about'>
     <Header />
     <div className="firstSection">

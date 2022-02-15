@@ -634,7 +634,7 @@
     width: 90%;
   }
   .homePage .firstSection .searchDiv .searchSecondDiv .searchSecondDivInput input {
-    width: 50vw;
+    width: calc(100% - 35px);
   }
   .homePage .firstSection .searchDiv .searchThirdDiv {
     -webkit-box-orient: vertical;

@@ -1,6 +1,6 @@
 .car{
     width: 50%;
-    max-width: 350px;
+    max-width: 300px;
     margin: 0px 2%;
     display: flex;
     flex-direction: column;
@@ -13,6 +13,13 @@
     }
     .carImages{
         width: 100%;
+    }
+    .aboutCar{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        
     }
     .newBage{
         padding: 5px 15px;

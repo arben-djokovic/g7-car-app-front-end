@@ -479,7 +479,7 @@
                     .searchSecondDivInput {
                         width: 90%;
                         input{
-                           width: 50vw;
+                           width: calc(100% - 35px);
                         }
                     }
                 }

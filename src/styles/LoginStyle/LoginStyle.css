@@ -16,6 +16,12 @@
   background-color: #0B0C10;
 }
 
+.login .required {
+  color: transparent;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
 .login .form {
   display: -webkit-box;
   display: -ms-flexbox;

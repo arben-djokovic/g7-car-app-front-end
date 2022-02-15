@@ -1,0 +1,383 @@
+.usedCars .header {
+  background-color: #12232e;
+  padding: 3.5vw;
+  padding-top: calc(60px + 3.5vw);
+  margin-bottom: 100px;
+}
+
+.usedCars .header h1 {
+  margin-bottom: 5px;
+}
+
+.usedCars .usedCarsContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.usedCars .usedCarsContent .filterSection {
+  width: 30vw;
+  padding: 20px;
+  max-width: 450px;
+  background-color: #071620;
+  margin-left: 0px;
+}
+
+.usedCars .usedCarsContent .filterSection .filterHeader {
+  color: white;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usedCars .usedCarsContent .filterSection .filterHeader .fa {
+  display: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .filterSection .filterHeader .fa:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection {
+  background-color: #152836;
+  padding: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .selectHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: white;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  z-index: 12;
+  cursor: pointer;
+  background-color: #152836;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .selectHeader:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .selectHeader .arrow {
+  pointer-events: none;
+  height: 20px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .selectHeader h3 {
+  pointer-events: none;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed {
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px 0;
+  grid-gap: 10px;
+  display: none;
+  -webkit-transition: margin-top 1s;
+  transition: margin-top 1s;
+  margin-top: -30px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen > div, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen > div > label, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed > div > label {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen > div > label:hover, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed > div > label:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .filterSection .price {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.usedCars .usedCarsContent .filterSection .price .priceText {
+  margin-right: 10px;
+  margin: 10px 0;
+}
+
+.usedCars .usedCarsContent .filterSection .price .priceTextSecond {
+  margin: 10px 0;
+}
+
+.usedCars .usedCarsContent .filterSection .price input {
+  width: 90%;
+}
+
+.usedCars .usedCarsContent .filterSection .resetFilters {
+  width: 100%;
+  border: 2px solid #007CC7;
+  color: #007CC7;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .filterSection .resetFilters:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .mainSeciton {
+  width: 50vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  grid-gap: 30px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .searchSection {
+  width: 100%;
+  background-color: #152836;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px 10px 0px 0px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .searchSection .fa {
+  font-size: 25px;
+  padding: 10px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .searchSection input {
+  height: 100%;
+  font-size: 25px;
+  padding-left: 10px;
+  color: white;
+  width: 100%;
+  background-color: #152836;
+  border: none;
+  outline: none;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .select {
+  padding: 5px;
+  background-color: #12232e;
+  color: white;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .second {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .filterIcon {
+  margin-left: 20px;
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .filterIcon .fa {
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .icon {
+  height: 100%;
+  width: 100%;
+  background-color: #152836;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 10px 2px;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .mainSeciton .sortSection .icon:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .mainSeciton .carsSection {
+  padding-bottom: 100px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 20px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .carsSection .car {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: calc(100% - 10px);
+  padding: 10px 5px;
+  max-width: 800px;
+  margin: 0;
+  grid-gap: 20px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .carsSection .car img {
+  max-width: 350px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .usedCars .usedCarsContent .mainSeciton .sortSection .filterIcon {
+    display: block;
+  }
+  .usedCars .usedCarsContent .filterSection {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    padding: 30px 10vw;
+    width: calc(100vw - 20vw);
+    max-width: unset;
+    margin-left: -100vw;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    overflow: auto;
+  }
+  .usedCars .usedCarsContent .filterSection .filterSectionAll {
+    height: calc(100vh - 100px);
+    overflow: auto;
+  }
+  .usedCars .usedCarsContent .filterSection .filterHeader .fa {
+    display: block;
+  }
+  .usedCars .usedCarsContent .mainSeciton {
+    width: 90vw;
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    grid-gap: 20px;
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection .car {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: calc(70% - 10px);
+    padding: 10px;
+    max-width: 300px;
+    margin: 0;
+    grid-gap: 20px;
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection .car img {
+    max-width: 350px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .usedCars .usedCarsContent .filterSection {
+    margin-left: 0 !important;
+  }
+}
+/*# sourceMappingURL=UsedCarStyle.css.map */

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,6 +12,9 @@ import Select from 'react-select'
 import Footer from './Footer';
 
 export default function HomePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   let [selectedAll, setSelectedAll] = useState(true)
   let [selectedNew, setSelectedNew] = useState(false)
   let [selectedUsed, setSelectedUsed] = useState(false)
@@ -200,12 +203,12 @@ export default function HomePage() {
                   Price Range
                 </div>
                 <div className="priceTextSecond">
-                  $1000 - $3,000,000
+                  $1000 - $300,000
                 </div>
               </div>
               <div className="range">
                 <h2>{'$' + selectedRange}</h2>
-                <input step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} type="range" min={1000} max={3000000} />
+                <input step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} type="range" min={1000} max={300000} />
               </div>
             </div>
             <div className='submit'>Search</div>

@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import '../styles/SellStyle/SellStyle.css'
 import Footer from './Footer';
 import Select from 'react-select'
 
 export default function SellPage() {
+  const refTitle = useRef()
+  const refCondition = useRef()
+  const refImages = useRef()
+  const refPrice = useRef()
+  const refCity = useRef()
+  const refFuelType = useRef()
+  const refColor = useRef()
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const options = [
     { value: '1', label: 'Opcija 1' },
     { value: '2', label: 'Opcija 2' },
@@ -27,8 +39,6 @@ export default function SellPage() {
     
   }
 
-  let [images, setImages] = useState([]);
-  let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
   
   const customStyles = {
     option: (provided, state) => ({
@@ -58,7 +68,6 @@ export default function SellPage() {
     }
   };
 
-  let [passengerCapacity, setPassengerCapacity] = useState(2)
   
   const removeImage = (img1) => {
     let newArray = [...images]
@@ -74,6 +83,67 @@ export default function SellPage() {
     }, 200);
   }
 
+  let [passengerCapacity, setPassengerCapacity] = useState(2)
+  let [images, setImages] = useState([]);
+  let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
+  let [titleField, setTitleField] = useState('')
+  let [condition1Field, setCondition1Field]= useState('off')
+  let [condition2Field, setCondition2Field]= useState('off')
+  let [city, setCity] = useState('')
+  let [price, setPrice] = useState('')
+  let [cargoVolume, setCargoVolume] = useState('')
+  let [height, setHeight] = useState('')
+  let [width, setWidth] = useState('')
+  let [length, setLength] = useState('')
+  let [power, setPower] = useState('')
+  let [engineCapacity, setEngineCapacity] = useState('')
+  let [mileage, setMileage] = useState('')
+  let [bodyType, setBodyType] = useState('')
+  let [brand, setBrand] = useState('')
+  let [model, setModel] = useState('')
+  let [fuelType, setFuelType] = useState('')
+
+  const checkFields = () => {
+    if(titleField.length < 2){
+      refTitle.current.style.color = 'red'
+    }
+    else{
+      refTitle.current.style.color = 'transparent'
+    }
+    if(condition1Field == 'off' && condition2Field == 'off'){
+      refCondition.current.style.color = 'red'
+    }
+    else{
+      refCondition.current.style.color = 'transparent'
+    }
+    console.log(price)
+    if(price.length === 0){
+      refPrice.current.style.color = 'red'
+    }
+    else{
+      refPrice.current.style.color = 'transparent'
+    }
+    if(images.length === 0){
+      refImages.current.style.color = 'red'
+    }
+    else{
+      refImages.current.style.color = 'transparent'
+    }
+    if(city.length === 0){
+      refCity.current.style.color = 'red'
+    }
+    else{
+      refCity.current.style.color = 'transparent'
+    }
+
+    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length === 0 && city.length === 0){
+      console.log('error')
+    }
+    else{
+      console.log('no error')
+    }
+  }
+
   return <div>
     <Header />
     <form className="sellPage">
@@ -85,20 +155,20 @@ export default function SellPage() {
         <h2>Car Details</h2>
         <div className="carDetailsMain">
           <div className="section1">
-            <p>Title<span className='required'>*required</span></p>
-            <input type="text" />
+            <p>Title<span ref={refTitle} className='required'>*error</span></p>
+            <input onChange={(e)=>{setTitleField(e.target.value)}} type="text" />
           </div>
           <div className="section2">
-            <p>Condition<span className='required'>*required</span></p>
+            <p>Condition<span ref={refCondition} className='required'>*error</span></p>
             <div className='radioBtns'>
               <div className="radioBtn">
-                <input type="radio" id='1' name="radioBtn" />
+                <input onChange={(e)=>{setCondition1Field(e.target.value)}} type="radio" id='1' name="radioBtn" />
                 <label htmlFor="1">
                   <p>New</p>
                 </label>
               </div>
               <div className="radioBtn">
-                <input type="radio" id='2' name="radioBtn" />
+                <input onChange={(e)=>{setCondition2Field(e.target.value)}} type="radio" id='2' name="radioBtn" />
                 <label htmlFor="2">
                   <p>Used</p>
                 </label>
@@ -107,15 +177,15 @@ export default function SellPage() {
           </div>
           <div className="section3">
             <p>Body Type</p>
-            <Select className='sectionFirst' styles={customStyles} options={options} />
+            <Select onChange={(e)=>{setBodyType(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
           </div>
           <div className="section4">
             <p>Brand</p>
-            <Select className='sectionFirst' styles={customStyles} options={options} />
+            <Select onChange={(e)=>{setBrand(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
           </div>
           <div className="section5">
             <p>Model</p>
-            <Select className='sectionFirst' styles={customStyles} options={options} />
+            <Select onChange={(e)=>{setModel(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
           </div>
           <div className="section6">
             <p>Year</p>
@@ -136,7 +206,7 @@ export default function SellPage() {
             </div>
           </div>
           <div className="section8">
-            <p>Exterior Color<span className='required'>*required</span></p>
+            <p>Exterior Color<span ref={refColor} className='required'>*error</span></p>
             <Select className='sectionFirst' styles={customStyles} options={options} />
           </div>
           <div className="section9">
@@ -150,13 +220,13 @@ export default function SellPage() {
         <h2>Engine Details</h2>
         <div className="mainSecion">
           <div className='first'>
-            <p>Fuel Type<span className='required'>*required</span></p>
-            <Select className='select' styles={customStyles} options={options} />
+            <p>Fuel Type<span ref={refFuelType} className='required'>*error</span></p>
+            <Select onChange={(e)=>{setFuelType(e.value)}} className='select' styles={customStyles} options={options} />
           </div>
           <div className='mid'>
             <p>Mileage</p>
             <div className="inputDiv">
-              <input type="number" name="" id="" />
+              <input onChange={(e)=>{setMileage(e.target.value)}} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
@@ -171,14 +241,14 @@ export default function SellPage() {
           <div className='mid'>
             <p>Engine Capacity</p>
             <div className="inputDiv">
-              <input type="number" name="" id="" />
+              <input onChange={(e)=>{setEngineCapacity(e.target.value)}} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
           <div className='last'>
             <p>Power</p>
             <div className="inputDiv">
-              <input type="number" name="" id="" />
+              <input onChange={(e)=>{setPower(e.target.value)}} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
@@ -191,28 +261,28 @@ export default function SellPage() {
           <div className="inputDiv">
             <p>Length</p>
             <div>
-              <input type="number" />
+              <input onChange={(e)=>{setLength(e.target.value)}} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Width</p>
             <div>
-              <input type="number" />
+              <input onChange={(e)=>{setWidth(e.target.value)}} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Height</p>
             <div>
-              <input type="number" />
+              <input onChange={(e)=>{setHeight(e.target.value)}} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Cargo Volume</p>
             <div>
-              <input type="number" />
+              <input onChange={(e)=>{setCargoVolume(e.target.value)}} type="number" />
               <p>L</p>
             </div>
           </div>
@@ -309,25 +379,25 @@ export default function SellPage() {
       <div className="location">
         <h2>Location</h2>
         <div className="content">
-          <p>City:<span className='required'>*required</span></p>
-          <Select className='selectLocation' options={options} styles={customStyles} />
+          <p>City:<span ref={refCity} className='required'>*error</span></p>
+          <Select onChange={(e)=>{setCity(e.value)}} className='selectLocation' options={options} styles={customStyles} />
         </div>
       </div>
 
       <div className="price">
         <h2>Price</h2>
         <div className="content">
-          <p>Full Price:<span className='required'>*required</span></p>
+          <p>Full Price:<span ref={refPrice} className='required'>*error</span></p>
           <div className="input">
             <p>$</p>
-            <input type="text" />
+            <input onChange={(e)=>{setPrice(e.target.value)}} type="text" />
           </div>
           
         </div>
       </div>
 
       <div className="images">
-        <h2>Images<span className='required'>*required</span></h2>
+        <h2>Images<span ref={refImages} className='required'>*error</span></h2>
         <div className="content">
           <div className="displayImages">
             {images.length ? images.map((img1, i) => {
@@ -358,7 +428,7 @@ export default function SellPage() {
       </div>
 
       <div className="sellMyCar">
-        <p >Sell My Car</p>
+        <p onClick={checkFields}>Sell My Car</p>
       </div>
     </form>
     <Footer />

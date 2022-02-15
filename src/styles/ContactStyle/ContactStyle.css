@@ -1,0 +1,173 @@
+.contactPage {
+  background-color: #0B0C10;
+  padding-top: 80px;
+}
+
+.contactDiv {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: url("../../../public/assets/form-background.png");
+  padding: 5vw 0;
+  margin-bottom: 100px;
+}
+
+.contactDiv input::-webkit-outer-spin-button,
+.contactDiv input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.contactDiv .required {
+  color: red;
+  font-size: 13px;
+  margin-left: 5px;
+  display: none;
+}
+
+.contactDiv .firstSection {
+  padding: 4vw;
+  width: 40%;
+  min-width: 200px;
+  max-width: 500px;
+  background-color: #12232E;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.contactDiv .firstSection h2 {
+  margin-bottom: 20px;
+}
+
+.contactDiv .firstSection .form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  grid-gap: 20px;
+}
+
+.contactDiv .firstSection .form > div p {
+  margin-bottom: 5px;
+}
+
+.contactDiv .firstSection .form > div input, .contactDiv .firstSection .form > div textarea {
+  width: calc(100% - 16px);
+  margin-top: 5px;
+  background-color: #152836;
+  border: none;
+  padding: 8px;
+  font-size: 15px;
+  color: #A9A9A9;
+}
+
+.contactDiv .firstSection .form .sendBtn {
+  margin-top: 20px;
+  width: calc(100% - 16px);
+  font-size: 16px;
+  border: none;
+  padding: 8px;
+  color: white;
+  background-color: #007cc7;
+  text-align: center;
+  cursor: pointer;
+}
+
+.contactDiv .firstSection .form .sendBtn:hover {
+  opacity: .8;
+}
+
+.contactDiv .secondSection {
+  background-color: #12232E;
+  text-align: center;
+  padding: 4vw;
+  width: 30%;
+  max-width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  grid-gap: 30px;
+}
+
+.contactDiv .secondSection > a {
+  color: unset;
+  text-decoration: none;
+  border-bottom: 1px solid #004A77;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+
+.contactDiv .secondSection > a:hover {
+  opacity: .8;
+}
+
+.contactDiv .secondSection > a .blueColor {
+  color: #007cc7;
+  font-size: 18px;
+  overflow: auto;
+}
+
+.contactDiv .secondSection > a .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 5px;
+}
+
+.contactDiv .secondSection > a .header .fa {
+  margin-right: 5px;
+}
+
+.map {
+  height: 350px;
+  margin-bottom: 100px;
+}
+
+.map .leaflet-container {
+  height: 100%;
+}
+
+@media only screen and (max-width: 550px) {
+  .contactDiv {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    grid-gap: 50px;
+  }
+  .contactDiv .firstSection {
+    width: calc(80% - 8vw);
+  }
+  .contactDiv .secondSection {
+    padding: 30px 4vw;
+    width: calc(80% - 8vw);
+  }
+}
+/*# sourceMappingURL=ContactStyle.css.map */
