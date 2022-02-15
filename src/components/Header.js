@@ -15,7 +15,7 @@ export default function Header() {
       <div className="pcHeaderFirtstContent">
         <img onClick={()=>{
           navigate('/')
-        }} className='logo' src="./assets/logo.png" alt="" />
+        }} className='logo' src="../assets/logo.png" alt="" />
         <h2 onClick={()=>{
           navigate('/new-cars')
         }} className='navLink'>New Cars</h2>
@@ -46,7 +46,7 @@ export default function Header() {
     <div className='mobileHeaderFirst'>
       <img onClick={()=>{
           navigate('/')
-        }}  className='logo' src="./assets/logo.png" alt="" />
+        }}  className='logo' src="../assets/logo.png" alt="" />
       <i onClick={()=>{
         mobileNav.current.style.display = 'flex'
         setTimeout(() => {  // for transition after 10ms
@@ -61,7 +61,7 @@ export default function Header() {
           setTimeout(() => {
             navigate('/')
           }, 310);
-        }}  className='navLogo' src="./assets/logo.png" alt="" />
+        }}  className='navLogo' src="../assets/logo.png" alt="" />
         <i onClick={()=>{
         mobileNav.current.classList.remove("mobileNavShow")
         setTimeout(() => {

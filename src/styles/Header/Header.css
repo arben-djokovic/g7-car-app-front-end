@@ -1,4 +1,5 @@
 .header .mobileHeader {
+  background-color: #12232E;
   z-index: 2;
 }
 
@@ -140,6 +141,7 @@
 }
 
 .header .pcHeader {
+  background-color: #12232E;
   z-index: 2;
   position: absolute;
   left: 0;

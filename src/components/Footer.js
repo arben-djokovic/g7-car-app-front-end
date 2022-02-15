@@ -7,7 +7,7 @@ export default function Footer() {
   const navigate = useNavigate()
 
   return <div className='footer'>
-    <img onClick={()=>{navigate('/')}} className='logo' src="./assets/logo.png" alt="" />
+    <img onClick={()=>{navigate('/')}} className='logo' src="../assets/logo.png" alt="" />
     <div className="footerSecond">
       <div className='links'>
         <p onClick={()=>{
