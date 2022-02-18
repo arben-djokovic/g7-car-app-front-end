@@ -4,6 +4,18 @@
   margin-left: 5px;
 }
 
+.productPage .map {
+  height: 350px;
+  margin-bottom: 100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.productPage .map .leaflet-container {
+  height: 100%;
+}
+
 .productPage .mainSection {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -244,6 +256,27 @@
 
 .productPage .mainSection .secondSection .carDetailsSection .compareCarBtn:hover {
   opacity: .8;
+}
+
+.productPage .thirdSection {
+  padding: 5vh 10vw;
+}
+
+.productPage .thirdSection p {
+  margin-top: 10px;
+}
+
+.productPage .thirdSection .map {
+  margin-top: 30px;
+  height: 350px;
+  margin-bottom: 100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.productPage .thirdSection .map .leaflet-container {
+  height: 100%;
 }
 
 .productPage .sliderSection {

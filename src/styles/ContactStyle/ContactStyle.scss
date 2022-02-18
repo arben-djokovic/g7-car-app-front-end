@@ -101,14 +101,15 @@
             }
         }
     }
-}
-.map{
+    .map{
     height: 350px; 
     margin-bottom: 100px;
     .leaflet-container{
         height: 100%;
     }
 }
+}
+
 @media only screen and (max-width: 550px) {
     .contactDiv{
         flex-direction: column;

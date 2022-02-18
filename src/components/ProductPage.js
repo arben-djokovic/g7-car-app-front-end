@@ -1,4 +1,4 @@
-import React,{useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
@@ -10,6 +10,7 @@ import '../styles/ProductStyle/ProductStyle.css'
 import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 export default function ProductPage() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -17,6 +18,7 @@ export default function ProductPage() {
   const refName = useRef()
   const refEmail = useRef()
   const refComment = useRef()
+  let [position, setPosition] = useState([40.00000, 31.332322])
 
   let [nameInput, setNameInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
@@ -27,30 +29,30 @@ export default function ProductPage() {
   }, [])
 
   const contactDealer = () => {
-    if(nameInput.length <= 1 || (emailInput.length < 3 || !emailInput.includes('@') || !emailInput.includes('.')) || commentInput.length < 30){
-      if(nameInput.length <= 1){
+    if (nameInput.length <= 1 || (emailInput.length < 3 || !emailInput.includes('@') || !emailInput.includes('.')) || commentInput.length < 30) {
+      if (nameInput.length <= 1) {
         refName.current.style.color = 'red'
         toast.error("Name must have minimum 2 characters!")
       }
-      else{
+      else {
         refName.current.style.color = 'transparent'
       }
-      if(emailInput.length < 3 || !emailInput.includes('@') || !emailInput.includes('.')){
+      if (emailInput.length < 3 || !emailInput.includes('@') || !emailInput.includes('.')) {
         refEmail.current.style.color = 'red'
         toast.error("Please input real email!")
       }
-      else{
+      else {
         refEmail.current.style.color = 'transparent'
       }
-      if(commentInput.length < 30){
+      if (commentInput.length < 30) {
         refComment.current.style.color = 'red'
         toast.error("Comment length must be between 30 - 300!")
       }
-      else{
+      else {
         refComment.current.style.color = 'transparent'
       }
     }
-    else{
+    else {
       refComment.current.style.color = 'transparent'
       refName.current.style.color = 'transparent'
       refEmail.current.style.color = 'transparent'
@@ -61,69 +63,69 @@ export default function ProductPage() {
   return <div className='productPage'>
     <Header />
     <div className="productHeader">
-      <h2>Tesla Model 3 Stanfsd fds fsdfsd</h2>
+      <h1>Tesla Model 3 Stanfsd fds fsdfsd</h1>
     </div>
     <div className="sliderSection">
       <Swiper
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
-            loop={true}
-            spaceBetween={10}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper2"
-          >
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-          </SwiperSlide>
-          </Swiper>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            loop={true}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="../assets/tesla-car.png" />
-            </SwiperSlide>
-          
+        style={{
+          "--swiper-navigation-color": "#fff",
+          "--swiper-pagination-color": "#fff",
+        }}
+        loop={true}
+        spaceBetween={10}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper2"
+      >
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+      </Swiper>
+      <Swiper
+        onSwiper={setThumbsSwiper}
+        loop={true}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="../assets/tesla-car.png" />
+        </SwiperSlide>
+
       </Swiper>
     </div>
     <div className="mainSection">
@@ -161,11 +163,11 @@ export default function ProductPage() {
               <p>Dealer</p>
             </div>
             <div className="phone">
-              <i class="fa fa-phone"></i> 
+              <i class="fa fa-phone"></i>
               <h3>069-405-596</h3>
             </div>
             <div className="mail">
-              <i class="fa fa-envelope"></i> 
+              <i class="fa fa-envelope"></i>
               <h3>email@gmail.com</h3>
             </div>
           </div>
@@ -175,11 +177,11 @@ export default function ProductPage() {
           <div className="form">
             <div>
               <p>Name<span ref={refName} className='required'>*error</span></p>
-              <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full Name' type="name" />
+              <input onChange={(e) => { setNameInput(e.target.value) }} placeholder='Full Name' type="name" />
             </div>
             <div>
               <p>Email<span ref={refEmail} className='required'>*error</span></p>
-              <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@mail.com' type="email" />
+              <input onChange={(e) => { setEmailInput(e.target.value) }} placeholder='email@mail.com' type="email" />
             </div>
             <div>
               <p>Phone</p>
@@ -191,7 +193,7 @@ export default function ProductPage() {
             </div>
             <div className='comment'>
               <p>Comment<span ref={refComment} className='required'>*error</span></p>
-              <textarea onChange={(e)=>{setCommentInput(e.target.value)}} placeholder='Leave a message here' name="" id="" cols="30" maxLength={300} rows="10"></textarea>
+              <textarea onChange={(e) => { setCommentInput(e.target.value) }} placeholder='Leave a message here' name="" id="" cols="30" maxLength={300} rows="10"></textarea>
             </div>
           </div>
           <div onClick={contactDealer} className="contactBtn">
@@ -305,8 +307,26 @@ export default function ProductPage() {
             </div>
           </div>
           <p className='history'>Vehicle History /</p>
-          <div onClick={()=>{navigate('/compare')}} className="compareCarBtn"><p>Compare Car</p></div>
+          <div onClick={() => { navigate('/compare') }} className="compareCarBtn"><p>Compare Car</p></div>
         </div>
+      </div>
+
+    </div>
+    <div className="thirdSection">
+      <h2>Location</h2>
+      <p>9500 E Tsala Apopka Dr, Floral City, FL, 34436, Florida, USA</p>
+      <div className="map" id="map">
+        <MapContainer center={position} zoom={12}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
     </div>
     <Footer />

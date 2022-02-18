@@ -3,6 +3,8 @@ import Header from './Header';
 import '../styles/SellStyle/SellStyle.css'
 import Footer from './Footer';
 import Select from 'react-select'
+import { ToastContainer, toast } from 'react-toastify';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 export default function SellPage() {
   const refTitle = useRef()
@@ -12,6 +14,7 @@ export default function SellPage() {
   const refCity = useRef()
   const refFuelType = useRef()
   const refColor = useRef()
+  let [position, setPosition] = useState([40.00000, 31.332322])
 
 
   useEffect(() => {
@@ -104,43 +107,51 @@ export default function SellPage() {
   let [fuelType, setFuelType] = useState('')
 
   const checkFields = () => {
-    if(titleField.length < 2){
-      refTitle.current.style.color = 'red'
-    }
-    else{
-      refTitle.current.style.color = 'transparent'
-    }
-    if(condition1Field == 'off' && condition2Field == 'off'){
-      refCondition.current.style.color = 'red'
-    }
-    else{
-      refCondition.current.style.color = 'transparent'
-    }
-    console.log(price)
-    if(price.length === 0){
-      refPrice.current.style.color = 'red'
-    }
-    else{
-      refPrice.current.style.color = 'transparent'
-    }
-    if(images.length === 0){
-      refImages.current.style.color = 'red'
+    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length < 4 && city.length === 0){
+      if(titleField.length < 2){
+        refTitle.current.style.color = 'red'
+        toast.error('Add car title ')
+      }
+      else{
+        refTitle.current.style.color = 'transparent'
+      }
+      if(condition1Field == 'off' && condition2Field == 'off'){
+        refCondition.current.style.color = 'red'
+        toast.error('Set car condition')
+      }
+      else{
+        refCondition.current.style.color = 'transparent'
+      }
+      console.log(price)
+      if(price.length === 0){
+        refPrice.current.style.color = 'red'
+        toast.error('Add price for your car')
+      }
+      else{
+        refPrice.current.style.color = 'transparent'
+      }
+      if(images.length < 4){
+        refImages.current.style.color = 'red'
+        toast.error('Add minimum 4 images of your car')
+      }
+      else{
+        refImages.current.style.color = 'transparent'
+      }
+      if(city.length === 0){
+        refCity.current.style.color = 'red'
+        toast.error('Chose city')
+      }
+      else{
+        refCity.current.style.color = 'transparent'
+      }
     }
     else{
       refImages.current.style.color = 'transparent'
-    }
-    if(city.length === 0){
-      refCity.current.style.color = 'red'
-    }
-    else{
       refCity.current.style.color = 'transparent'
-    }
-
-    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length === 0 && city.length === 0){
-      console.log('error')
-    }
-    else{
-      console.log('no error')
+      refCondition.current.style.color = 'transparent'
+      refPrice.current.style.color = 'transparent'
+      refTitle.current.style.color = 'transparent'
+      toast.success('Car added!')
     }
   }
 
@@ -373,7 +384,7 @@ export default function SellPage() {
             </label>
           </div>
         </div>
-        <textarea placeholder='Write another feature here' className='textArea' name="" id="" cols="30" rows="10"></textarea>
+        {/* <textarea placeholder='Write another feature here' className='textArea' name="" id="" cols="30" rows="10"></textarea> */}
       </div>
 
       <div className="location">
@@ -381,6 +392,23 @@ export default function SellPage() {
         <div className="content">
           <p>City:<span ref={refCity} className='required'>*error</span></p>
           <Select onChange={(e)=>{setCity(e.value)}} className='selectLocation' options={options} styles={customStyles} />
+          <div className="map" id="map">
+        <MapContainer  eventHandlers={{
+    click: (e) => {
+      console.log('marker clicked', e)
+    },
+  }} center={position} zoom={12}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
         </div>
       </div>
 
@@ -390,7 +418,7 @@ export default function SellPage() {
           <p>Full Price:<span ref={refPrice} className='required'>*error</span></p>
           <div className="input">
             <p>$</p>
-            <input onChange={(e)=>{setPrice(e.target.value)}} type="text" />
+            <input onChange={(e)=>{setPrice(e.target.value)}} type="number" />
           </div>
           
         </div>
@@ -432,5 +460,6 @@ export default function SellPage() {
       </div>
     </form>
     <Footer />
+    <ToastContainer />
   </div>;
 }

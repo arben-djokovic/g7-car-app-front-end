@@ -11,7 +11,7 @@ export default function UsedCarsPage() {
   }, [])
 
   const allColors = ['red', 'yellow', 'blue', 'brown', 'orange','green', 'gray', 'purple', 'black', 'violet', 'white']
-
+  const years = ['2022','2021','2020','2019','2018','2017','2016','2015','2014','2013','2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999','1998','1997','1996','1995','1994','1993','1992','1991','1990',]
   let [filterOptions1, setFilterOptions1] = useState(false)
   let [filterOptions2, setFilterOptions2] = useState(false)
   let [filterOptions3, setFilterOptions3] = useState(false)
@@ -24,7 +24,7 @@ export default function UsedCarsPage() {
 
   let [searchInput, setSearchInput] = useState('')
 
-  let [selectedRange, setSelectedRange] = useState(30000)
+  let [selectedRange, setSelectedRange] = useState(300000)
   let filterSection = useRef()
 
   const options = [
@@ -105,7 +105,7 @@ export default function UsedCarsPage() {
     <div className="usedCars">
 
       <div className="header">
-        <h1>Sell Your Car</h1>
+        <h1>Used Car</h1>
         <p>Homepage - Sell</p>
       </div>
 
@@ -125,29 +125,16 @@ export default function UsedCarsPage() {
                 {filterOptions1 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions1 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="11" />
-                  <label htmlFor="11">
-                    <p>2021</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="12" />
-                  <label htmlFor="12">
-                    <p>2020</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="13" />
-                  <label htmlFor="13">
-                    <p>2019</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="14" />
-                  <label htmlFor="14">
-                    <p>2018</p>
-                  </label>
+                <div className='yearGrid'>{
+                  years.map((year, i) => {
+                      return(<div>
+                        <input type="checkbox" name="year" id={'b'+i} />
+                        <label htmlFor={'b'+i}>
+                          <p>{year}</p>
+                        </label>
+                      </div>)
+                  })
+                }
                 </div>
               </div>
             </div>

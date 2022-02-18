@@ -1,8 +1,12 @@
 import React from 'react';
 import '../styles/CarStyle/CarStyle.css'
+import { useNavigate } from 'react-router';
 
 export default function Car({ isNew }) {
-    return <div className="car">
+
+    const navigate = useNavigate()
+
+    return <div onClick={()=>{navigate('/product/1')}} className="car">
         <img className='carImages' src="./assets/tesla-car.png" alt="" />
         <div className="aboutCar">
             {isNew ? <p className="newBage">New</p> : <p className="newBage">Used</p>}

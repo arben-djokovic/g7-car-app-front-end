@@ -1,0 +1,211 @@
+.comparePage .header {
+  background-color: #12232e;
+  padding: 3.5vw;
+  padding-top: calc(60px + 3.5vw);
+  margin-bottom: 100px;
+}
+
+.comparePage .header h1 {
+  margin-bottom: 5px;
+}
+
+.comparePage .mainContent .compareCards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 0 10vw;
+}
+
+.comparePage .mainContent .compareCards .firstCard {
+  width: 25vw;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comparePage .mainContent .compareCards .firstCard .car {
+  min-width: 110px;
+  width: 100%;
+}
+
+.comparePage .mainContent .compareCards .firstCard .removeCar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+
+.comparePage .mainContent .generalInfo, .comparePage .mainContent .engineDetails, .comparePage .mainContent .dimensionsDetails, .comparePage .mainContent .feature, .comparePage .mainContent .images, .comparePage .mainContent .vehicleHistory {
+  margin: 100px 0;
+}
+
+.comparePage .mainContent .generalInfo .selectSection, .comparePage .mainContent .engineDetails .selectSection, .comparePage .mainContent .dimensionsDetails .selectSection, .comparePage .mainContent .feature .selectSection, .comparePage .mainContent .images .selectSection, .comparePage .mainContent .vehicleHistory .selectSection {
+  background-color: #152836;
+  padding: 20px;
+  margin-top: 20px;
+  width: calc(80vw - 40px);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .selectHeader, .comparePage .mainContent .engineDetails .selectSection .selectHeader, .comparePage .mainContent .dimensionsDetails .selectSection .selectHeader, .comparePage .mainContent .feature .selectSection .selectHeader, .comparePage .mainContent .images .selectSection .selectHeader, .comparePage .mainContent .vehicleHistory .selectSection .selectHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: white;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  z-index: 12;
+  cursor: pointer;
+  background-color: #152836;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .selectHeader:hover, .comparePage .mainContent .engineDetails .selectSection .selectHeader:hover, .comparePage .mainContent .dimensionsDetails .selectSection .selectHeader:hover, .comparePage .mainContent .feature .selectSection .selectHeader:hover, .comparePage .mainContent .images .selectSection .selectHeader:hover, .comparePage .mainContent .vehicleHistory .selectSection .selectHeader:hover {
+  opacity: .8;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .selectHeader .arrow, .comparePage .mainContent .engineDetails .selectSection .selectHeader .arrow, .comparePage .mainContent .dimensionsDetails .selectSection .selectHeader .arrow, .comparePage .mainContent .feature .selectSection .selectHeader .arrow, .comparePage .mainContent .images .selectSection .selectHeader .arrow, .comparePage .mainContent .vehicleHistory .selectSection .selectHeader .arrow {
+  pointer-events: none;
+  height: 20px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .selectHeader h3, .comparePage .mainContent .engineDetails .selectSection .selectHeader h3, .comparePage .mainContent .dimensionsDetails .selectSection .selectHeader h3, .comparePage .mainContent .feature .selectSection .selectHeader h3, .comparePage .mainContent .images .selectSection .selectHeader h3, .comparePage .mainContent .vehicleHistory .selectSection .selectHeader h3 {
+  pointer-events: none;
+  font-size: 26px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen, .comparePage .mainContent .generalInfo .selectSection .optionsClosed, .comparePage .mainContent .engineDetails .selectSection .optionsOpen, .comparePage .mainContent .engineDetails .selectSection .optionsClosed, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed, .comparePage .mainContent .feature .selectSection .optionsOpen, .comparePage .mainContent .feature .selectSection .optionsClosed, .comparePage .mainContent .images .selectSection .optionsOpen, .comparePage .mainContent .images .selectSection .optionsClosed, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed {
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-transition: margin-top 1s;
+  transition: margin-top 1s;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .section, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .section, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .section, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .section, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .section, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .section, .comparePage .mainContent .feature .selectSection .optionsOpen .section, .comparePage .mainContent .feature .selectSection .optionsClosed .section, .comparePage .mainContent .images .selectSection .optionsOpen .section, .comparePage .mainContent .images .selectSection .optionsClosed .section, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .section, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .section {
+  margin: 20px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .section .sectionHeader, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .section .sectionHeader, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .section .sectionHeader, .comparePage .mainContent .feature .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .feature .selectSection .optionsClosed .section .sectionHeader, .comparePage .mainContent .images .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .images .selectSection .optionsClosed .section .sectionHeader, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .section .sectionHeader, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .section .sectionHeader {
+  background-color: #12232E;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .section .sectionHeader p, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .section .sectionHeader p, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .section .sectionHeader p, .comparePage .mainContent .feature .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .feature .selectSection .optionsClosed .section .sectionHeader p, .comparePage .mainContent .images .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .images .selectSection .optionsClosed .section .sectionHeader p, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .section .sectionHeader p, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .section .sectionHeader p {
+  color: #a7a7a7;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .section .infos, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .section .infos, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .section .infos, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .section .infos, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .section .infos, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .section .infos, .comparePage .mainContent .feature .selectSection .optionsOpen .section .infos, .comparePage .mainContent .feature .selectSection .optionsClosed .section .infos, .comparePage .mainContent .images .selectSection .optionsOpen .section .infos, .comparePage .mainContent .images .selectSection .optionsClosed .section .infos, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .section .infos, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .section .infos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  grid-gap: 10px;
+  padding-top: 10px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .section .historyFiles, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .section .historyFiles, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .section .historyFiles, .comparePage .mainContent .feature .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .feature .selectSection .optionsClosed .section .historyFiles, .comparePage .mainContent .images .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .images .selectSection .optionsClosed .section .historyFiles, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .section .historyFiles, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .section .historyFiles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #007CC7;
+  text-decoration: underline;
+  font-size: 20px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage {
+  margin: 20px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  grid-gap: 10px;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage .imagesSection, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage .imagesSection, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage .imagesSection, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage .imagesSection, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage .imagesSection, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage .imagesSection, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage .imagesSection {
+  max-width: 550px;
+  background-color: #12232E;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage .imagesSection .images, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage .imagesSection .images, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage .imagesSection .images, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage .imagesSection .images, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage .imagesSection .images, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage .imagesSection .images, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage .imagesSection .images {
+  margin-bottom: 30px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[2];
+      grid-template-columns: repeat(2, auto);
+  width: calc(100% - 20px);
+  padding: 10px;
+  grid-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage .imagesSection .images img, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage .imagesSection .images img, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage .imagesSection .images img, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage .imagesSection .images img, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage .imagesSection .images img, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage .imagesSection .images img, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage .imagesSection .images img {
+  width: 100%;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage .imagesSection p, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage .imagesSection p, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage .imagesSection p, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage .imagesSection p, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage .imagesSection p, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage .imagesSection p, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage .imagesSection p {
+  font-size: 20px;
+  color: #007CC7;
+  cursor: pointer;
+}
+
+.comparePage .mainContent .generalInfo .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .generalInfo .selectSection .optionsClosed .sectionImage .imagesSection p:hover, .comparePage .mainContent .engineDetails .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .engineDetails .selectSection .optionsClosed .sectionImage .imagesSection p:hover, .comparePage .mainContent .dimensionsDetails .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .dimensionsDetails .selectSection .optionsClosed .sectionImage .imagesSection p:hover, .comparePage .mainContent .feature .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .feature .selectSection .optionsClosed .sectionImage .imagesSection p:hover, .comparePage .mainContent .images .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .images .selectSection .optionsClosed .sectionImage .imagesSection p:hover, .comparePage .mainContent .vehicleHistory .selectSection .optionsOpen .sectionImage .imagesSection p:hover, .comparePage .mainContent .vehicleHistory .selectSection .optionsClosed .sectionImage .imagesSection p:hover {
+  opacity: .8;
+}
+
+@media only screen and (max-width: 550px) {
+  .comparePage .mainContent .compareCards {
+    padding: 0;
+  }
+}
+/*# sourceMappingURL=CompareStyle.css.map */

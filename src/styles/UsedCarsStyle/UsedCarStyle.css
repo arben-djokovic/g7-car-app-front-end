@@ -124,6 +124,38 @@
   opacity: .8;
 }
 
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen .yearGrid, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed .yearGrid {
+  display: -ms-grid;
+  display: grid;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
+  grid-column-gap: 15px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen .yearGrid > div, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed .yearGrid > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen .yearGrid > div > label, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed .yearGrid > div > label {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectSection .optionsOpen .yearGrid > div > label:hover, .usedCars .usedCarsContent .filterSection .selectSection .optionsClosed .yearGrid > div > label:hover {
+  opacity: .8;
+}
+
 .usedCars .usedCarsContent .filterSection .price {
   margin: 30px 0;
   text-align: center;
@@ -306,6 +338,12 @@
   grid-gap: 20px;
 }
 
+.usedCars .usedCarsContent .mainSeciton .carsSection .car .carImages {
+  max-height: 200px;
+  width: auto;
+  max-width: 100%;
+}
+
 .usedCars .usedCarsContent .mainSeciton .carsSection .car img {
   max-width: 350px;
 }
@@ -378,6 +416,28 @@
 @media only screen and (min-width: 1000px) {
   .usedCars .usedCarsContent .filterSection {
     margin-left: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .usedCars .usedCarsContent .mainSeciton .carsSection {
+    display: -ms-grid;
+    display: grid;
+    grid-row-gap: 50px;
+    -ms-grid-columns: (auto)[2];
+        grid-template-columns: repeat(2, auto);
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection .car {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .usedCars .usedCarsContent .mainSeciton .carsSection {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
 }
 /*# sourceMappingURL=UsedCarStyle.css.map */

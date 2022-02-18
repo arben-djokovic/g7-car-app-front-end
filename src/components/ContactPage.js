@@ -1,10 +1,48 @@
-import React,{useEffect} from 'react';
+import React,{ useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/ContactStyle/ContactStyle.css'
 import Footer from './Footer';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { toast, ToastContainer} from 'react-toastify';
 
 export default function ContactPage() {
+  let [nameInput, setNameInput] = useState('')
+  let [emailInput, setEmailInput] = useState('')
+  let [phoneInput, setPhoneInput] = useState('')
+  let [commentInput, setCommentInput] = useState('')
+
+  const sendMessage = () => {
+    if(nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30){
+      if(nameInput.length < 3){
+        toast.error('Name must have minimum 3 characters')
+      }
+      else{
+
+      }
+      if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
+        toast.error('Input real email')
+      }
+      else{
+
+      }
+      if(phoneInput.length < 4){
+        toast.error('Phone number must have minimum 4 characters')
+      }
+      else{
+
+      }
+      if(commentInput.length < 30){
+        toast.error('Comment length must be between 30-300')
+      }
+      else{
+
+      }
+    }
+    else{
+      toast.success("Message sent")
+    }
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -17,21 +55,21 @@ export default function ContactPage() {
         <div className="form">
           <div>
             <p>Name<span className='required'>*required</span></p>
-            <input placeholder='Full Name' type="name" />
+            <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full Name' type="name" />
           </div>
           <div>
             <p>Email<span className='required'>*required</span></p>
-            <input placeholder='email@mail.com' type="email" />
+            <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@mail.com' type="email" />
           </div>
           <div>
             <p>Phone<span className='required'>*required</span></p>
-            <input placeholder='000-000-000' type="number" />
+            <input onChange={(e)=>{setPhoneInput(e.target.value)}} placeholder='000-000-000' type="number" />
           </div>
           <div>
             <p>Comment<span className='required'>*required</span></p>
-            <textarea placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
+            <textarea onChange={(e)=>{setCommentInput(e.target.value)}} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
           </div>
-          <p className="sendBtn">Send</p>
+          <p onClick={sendMessage} className="sendBtn">Send</p>
         </div>
       </div>
       <div className="secondSection">
@@ -72,5 +110,6 @@ export default function ContactPage() {
     </MapContainer>
     </div>
     <Footer />
+    <ToastContainer />
   </div>;
 }

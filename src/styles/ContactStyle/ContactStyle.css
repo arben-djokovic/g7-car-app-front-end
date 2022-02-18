@@ -145,12 +145,12 @@
   margin-right: 5px;
 }
 
-.map {
+.contactDiv .map {
   height: 350px;
   margin-bottom: 100px;
 }
 
-.map .leaflet-container {
+.contactDiv .map .leaflet-container {
   height: 100%;
 }
 

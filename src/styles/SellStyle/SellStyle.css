@@ -4,6 +4,19 @@
   margin: 0;
 }
 
+.sellPage .map {
+  margin-top: 30px;
+  height: 350px;
+  margin-bottom: 100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sellPage .map .leaflet-container {
+  height: 100%;
+}
+
 .sellPage .required {
   color: transparent;
   font-size: 13px;
@@ -366,9 +379,14 @@
   font-size-adjust: 30px;
 }
 
+.sellPage .location .map .leaflet-container {
+  z-index: 1;
+}
+
 .sellPage .location .content .selectLocation {
+  z-index: 2;
   margin-top: 5px;
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   background-color: #152836;
   border: 1px solid #004a77;

@@ -78,7 +78,7 @@ export default function RegisterPage() {
         <input onChange={(e)=>{setNumberInput(e.target.value)}} placeholder='000-000-000' type="number" />
       </div>
       <div className="formInputDiv">
-        <p>Password<span ref={refPassword} className='required'>*unfinished</span></p>
+        <p>Password<span ref={refPassword} className='required'>*error</span></p>
         <input onChange={(e)=>{setPasswordInput(e.target.value)}} placeholder='password' type="password" />
       </div>
       <div onClick={registerBtn} className="loginBtn">Create My Account</div>

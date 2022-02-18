@@ -27,9 +27,9 @@ export default function Footer() {
         <p>3926 Podgorica,</p>
         <p>Montenegro</p>
         <div className="icons">
-          <img src="./assets/facebook-icon.png" alt="" />
-          <img src="./assets/instagram-icon.png" alt="" />
-          <img src="./assets/youtube-icon.png" alt="" />
+          <img src="../assets/facebook-icon.png" alt="" />
+          <img src="../assets/instagram-icon.png" alt="" />
+          <img src="../assets/youtube-icon.png" alt="" />
         </div>
       </div>
     </div>

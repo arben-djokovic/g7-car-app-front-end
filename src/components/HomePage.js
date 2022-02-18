@@ -18,7 +18,7 @@ export default function HomePage() {
   let [selectedAll, setSelectedAll] = useState(true)
   let [selectedNew, setSelectedNew] = useState(false)
   let [selectedUsed, setSelectedUsed] = useState(false)
-  let [selectedRange, setSelectedRange] = useState(0)
+  let [selectedRange, setSelectedRange] = useState(300000)
   let [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
   let [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
   const navigate = useNavigate()
@@ -208,7 +208,7 @@ export default function HomePage() {
               </div>
               <div className="range">
                 <h2>{'$' + selectedRange}</h2>
-                <input step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} type="range" min={1000} max={300000} />
+                <input step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} value={selectedRange} type="range" min={1000} max={300000} />
               </div>
             </div>
             <div className='submit'>Search</div>
