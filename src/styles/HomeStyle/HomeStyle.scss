@@ -26,6 +26,11 @@
 }
 .homePage {
     background-color: #0b0c10;
+    .required{
+        color: transparent;
+        font-size: 13px;
+        margin-left: 5px;
+    }
     .firstSection {
         margin-bottom: 300px;
         .swiperPhone{

@@ -1,0 +1,97 @@
+.faqPage{
+    .header {
+        background-color: #12232e;
+        padding: 3.5vw;
+        padding-top: calc(60px + 3.5vw);
+        margin-bottom: 100px;
+        h1 {
+            margin-bottom: 5px;
+        }
+    }
+    .mainSection{
+        padding: 0 10vw;
+        .secondHeader{
+            margin-bottom: 100px;
+        }
+        .secondSection{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 100px;
+            grid-gap: 20px;
+            align-items: flex-start;
+            height: 500px;
+            .menu{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                background-color: #12232E;
+                padding: 30px; 
+                grid-gap: 10px;
+                font-size: 20px;
+                .menuItem{
+                    color: white;
+                    border-bottom: 1px solid transparent;
+                    cursor: pointer;
+                    padding-bottom: 5px;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
+                .menuItemSelected{
+                    color: #007CC7;
+                    border-bottom: 1px solid #007CC7;
+                    cursor: pointer;
+                    padding-bottom: 5px;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
+            }
+            .content{
+                width: 70%;
+                min-width: 100px;
+                .selectSections{
+                    display: flex;
+                    flex-direction: column;
+                    grid-gap: 20px;
+                    .selectSection{
+                        background-color: #152836;
+                        padding: 15px;
+                        width: 100%;
+                        overflow: hidden;
+                        .selectHeader{
+                            display: flex;
+                            justify-content: space-between;
+                            color: white;
+                            padding-bottom: 15px;
+                            border-bottom: 1px solid white;
+                            z-index: 12;
+                            cursor: pointer;
+                            background-color: #152836;
+                            &:hover{
+                                opacity: .8;
+                            }
+                            .arrow{
+                                pointer-events: none;
+                                height: 20px;
+                            }
+                            h3{
+                                pointer-events: none;
+                            }
+                        }
+                        .optionsOpen, .optionsClosed{
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: column;
+                            padding: 20px;
+                            grid-gap: 10px;
+                            display: none;
+                            transition: margin-top 1s;
+                            margin-top: -30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

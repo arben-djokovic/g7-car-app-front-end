@@ -7,7 +7,7 @@ export default function Car({ isNew }) {
     const navigate = useNavigate()
 
     return <div onClick={()=>{navigate('/product/1')}} className="car">
-        <img className='carImages' src="./assets/tesla-car.png" alt="" />
+        <img className='carImages' src="../assets/tesla-car.png" alt="" />
         <div className="aboutCar">
             {isNew ? <p className="newBage">New</p> : <p className="newBage">Used</p>}
             <h2 className="carName">Tesla Model 3 Standard Range Plus</h2>

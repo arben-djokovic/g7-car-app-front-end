@@ -1,0 +1,141 @@
+.faqPage .header {
+  background-color: #12232e;
+  padding: 3.5vw;
+  padding-top: calc(60px + 3.5vw);
+  margin-bottom: 100px;
+}
+
+.faqPage .header h1 {
+  margin-bottom: 5px;
+}
+
+.faqPage .mainSection {
+  padding: 0 10vw;
+}
+
+.faqPage .mainSection .secondHeader {
+  margin-bottom: 100px;
+}
+
+.faqPage .mainSection .secondSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 100px;
+  grid-gap: 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  height: 500px;
+}
+
+.faqPage .mainSection .secondSection .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  background-color: #12232E;
+  padding: 30px;
+  grid-gap: 10px;
+  font-size: 20px;
+}
+
+.faqPage .mainSection .secondSection .menu .menuItem {
+  color: white;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.faqPage .mainSection .secondSection .menu .menuItem:hover {
+  opacity: .8;
+}
+
+.faqPage .mainSection .secondSection .menu .menuItemSelected {
+  color: #007CC7;
+  border-bottom: 1px solid #007CC7;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.faqPage .mainSection .secondSection .menu .menuItemSelected:hover {
+  opacity: .8;
+}
+
+.faqPage .mainSection .secondSection .content {
+  width: 70%;
+  min-width: 100px;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  grid-gap: 20px;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection {
+  background-color: #152836;
+  padding: 15px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection .selectHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: white;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  z-index: 12;
+  cursor: pointer;
+  background-color: #152836;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection .selectHeader:hover {
+  opacity: .8;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection .selectHeader .arrow {
+  pointer-events: none;
+  height: 20px;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection .selectHeader h3 {
+  pointer-events: none;
+}
+
+.faqPage .mainSection .secondSection .content .selectSections .selectSection .optionsOpen, .faqPage .mainSection .secondSection .content .selectSections .selectSection .optionsClosed {
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  grid-gap: 10px;
+  display: none;
+  -webkit-transition: margin-top 1s;
+  transition: margin-top 1s;
+  margin-top: -30px;
+}
+/*# sourceMappingURL=FaqStyle.css.map */

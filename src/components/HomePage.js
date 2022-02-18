@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import "swiper/css";
 import "swiper/css/pagination";
@@ -10,11 +10,24 @@ import Car from './Car';
 import { useNavigate } from 'react-router';
 import Select from 'react-select'
 import Footer from './Footer';
+import { toast, ToastContainer} from 'react-toastify';
 
 export default function HomePage() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+  
+  let [nameInput, setNameInput] = useState('')
+  let [emailInput, setEmailInput] = useState('')
+  let [phoneInput, setPhoneInput] = useState('')
+  let [commentInput, setCommentInput] = useState('')
+
+  const refNameError = useRef()
+  const refEmailError = useRef()
+  const refPhoneError = useRef()
+  const refCommentError = useRef()
+
+
   let [selectedAll, setSelectedAll] = useState(true)
   let [selectedNew, setSelectedNew] = useState(false)
   let [selectedUsed, setSelectedUsed] = useState(false)
@@ -62,6 +75,46 @@ export default function HomePage() {
       const color = 'color: white'
 
       return { ...provided, transition, color };
+    }
+  }
+
+  const sendMessage = () => {
+    if(nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30){
+      if(nameInput.length < 3){
+        refNameError.current.style.color = 'red'
+        toast.error('Name must have minimum 3 characters')
+      }
+      else{
+        refNameError.current.style.color = 'transparent'
+      }
+      if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
+        refEmailError.current.style.color = 'red'
+        toast.error('Input real email')
+      }
+      else{
+        refEmailError.current.style.color = 'transparent'
+      }
+      if(phoneInput.length < 4){
+        refPhoneError.current.style.color = 'red'
+        toast.error('Phone number must have minimum 4 characters')
+      }
+      else{
+        refPhoneError.current.style.color = 'transparent'
+      }
+      if(commentInput.length < 30){
+        refCommentError.current.style.color = 'red'
+        toast.error('Comment length must be between 30-300')
+      }
+      else{
+        refCommentError.current.style.color = 'transparent'
+      }
+    }
+    else{
+      refNameError.current.style.color = 'transparent'
+      refEmailError.current.style.color = 'transparent'
+      refPhoneError.current.style.color = 'transparent'
+      refCommentError.current.style.color = 'transparent'
+      toast.success("Message sent")
     }
   }
 
@@ -329,22 +382,22 @@ export default function HomePage() {
       <h2>Contact</h2>
       <div className="form">
         <div>
-          <p>Name</p>
-          <input placeholder='Full name' type="name" />
+          <p>Name<span ref={refNameError} className='required'>*error</span></p>
+          <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full name' type="name" />
         </div>
         <div>
-          <p>Email</p>
-          <input placeholder='email@gmail.com' type="email" />
+          <p>Email<span ref={refEmailError} className='required'>*error</span></p>
+          <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@gmail.com' type="email" />
         </div>
         <div>
-          <p>Phone</p>
-          <input placeholder='000-000-000' type="tel" />
+          <p>Phone<span ref={refPhoneError} className='required'>*error</span></p>
+          <input onChange={(e)=>{setPhoneInput(e.target.value)}} placeholder='000-000-000' type="tel" />
         </div>
         <div>
-          <p>Comment</p>
-          <textarea placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
+          <p>Comment<span ref={refCommentError} className='required'>*error</span></p>
+          <textarea onChange={(e)=>{setCommentInput(e.target.value)}} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
         </div>
-        <p className="sendBtn">Send</p>
+        <p onClick={sendMessage} className="sendBtn">Send</p>
       </div>
     </div>
 
@@ -357,5 +410,6 @@ export default function HomePage() {
       <img src="./assets/volvo-logo.png" alt="" />
     </div>
     <Footer />
+    <ToastContainer />
   </div>;
 }

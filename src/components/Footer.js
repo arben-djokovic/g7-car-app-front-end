@@ -13,7 +13,9 @@ export default function Footer() {
         <p onClick={()=>{
           navigate('/about')
         }}>ABOUT US</p>
-        <p>FAQ</p>
+        <p onClick={()=>{
+          navigate('/faq')
+        }}>FAQ</p>
         <p onClick={()=>{
           navigate('/contact')
         }}>CONTACT</p>

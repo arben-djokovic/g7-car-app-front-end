@@ -25,10 +25,9 @@
 }
 
 .contactDiv .required {
-  color: red;
+  color: transparent;
   font-size: 13px;
   margin-left: 5px;
-  display: none;
 }
 
 .contactDiv .firstSection {

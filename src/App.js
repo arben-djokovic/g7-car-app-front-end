@@ -11,6 +11,7 @@ import LogInPage from './components/LogInPage';
 import SearchPage from './components/SearchPage';
 import ProductPage from './components/ProductPage';
 import ContactPage from './components/ContactPage';
+import FaqPage from './components/FaqPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FaqPage />} />
       </Routes>
     </div>
   );

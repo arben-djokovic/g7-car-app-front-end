@@ -3,11 +3,13 @@ import Header from './Header';
 import Footer from './Footer';
 import '../styles/CompareStyle/CompareStyle.css'
 import Car from './Car';
+import { useNavigate } from 'react-router';
 
 export default function ComparePage() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+  const navigate = useNavigate()
 
   let [filterOptions1, setFilterOptions1] = useState(true)
   let [filterOptions2, setFilterOptions2] = useState(true)
@@ -16,8 +18,8 @@ export default function ComparePage() {
   let [filterOptions5, setFilterOptions5] = useState(true)
   let [filterOptions6, setFilterOptions6] = useState(true)
 
-  let firstCar = true
-  let secondCar = true
+  let [firstCar, setFirstCar] = useState(1)
+  let [secondCar, setSecondCar] = useState(2)
 
 
   const closeOptions = (e) => {
@@ -62,13 +64,25 @@ export default function ComparePage() {
       <div className="mainContent">
         <div className="compareCards">
           {firstCar ? <div className="firstCard">
+            <div className="removeCar">
+              <div onClick={()=>{setFirstCar(false)}} className="removeCarBtn">
+                <p>X REMOVE</p>
+              </div>
+            </div>
             <Car />
-            <div className="removeCar">X</div>
-          </div> : <p>error</p>}
+          </div> : <div className='unSelectedCar'>
+              <p>Add Car</p>
+            </div>}
           {secondCar ? <div className="firstCard">
+            <div className="removeCar">
+              <div onClick={()=>{setSecondCar(false)}} className="removeCarBtn">
+                <p>X REMOVE</p>
+              </div>
+            </div>
             <Car />
-            <div className="removeCar">X</div>
-          </div> : <p>error</p>}
+          </div> : <div className='unSelectedCar'>
+              <p>Add Car</p>
+            </div>}
         </div>
         <div className="generalInfo">
           <div className="selectSection">

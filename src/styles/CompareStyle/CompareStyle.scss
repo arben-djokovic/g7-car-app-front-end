@@ -12,23 +12,43 @@
         .compareCards{
             display: flex;
             justify-content: space-around;
+            align-items: center;
             padding: 0 10vw;
             .firstCard{
                 width: 25vw;
+                max-width: 320px;
                 position: relative;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 .car{
                     min-width: 110px;
                     width: 100%;
+                    margin: 0;
                 }
                 .removeCar{
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    display: none;
+                    margin-bottom: 10px;
+                    background-color: rgba(0, 0, 0, 0.85);
+                    .removeCarBtn{
+                        padding: 10px 20px;
+                        color: white;
+                        background-color: rgb(114, 0, 0);
+                        cursor: pointer;
+                        &:hover{
+                            opacity: .9;
+                        }
+                    }
                 } 
+            }
+            .unSelectedCar{
+                padding: 10px 20px;
+                border: 2px solid #007CC7;
+                cursor: pointer;
+                font-size: 20px;
+                &:hover{
+                    opacity: .8;
+                }
             }
         }
         .generalInfo, .engineDetails, .dimensionsDetails, .feature, .images, .vehicleHistory{

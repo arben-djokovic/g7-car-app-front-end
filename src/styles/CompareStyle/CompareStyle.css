@@ -15,15 +15,23 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0 10vw;
 }
 
 .comparePage .mainContent .compareCards .firstCard {
   width: 25vw;
+  max-width: 320px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -35,13 +43,34 @@
 .comparePage .mainContent .compareCards .firstCard .car {
   min-width: 110px;
   width: 100%;
+  margin: 0;
 }
 
 .comparePage .mainContent .compareCards .firstCard .removeCar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: none;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.comparePage .mainContent .compareCards .firstCard .removeCar .removeCarBtn {
+  padding: 10px 20px;
+  color: white;
+  background-color: #720000;
+  cursor: pointer;
+}
+
+.comparePage .mainContent .compareCards .firstCard .removeCar .removeCarBtn:hover {
+  opacity: .9;
+}
+
+.comparePage .mainContent .compareCards .unSelectedCar {
+  padding: 10px 20px;
+  border: 2px solid #007CC7;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.comparePage .mainContent .compareCards .unSelectedCar:hover {
+  opacity: .8;
 }
 
 .comparePage .mainContent .generalInfo, .comparePage .mainContent .engineDetails, .comparePage .mainContent .dimensionsDetails, .comparePage .mainContent .feature, .comparePage .mainContent .images, .comparePage .mainContent .vehicleHistory {

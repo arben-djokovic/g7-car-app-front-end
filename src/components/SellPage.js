@@ -107,7 +107,7 @@ export default function SellPage() {
   let [fuelType, setFuelType] = useState('')
 
   const checkFields = () => {
-    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length < 4 && city.length === 0){
+    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length < 3 && city.length === 0){
       if(titleField.length < 2){
         refTitle.current.style.color = 'red'
         toast.error('Add car title ')
@@ -130,9 +130,9 @@ export default function SellPage() {
       else{
         refPrice.current.style.color = 'transparent'
       }
-      if(images.length < 4){
+      if(images.length < 3){
         refImages.current.style.color = 'red'
-        toast.error('Add minimum 4 images of your car')
+        toast.error('Add minimum 3 images of your car')
       }
       else{
         refImages.current.style.color = 'transparent'

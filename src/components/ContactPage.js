@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect, useState, useRef } from 'react';
 import Header from './Header';
 import '../styles/ContactStyle/ContactStyle.css'
 import Footer from './Footer';
@@ -11,34 +11,47 @@ export default function ContactPage() {
   let [phoneInput, setPhoneInput] = useState('')
   let [commentInput, setCommentInput] = useState('')
 
+  const refNameError = useRef()
+  const refEmailError = useRef()
+  const refPhoneError = useRef()
+  const refCommentError = useRef()
+
   const sendMessage = () => {
     if(nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30){
       if(nameInput.length < 3){
+        refNameError.current.style.color = 'red'
         toast.error('Name must have minimum 3 characters')
       }
       else{
-
+        refNameError.current.style.color = 'transparent'
       }
       if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
+        refEmailError.current.style.color = 'red'
         toast.error('Input real email')
       }
       else{
-
+        refEmailError.current.style.color = 'transparent'
       }
       if(phoneInput.length < 4){
+        refPhoneError.current.style.color = 'red'
         toast.error('Phone number must have minimum 4 characters')
       }
       else{
-
+        refPhoneError.current.style.color = 'transparent'
       }
       if(commentInput.length < 30){
+        refCommentError.current.style.color = 'red'
         toast.error('Comment length must be between 30-300')
       }
       else{
-
+        refCommentError.current.style.color = 'transparent'
       }
     }
     else{
+      refNameError.current.style.color = 'transparent'
+      refEmailError.current.style.color = 'transparent'
+      refPhoneError.current.style.color = 'transparent'
+      refCommentError.current.style.color = 'transparent'
       toast.success("Message sent")
     }
   }
@@ -54,19 +67,19 @@ export default function ContactPage() {
         <h2>Get In Touch</h2>
         <div className="form">
           <div>
-            <p>Name<span className='required'>*required</span></p>
+            <p>Name<span ref={refNameError} className='required'>*error</span></p>
             <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full Name' type="name" />
           </div>
           <div>
-            <p>Email<span className='required'>*required</span></p>
+            <p>Email<span ref={refEmailError} className='required'>*error</span></p>
             <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@mail.com' type="email" />
           </div>
           <div>
-            <p>Phone<span className='required'>*required</span></p>
+            <p>Phone<span ref={refPhoneError} className='required'>*error</span></p>
             <input onChange={(e)=>{setPhoneInput(e.target.value)}} placeholder='000-000-000' type="number" />
           </div>
           <div>
-            <p>Comment<span className='required'>*required</span></p>
+            <p>Comment<span ref={refCommentError} className='required'>*error</span></p>
             <textarea onChange={(e)=>{setCommentInput(e.target.value)}} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
           </div>
           <p onClick={sendMessage} className="sendBtn">Send</p>
