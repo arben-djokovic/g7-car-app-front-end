@@ -12,11 +12,13 @@ export default function RegisterPage() {
   const refEmail = useRef()
   const refNumber = useRef()
   const refPassword = useRef()
+  const refUsername = useRef()
 
   let [passwordInput, setPasswordInput] = useState('')
   let [nameInput, setNameInput] = useState('')
   let [numberInput, setNumberInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
+  let [usernameInput, setUsernameInput] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -25,8 +27,7 @@ export default function RegisterPage() {
   const navigate = useNavigate()
 
   const registerBtn = () => {
-    if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.') || passwordInput.length < 5 || nameInput.length < 3 || numberInput.length < 6){
-
+    if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.') || passwordInput.length < 5 || nameInput.length < 3 || numberInput.length < 6 || usernameInput.includes(' ') || usernameInput.length < 3 ){
       if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
         refEmail.current.style.color = 'red'
         toast.error("Please input real email!")
@@ -55,8 +56,20 @@ export default function RegisterPage() {
       else{
         refNumber.current.style.color = 'transparent'
       }
+      if(usernameInput.includes(' ') || usernameInput.length < 3){
+        refUsername.current.style.color = 'red'
+        toast.error("Username can't have space and must have minimum 3 characters")
+      }
+      else{
+        refNumber.current.style.color = 'transparent'
+      }
     }
     else{
+      refEmail.current.style.color = 'transparent'
+      refName.current.style.color = 'transparent'
+      refNumber.current.style.color = 'transparent'
+      refPassword.current.style.color = 'transparent'
+      refUsername.current.style.color = 'transparent'
       toast.success('Inputs are good')
     }
   }
@@ -68,6 +81,10 @@ export default function RegisterPage() {
       <div className="formInputDiv">
         <p>Name<span ref={refName} className='required'>*error</span></p>
         <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full Name' type="name" />
+      </div>
+      <div className="formInputDiv">
+        <p>Username<span ref={refUsername} className='required'>*error</span></p>
+        <input onChange={(e)=>{setUsernameInput(e.target.value)}} placeholder='username' type="name" />
       </div>
       <div className="formInputDiv">
         <p>Email<span ref={refEmail} className='required'>*error</span></p>

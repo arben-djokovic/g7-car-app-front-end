@@ -6,7 +6,7 @@ import '../styles/LoginStyle/LoginStyle.css'
 
 export default function LogInPage() {
 
-  let [emailInput, setEmailInput] = useState("")
+  let [usernameInput, setUsernameInput] = useState("")
   let [passwordInput, setPasswordInput] = useState("")
   
   useEffect(() => {
@@ -22,8 +22,8 @@ export default function LogInPage() {
   <div className="login">
     <div className="form">
       <div className="formInputDiv">
-        <p>Email</p>
-        <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='name@mail.com' type="email" />
+        <p>Username</p>
+        <input onChange={(e)=>{setUsernameInput(e.target.value)}} placeholder='username' type="name" />
       </div>
       <div className="formInputDiv">
         <p>Password</p>
