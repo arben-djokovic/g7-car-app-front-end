@@ -4,22 +4,31 @@ import Footer from './Footer';
 import '../styles/CompareStyle/CompareStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { compareCar1Action, compareCar2Action } from './../redux/actions';
 
 export default function ComparePage() {
+
   useEffect(() => {
     window.scrollTo(0, 0)
+    let zadnjiDio = window.location.href.split('/')[window.location.href.split('/').length - 1]
+    dispatch(compareCar1Action(zadnjiDio.split('&')[0]))
+    dispatch(compareCar2Action(zadnjiDio.split('&')[1]))
   }, [])
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  let compareCar1 = useSelector(store => store.compareCar1)
+  let compareCar2 = useSelector(store => store.compareCar2)
 
   let [filterOptions1, setFilterOptions1] = useState(true)
   let [filterOptions2, setFilterOptions2] = useState(true)
   let [filterOptions3, setFilterOptions3] = useState(true)
   let [filterOptions4, setFilterOptions4] = useState(true)
   let [filterOptions5, setFilterOptions5] = useState(true)
-  let [filterOptions6, setFilterOptions6] = useState(true)
+  // let [filterOptions6, setFilterOptions6] = useState(true)
 
-  let [firstCar, setFirstCar] = useState(1)
-  let [secondCar, setSecondCar] = useState(2)
 
 
   const closeOptions = (e) => {
@@ -38,9 +47,9 @@ export default function ComparePage() {
     else if (e.target.id == 5) {
       setFilterOptions5(filterOptions5 => !filterOptions5)
     }
-    else if (e.target.id == 6) {
-      setFilterOptions6(filterOptions6 => !filterOptions6)
-    }
+    // else if (e.target.id == 6) {
+    //   setFilterOptions6(filterOptions6 => !filterOptions6)
+    // }
     if (e.target.parentElement.children[1].className === 'optionsOpen') {
       e.target.parentElement.children[1].style.cssText += 'margin-top: -30px'
       setTimeout(() => {
@@ -63,9 +72,12 @@ export default function ComparePage() {
       </div>
       <div className="mainContent">
         <div className="compareCards">
-          {firstCar ? <div className="firstCard">
+          {compareCar1.length ? <div className="firstCard">
             <div className="removeCar">
-              <div onClick={()=>{setFirstCar(false)}} className="removeCarBtn">
+              <div onClick={()=>{
+                  dispatch(compareCar1Action(''))
+                  navigate('/compare/' + '' + '&' +compareCar2)
+                }} className="removeCarBtn">
                 <p>X REMOVE</p>
               </div>
             </div>
@@ -73,9 +85,12 @@ export default function ComparePage() {
           </div> : <div className='unSelectedCar'>
               <p>Add Car</p>
             </div>}
-          {secondCar ? <div className="firstCard">
+          {compareCar2.length ? <div className="firstCard">
             <div className="removeCar">
-              <div onClick={()=>{setSecondCar(false)}} className="removeCarBtn">
+              <div onClick={()=>{
+                  dispatch(compareCar2Action(''))
+                  navigate('/compare/' + compareCar1 + '&' + '')
+                }} className="removeCarBtn">
                 <p>X REMOVE</p>
               </div>
             </div>
@@ -287,8 +302,11 @@ export default function ComparePage() {
                       <img src="../assets/tesla-car.png" alt="" />
                       <img src="../assets/tesla-car.png" alt="" />
                       <img src="../assets/tesla-car.png" alt="" />
+                      <img src="../assets/tesla-car.png" alt="" />
+                      <img src="../assets/tesla-car.png" alt="" />
+                      <img src="../assets/tesla-car.png" alt="" />
                     </div>
-                    <p>See more</p>
+                    {/* <p>See more</p> */}
                   </div>
                   <div className="imagesSection">
                     <div className="images">
@@ -297,13 +315,13 @@ export default function ComparePage() {
                       <img src="../assets/tesla-car.png" alt="" />
                       <img src="../assets/tesla-car.png" alt="" />
                     </div>
-                    <p>See more</p>
+                    {/* <p>See more</p> */}
                   </div>
                 </div>
               </div>
           </div>
         </div>
-        <div className="vehicleHistory">
+        {/* <div className="vehicleHistory">
           <div className="selectSection">
               <div onClick={closeOptions} id="6" className="selectHeader">
                 <p></p>
@@ -319,7 +337,7 @@ export default function ComparePage() {
                 </div>
               </div>
           </div>
-        </div>
+        </div> */}
        
       </div>
     </div>

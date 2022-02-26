@@ -442,7 +442,7 @@ export default function SellPage() {
         </div>
       </div>
 
-      <div className="vehicleHistory">
+      {/* <div className="vehicleHistory">
         <h2>Vehicle History</h2>
         <div className="selectInput">
           <input className='fileInput' onChange={(e)=>{setVehicleHistoryFile(e.target.files[0].name)}} id='fileInputHistory' type="file" />
@@ -453,7 +453,7 @@ export default function SellPage() {
             <p>{vehicleHistoryFile ? vehicleHistoryFile : 'No file selected'}</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="sellMyCar">
         <p onClick={checkFields}>Sell My Car</p>

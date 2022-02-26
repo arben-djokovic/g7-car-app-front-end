@@ -163,11 +163,11 @@ export default function ProductPage() {
               <p>Dealer</p>
             </div>
             <div className="phone">
-              <i class="fa fa-phone"></i>
+              <i className="fa fa-phone"></i>
               <h3>069-405-596</h3>
             </div>
             <div className="mail">
-              <i class="fa fa-envelope"></i>
+              <i className="fa fa-envelope"></i>
               <h3>email@gmail.com</h3>
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
-          <p className='history'>Vehicle History /</p>
+          {/* <p className='history'>Vehicle History /</p> */}
           <div onClick={() => { navigate('/compare') }} className="compareCarBtn"><p>Compare Car</p></div>
         </div>
       </div>

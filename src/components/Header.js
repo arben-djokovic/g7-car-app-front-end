@@ -1,10 +1,14 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import '../styles/Header/Header.css'
+import { useSelector } from 'react-redux';
 
 export default function Header() {
   const mobileNav = useRef()
   const navigate = useNavigate()
+
+  let compareCar1 = useSelector(store => store.compareCar1)
+  let compareCar2 = useSelector(store => store.compareCar2)
   
   return <div className="header">
 
@@ -23,7 +27,7 @@ export default function Header() {
           navigate('/used-cars')
         }}  className='navLink'>Used Cars</h2>
         <h2 onClick={()=>{
-          navigate('/compare')
+          navigate('/compare/' + compareCar1 + '&' + compareCar2)
         }}  className='navLink'>Compare</h2>
         <h2 onClick={()=>{
           navigate('/sell')
@@ -85,7 +89,7 @@ export default function Header() {
         <h2 onClick={()=>{
           mobileNav.current.classList.remove("mobileNavShow")
           setTimeout(() => {
-            navigate('/compare')
+            navigate('/compare' + compareCar1 + '&' + compareCar2)
           }, 310);
         }} >Compare</h2>
         <h2 onClick={()=>{
