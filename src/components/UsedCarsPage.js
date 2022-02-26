@@ -4,14 +4,28 @@ import '../styles/UsedCarsStyle/UsedCarStyle.css'
 import Select from 'react-select'
 import Car from './Car';
 import Footer from './Footer';
+import api from '../api/apiCalls'
 
 export default function UsedCarsPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
+    fetchBrands()
+    fetchColors()
+    fetchDrivetrains()
+    fetchFuelTypes()
+    fetchTransmissions()
+    setTimeout(() => {
+      setYearsOptions(yearsOptionFirst)
+    }, 500);
   }, [])
 
-  const allColors = ['red', 'yellow', 'blue', 'brown', 'orange','green', 'gray', 'purple', 'black', 'violet', 'white']
-  const years = ['2022','2021','2020','2019','2018','2017','2016','2015','2014','2013','2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000','1999','1998','1997','1996','1995','1994','1993','1992','1991','1990',]
+  let yearsOptionFirst = []
+  for(let i = 2022; i > 1980; i--){
+    yearsOptionFirst = [...yearsOptionFirst, i]
+  }
+
+  let passengerCapacity = [1,2,3,4,5,6,7,8]
+  let [yearsOptions, setYearsOptions] = useState([])
   let [filterOptions1, setFilterOptions1] = useState(false)
   let [filterOptions2, setFilterOptions2] = useState(false)
   let [filterOptions3, setFilterOptions3] = useState(false)
@@ -22,42 +36,58 @@ export default function UsedCarsPage() {
   let [filterOptions8, setFilterOptions8] = useState(false)
   let [filterOptions9, setFilterOptions9] = useState(false)
 
-  let [searchInput, setSearchInput] = useState('')
-
-  let [selectedRange, setSelectedRange] = useState(300000)
-  let filterSection = useRef()
-
-  const options = [
-    { value: '1', label: 'Opcija 1' },
-    { value: '2', label: 'Opcija 2' },
-    { value: '3', label: 'Opcija 3' },
-    { value: '4', label: 'Opcija 4' }
-  ]
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: '1px dotted pink',
-      color: 'white',
-      backgroundColor: '#152836',
-      padding: 15,
-      margin: 0,
-      cursor: 'pointer'
-    }),
-    menu: (provided, state) => ({
-      ...provided,
-      color: 'white'
-    }),
-    control: () => ({
-      display: 'flex',
-      color: 'white',
-    }),
-    singleValue: (provided, state) => {
-      const transition = 'opacity 300ms';
-      const color = 'color: white'
-
-      return { ...provided, transition, color };
+  // functions
+  const fetchBrands = async () => {
+    try{
+      const response = await api.get('/brands')
+      setOptionsBrands(response.data)
     }
-  };
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchColors = async () => {
+    try{
+      const response = await api.get('/colors')
+      setExteriorColors(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchDrivetrains = async () => {
+    try{
+      const response = await api.get('/drivetrains')
+      setOptionsDrivetrains(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchFuelTypes = async () => {
+    try{
+      const response = await api.get('/fuel-types')
+      setFuelTypes(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchTransmissions = async () => {
+    try{
+      const response = await api.get('/gear-types')
+      setOptionsTransmissions(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+
   const closeOptions = (e) => {
     if (e.target.id == 1) {
       setFilterOptions1(filterOptions => !filterOptions)
@@ -100,6 +130,52 @@ export default function UsedCarsPage() {
       }, 10);
     }
   }
+
+
+  //options 
+  let [optionsTransmissions, setOptionsTransmissions] = useState([])
+  let [exteriorColors, setExteriorColors] = useState([])
+  let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
+  let [optionsBrands, setOptionsBrands] = useState([])
+  let [optionsFuelTypes, setFuelTypes] = useState([])
+  const options = [
+    { value: '1', label: 'Opcija 1' },
+    { value: '2', label: 'Opcija 2' },
+    { value: '3', label: 'Opcija 3' },
+    { value: '4', label: 'Opcija 4' }
+  ]
+
+  let [searchInput, setSearchInput] = useState('')
+  let [selectedRange, setSelectedRange] = useState(300000)
+  let filterSection = useRef()
+
+  //styles
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: '1px dotted pink',
+      color: 'white',
+      backgroundColor: '#152836',
+      padding: 15,
+      margin: 0,
+      cursor: 'pointer'
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      color: 'white'
+    }),
+    control: () => ({
+      display: 'flex',
+      color: 'white',
+    }),
+    singleValue: (provided, state) => {
+      const transition = 'opacity 300ms';
+      const color = 'color: white'
+
+      return { ...provided, transition, color };
+    }
+  };
+
   return <div>
     <Header />
     <div className="usedCars">
@@ -126,7 +202,7 @@ export default function UsedCarsPage() {
               </div>
               <div className={filterOptions1 ? 'optionsOpen' : 'optionsClosed'} >
                 <div className='yearGrid'>{
-                  years.map((year, i) => {
+                  yearsOptions.map((year, i) => {
                       return(<div>
                         <input type="checkbox" name="year" id={'b'+i} />
                         <label htmlFor={'b'+i}>
@@ -145,30 +221,14 @@ export default function UsedCarsPage() {
                 {filterOptions2 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions2 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="b1" />
-                  <label htmlFor="b1">
-                    <p>2021</p>
+                {optionsBrands.map(brand => {
+                  return(<div>
+                  <input type="checkbox" name="year" id={brand.value} />
+                  <label htmlFor={brand.value}>
+                    <p>{brand.value}</p>
                   </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="b2" />
-                  <label htmlFor="b2">
-                    <p>2020</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="b3" />
-                  <label htmlFor="b3">
-                    <p>2019</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="b4" />
-                  <label htmlFor="b4">
-                    <p>2018</p>
-                  </label>
-                </div>
+                </div>)
+                })}
               </div>
             </div>
             <div className="selectSection">
@@ -241,30 +301,15 @@ export default function UsedCarsPage() {
                 {filterOptions5 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions5 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="e1" />
-                  <label htmlFor="e1">
-                    <p>2021</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="e2" />
-                  <label htmlFor="e2">
-                    <p>2020</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="e3" />
-                  <label htmlFor="e3">
-                    <p>2019</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="e4" />
+               {optionsTransmissions.map(transmission => {
+                 return(<div>
+                  <input type="checkbox" name="year" id={'transmission'+transmission.value} />
                   <label htmlFor="e4">
-                    <p>2018</p>
+                    <p>{transmission.value}</p>
                   </label>
-                </div>
+                </div>)
+               })}
+                
               </div>
             </div>
             <div className="selectSection">
@@ -273,30 +318,14 @@ export default function UsedCarsPage() {
                 {filterOptions6 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions6 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="21" />
-                  <label htmlFor="21">
-                    <p>2021</p>
+                {optionsFuelTypes.map(fuelType => {
+                  return(<div>
+                  <input type="checkbox" name="year" id={'fuelType'+fuelType.value} />
+                  <label htmlFor={'fuelType'+fuelType.value}>
+                    <p>{fuelType.value}</p>
                   </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="22" />
-                  <label htmlFor="22">
-                    <p>2020</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="23" />
-                  <label htmlFor="23">
-                    <p>2019</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="24" />
-                  <label htmlFor="24">
-                    <p>2018</p>
-                  </label>
-                </div>
+                </div>)
+                })}
               </div>
             </div>
             <div className="selectSection">
@@ -305,30 +334,14 @@ export default function UsedCarsPage() {
                 {filterOptions7 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions7 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="31" />
-                  <label htmlFor="31">
-                    <p>2021</p>
+                {optionsDrivetrains.map(drivetrain => {
+                  return(<div>
+                  <input type="checkbox" name="year" id={drivetrain.value} />
+                  <label htmlFor={drivetrain.value}>
+                    <p>{drivetrain.value}</p>
                   </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="32" />
-                  <label htmlFor="32">
-                    <p>2020</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="33" />
-                  <label htmlFor="33">
-                    <p>2019</p>
-                  </label>
-                </div>
-                <div>
-                  <input type="checkbox" name="year" id="34" />
-                  <label htmlFor="34">
-                    <p>2018</p>
-                  </label>
-                </div>
+                </div>)
+                })}
               </div>
             </div>
             <div className="selectSection">
@@ -337,12 +350,15 @@ export default function UsedCarsPage() {
                 {filterOptions8 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions8 ? 'optionsOpen' : 'optionsClosed'} >
-                <div>
-                  <input type="checkbox" name="year" id="41" />
-                  <label htmlFor="41">
-                    <p>2021</p>
+                {passengerCapacity.map(capacity => {
+                  return(<div>
+                  <input type="checkbox" name="year" id={'capacity' + capacity} />
+                  <label htmlFor={'capacity' + 'capacity'}>
+                    <p>{capacity}</p>
                   </label>
-                </div>
+                </div>)
+                })}
+                
                 <div>
                   <input type="checkbox" name="year" id="42" />
                   <label htmlFor="42">
@@ -369,11 +385,11 @@ export default function UsedCarsPage() {
                 {filterOptions9 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
               </div>
               <div className={filterOptions9 ? 'optionsOpen' : 'optionsClosed'} >
-                {allColors.map((color, i) => {
+                {exteriorColors.map((color, i) => {
                   return(<div>
-                  <input type="checkbox" name="year" id={'5' + i} />
-                  <label htmlFor={'5' + i}>
-                    <p>{color}</p>
+                  <input type="checkbox" name="year" id={'color' + i} />
+                  <label htmlFor={'color' + i}>
+                    <p>{color.value}</p>
                   </label>
                 </div>)
                 })}

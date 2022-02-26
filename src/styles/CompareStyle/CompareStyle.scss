@@ -88,11 +88,8 @@
                     display: flex;
                     flex-direction: column;
                     transition: margin-top 1s;
-                    
-                    // display: none;
-                    // margin-top: -30px;
+                    margin-top: 30px;
                     .section{
-                        margin: 20px 0px;
                         display: flex;
                         flex-direction: column;
                         .sectionHeader{

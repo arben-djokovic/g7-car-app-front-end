@@ -10,18 +10,96 @@ import Car from './Car';
 import { useNavigate } from 'react-router';
 import Select from 'react-select'
 import Footer from './Footer';
-import { toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import api from '../api/apiCalls'
 
 export default function HomePage() {
   useEffect(() => {
     window.scrollTo(0, 0)
+    fetchBrands()
+    fetchModels()
   }, [])
-  
+
+  //functions
+  const fetchBrands = async () => {
+    try{
+      const response = await api.get('/brands')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsBrands(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchModels = async () => {
+    try{
+      const response = await api.get('/brands')
+      let models = []
+      response.data.forEach(element => {
+        models.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsModels(models)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+
+  const sendMessage = () => {
+    if (nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30) {
+      if (nameInput.length < 3) {
+        refNameError.current.style.color = 'red'
+        toast.error('Name must have minimum 3 characters')
+      }
+      else {
+        refNameError.current.style.color = 'transparent'
+      }
+      if (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) {
+        refEmailError.current.style.color = 'red'
+        toast.error('Input real email')
+      }
+      else {
+        refEmailError.current.style.color = 'transparent'
+      }
+      if (phoneInput.length < 4) {
+        refPhoneError.current.style.color = 'red'
+        toast.error('Phone number must have minimum 4 characters')
+      }
+      else {
+        refPhoneError.current.style.color = 'transparent'
+      }
+      if (commentInput.length < 30) {
+        refCommentError.current.style.color = 'red'
+        toast.error('Comment length must be between 30-300')
+      }
+      else {
+        refCommentError.current.style.color = 'transparent'
+      }
+    }
+    else {
+      refNameError.current.style.color = 'transparent'
+      refEmailError.current.style.color = 'transparent'
+      refPhoneError.current.style.color = 'transparent'
+      refCommentError.current.style.color = 'transparent'
+      toast.success("Message sent")
+    }
+  }
+  //inputs
   let [nameInput, setNameInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
   let [phoneInput, setPhoneInput] = useState('')
   let [commentInput, setCommentInput] = useState('')
 
+  // refs
   const refNameError = useRef()
   const refEmailError = useRef()
   const refPhoneError = useRef()
@@ -35,6 +113,11 @@ export default function HomePage() {
   let [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
   let [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
   const navigate = useNavigate()
+
+  //options
+  let [optionsBrands, setOptionsBrands] = useState([])
+  let [optionsModels, setOptionsModels] = useState([])
+
   const optionsLocation = [
     { value: 'any', label: 'any' },
     { value: 'Podgorica', label: 'Podgorica' },
@@ -50,6 +133,7 @@ export default function HomePage() {
     { value: 'Rozaje', label: 'Rozaje' },
     { value: 'Tivat', label: 'Tivat' },
   ]
+  //styles
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -78,45 +162,7 @@ export default function HomePage() {
     }
   }
 
-  const sendMessage = () => {
-    if(nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30){
-      if(nameInput.length < 3){
-        refNameError.current.style.color = 'red'
-        toast.error('Name must have minimum 3 characters')
-      }
-      else{
-        refNameError.current.style.color = 'transparent'
-      }
-      if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
-        refEmailError.current.style.color = 'red'
-        toast.error('Input real email')
-      }
-      else{
-        refEmailError.current.style.color = 'transparent'
-      }
-      if(phoneInput.length < 4){
-        refPhoneError.current.style.color = 'red'
-        toast.error('Phone number must have minimum 4 characters')
-      }
-      else{
-        refPhoneError.current.style.color = 'transparent'
-      }
-      if(commentInput.length < 30){
-        refCommentError.current.style.color = 'red'
-        toast.error('Comment length must be between 30-300')
-      }
-      else{
-        refCommentError.current.style.color = 'transparent'
-      }
-    }
-    else{
-      refNameError.current.style.color = 'transparent'
-      refEmailError.current.style.color = 'transparent'
-      refPhoneError.current.style.color = 'transparent'
-      refCommentError.current.style.color = 'transparent'
-      toast.success("Message sent")
-    }
-  }
+
 
   return <div className='homePage'>
     <Header />
@@ -242,8 +288,8 @@ export default function HomePage() {
               <i className="fa fa-search" aria-hidden="true"></i>
               <input placeholder='Search' type="text" />
             </div>
-            <Select className='select' styles={customStyles} placeholder={'Models...'} options={optionsLocation} />
-            <Select className='select' styles={customStyles} placeholder={'Brands...'} options={optionsLocation} />
+            <Select className='select' styles={customStyles} placeholder={'Models...'} options={optionsModels} />
+            <Select className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
           </div>
           <div className="searchThirdDiv">
             <div className="searchSecondDivInput">
@@ -383,19 +429,19 @@ export default function HomePage() {
       <div className="form">
         <div>
           <p>Name<span ref={refNameError} className='required'>*error</span></p>
-          <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full name' type="name" />
+          <input onChange={(e) => { setNameInput(e.target.value) }} placeholder='Full name' type="name" />
         </div>
         <div>
           <p>Email<span ref={refEmailError} className='required'>*error</span></p>
-          <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@gmail.com' type="email" />
+          <input onChange={(e) => { setEmailInput(e.target.value) }} placeholder='email@gmail.com' type="email" />
         </div>
         <div>
           <p>Phone<span ref={refPhoneError} className='required'>*error</span></p>
-          <input onChange={(e)=>{setPhoneInput(e.target.value)}} placeholder='000-000-000' type="tel" />
+          <input onChange={(e) => { setPhoneInput(e.target.value) }} placeholder='000-000-000' type="tel" />
         </div>
         <div>
           <p>Comment<span ref={refCommentError} className='required'>*error</span></p>
-          <textarea onChange={(e)=>{setCommentInput(e.target.value)}} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
+          <textarea onChange={(e) => { setCommentInput(e.target.value) }} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
         </div>
         <p onClick={sendMessage} className="sendBtn">Send</p>
       </div>
