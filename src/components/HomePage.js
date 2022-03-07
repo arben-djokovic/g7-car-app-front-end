@@ -1,59 +1,107 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Header from './Header';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import '../styles/HomeStyle/HomeStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
 import Select from 'react-select'
-import Footer from './Footer';
 import { toast, ToastContainer } from 'react-toastify';
 import api from '../api/apiCalls'
 
 export default function HomePage() {
+
+  let [threeNewCars, setThreeNewCars] = useState( [1,2,3])
+  let [threeUsedCars, setThreeUsedCars] = useState( [1,2,3])
+  let [selectedBrand, setSelectedBrand] = useState('')
+  let [selectedModel, setSelectedModel] = useState('')
+  let [selectedLocation, setSelectedLocation] = useState('')
+
   useEffect(() => {
     window.scrollTo(0, 0)
     fetchBrands()
-    fetchModels()
+    fetchThreeNewCars()
+    fetchThreeUsedCars()
+    fetchLocation()
   }, [])
 
+  useEffect(()=>{
+    fetchModels()
+  },[selectedBrand])
+
   //functions
+  const fetchThreeUsedCars = async () => {
+    try {
+      const response = await api.get('/vehicles?limit=3&condition=Used')
+      setThreeUsedCars(response.data)
+    }
+    catch (err) {
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchThreeNewCars = async () => {
+    try {
+      const response = await api.get('/vehicles?limit=3&condition=New')
+      setThreeNewCars(response.data)
+    }
+    catch (err) {
+      console.log('error')
+      console.log(err)
+    }
+  }
   const fetchBrands = async () => {
-    try{
+    try {
       const response = await api.get('/brands')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setOptionsBrands(brands)
       }, 100);
     }
-    catch(err){
+    catch (err) {
       console.log('error')
       console.log(err)
     }
   }
   const fetchModels = async () => {
-    try{
-      const response = await api.get('/brands')
-      let models = []
+    if(selectedBrand.length){
+      try {
+        const response = await api.get('/models/' + selectedBrand)
+        let models = []
+        response.data.forEach(element => {
+          models.push({ value: element.value, label: element.value })
+        });
+        setTimeout(() => {
+          setOptionsModels(models)
+        }, 100);
+      }
+      catch (err) {
+        console.log('error')
+        console.log(err)
+      }
+    }
+  }
+  const fetchLocation = async () => {
+    try {
+      const response = await api.get('/locations')
+      let brands = []
       response.data.forEach(element => {
-        models.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
       });
       setTimeout(() => {
-        setOptionsModels(models)
+        setOptionsLocation(brands)
       }, 100);
     }
-    catch(err){
+    catch (err) {
       console.log('error')
       console.log(err)
     }
   }
-
   const sendMessage = () => {
     if (nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30) {
       if (nameInput.length < 3) {
@@ -93,6 +141,33 @@ export default function HomePage() {
       toast.success("Message sent")
     }
   }
+  const searchCars = () => {
+    let url = ''
+    if(!selectedAll){
+      if(selectedNew){
+        url = '/new-cars?'
+      }
+      else if(selectedUsed){
+        url = '/used-cars?'
+      }
+    }
+    else{
+      url = '/search?'
+    }
+    if(selectedBrand){
+      url = url + 'brand=' + selectedBrand + '&'
+    }
+    if(selectedModel){
+      url = url + 'model=' + selectedModel.value + '&'
+    }
+    if(selectedLocation){
+      url = url + 'location=' + selectedLocation + '&'
+    }
+    if(selectedRange){
+      url = url + 'min-price=' + selectedRange + '&'
+    }
+    navigate(url)
+  }
   //inputs
   let [nameInput, setNameInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
@@ -109,7 +184,7 @@ export default function HomePage() {
   let [selectedAll, setSelectedAll] = useState(true)
   let [selectedNew, setSelectedNew] = useState(false)
   let [selectedUsed, setSelectedUsed] = useState(false)
-  let [selectedRange, setSelectedRange] = useState(300000)
+  let [selectedRange, setSelectedRange] = useState(0)
   let [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
   let [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
   const navigate = useNavigate()
@@ -117,22 +192,8 @@ export default function HomePage() {
   //options
   let [optionsBrands, setOptionsBrands] = useState([])
   let [optionsModels, setOptionsModels] = useState([])
+  let [optionsLocation, setOptionsLocation] = useState([])
 
-  const optionsLocation = [
-    { value: 'any', label: 'any' },
-    { value: 'Podgorica', label: 'Podgorica' },
-    { value: 'Tuzi', label: 'Tuzi' },
-    { value: 'Berane', label: 'Berane' },
-    { value: 'Plav', label: 'Plav' },
-    { value: 'Petnjica', label: 'Petnjica' },
-    { value: 'Bijelo Polje', label: 'Bijelo Polje' },
-    { value: 'Kolasin', label: 'Kolasin' },
-    { value: 'Ulcinj', label: 'Ulcinj' },
-    { value: 'Niksic', label: 'Niksic' },
-    { value: 'Pljevlja', label: 'Pljevlja' },
-    { value: 'Rozaje', label: 'Rozaje' },
-    { value: 'Tivat', label: 'Tivat' },
-  ]
   //styles
   const customStyles = {
     option: (provided, state) => ({
@@ -165,17 +226,12 @@ export default function HomePage() {
 
 
   return <div className='homePage'>
-    <Header />
-
     <div className="firstSection">
       <div className="swiperPc">
         <Swiper
           pagination={true}
           modules={[Pagination]}
           loop={true}
-          pagination={{
-            clickable: true,
-          }}
           className="mySwiper">
           <SwiperSlide>
             <div className="sliderSection">
@@ -221,9 +277,6 @@ export default function HomePage() {
           pagination={true}
           modules={[Pagination]}
           loop={true}
-          pagination={{
-            clickable: true,
-          }}
           className="mySwiper">
           <SwiperSlide>
             <div className="sliderSection">
@@ -288,13 +341,13 @@ export default function HomePage() {
               <i className="fa fa-search" aria-hidden="true"></i>
               <input placeholder='Search' type="text" />
             </div>
-            <Select className='select' styles={customStyles} placeholder={'Models...'} options={optionsModels} />
-            <Select className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
+            <Select onChange={(e)=>{setSelectedBrand(e.value); setSelectedModel('')}} className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
+            <Select className='select' onChange={(e)=>{setSelectedModel(e)}} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="searchThirdDiv">
             <div className="searchSecondDivInput">
               <i className="fa fa-map-marker" aria-hidden="true"></i>
-              <Select className='select' styles={customStyles} placeholder={'Location...'} options={optionsLocation} />
+              <Select className='select' onChange={(e)=>{setSelectedLocation(e.value)}} styles={customStyles} placeholder={'Location...'} options={optionsLocation} />
             </div>
             <div className="price">
               <div className="priceText">
@@ -302,15 +355,15 @@ export default function HomePage() {
                   Price Range
                 </div>
                 <div className="priceTextSecond">
-                  $1000 - $300,000
+                  $0 - $3,000,000
                 </div>
               </div>
               <div className="range">
                 <h2>{'$' + selectedRange}</h2>
-                <input step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} value={selectedRange} type="range" min={1000} max={300000} />
+                <input step={500} onChange={(e) => { setSelectedRange(e.target.value) }} value={selectedRange} type="range" max={3000000} />
               </div>
             </div>
-            <div className='submit'>Search</div>
+            <div onClick={searchCars} className='submit'>Search</div>
           </div>
         </div>
 
@@ -331,17 +384,21 @@ export default function HomePage() {
           }} className='unSelected'>Used</h2>}
         </div>
         {selectedRecomendedUsed ? <p onClick={() => {
-          navigate('/used-cars')
+          navigate('/used-cars?offset=0')
         }}>{'See more >'}</p> : <p onClick={() => {
           navigate('/new-cars')
         }}>{'See more >'}</p>}
       </div>
       <div className="recommendedNewCarsPc">
-        {selectedRecomendedUsed ? <><Car isNew={false} />
-          <Car isNew={false} />
-          <Car isNew={false} /></> : <><Car isNew={true} />
-          <Car isNew={true} />
-          <Car isNew={true} /></>}
+        {selectedRecomendedUsed ? <>
+          {threeUsedCars.map((car1, i) => {
+            return (<Car key={i} car={car1} />)
+          })}
+        </> : <>
+          {threeNewCars.map((car1, i) => {
+            return (<Car key={i} car={car1} />)
+          })}
+        </>}
 
       </div>
       <div className="recommendedNewCarMobile">
@@ -356,11 +413,15 @@ export default function HomePage() {
           modules={[Pagination, Navigation]}
           className="mySwiper"
         >
-          {selectedRecomendedUsed ? <><SwiperSlide><Car isNew={false} /></SwiperSlide>
-            <SwiperSlide><Car isNew={false} /></SwiperSlide>
-            <SwiperSlide><Car isNew={false} /></SwiperSlide></> : <><SwiperSlide><Car isNew={true} /></SwiperSlide>
-            <SwiperSlide><Car isNew={true} /></SwiperSlide>
-            <SwiperSlide><Car isNew={true} /></SwiperSlide></>}
+          {selectedRecomendedUsed ? <>
+            {threeUsedCars.map((car1, i) => {
+              return (<SwiperSlide key={i}><Car car={car1} /></SwiperSlide>)
+            })}
+          </> : <>
+            {threeNewCars.map((car1, i) => {
+              return (<SwiperSlide key={i}><Car car={car1} /></SwiperSlide>)
+            })}
+          </>}
 
         </Swiper>
       </div>
@@ -369,11 +430,11 @@ export default function HomePage() {
     <div className="compareCars">
       <h2>Compare Cars</h2>
       <div className="compareCarsSecond">
-        <Car isNew={true} />
+        <Car car={threeNewCars[0]} />
         <div className="versus">VS</div>
-        <Car isNew={true} />
+        <Car car={threeNewCars[1]} />
       </div>
-      <div onClick={() => { navigate('compare') }} className="compareBtn">
+      <div onClick={() => { navigate('/compare/' + threeNewCars[0].id + '&' + threeNewCars[1].id) }} className="compareBtn">
         <h2>Compare Car</h2>
       </div>
     </div>
@@ -455,7 +516,6 @@ export default function HomePage() {
       <img src="./assets/peugeot-logo.png" alt="" />
       <img src="./assets/volvo-logo.png" alt="" />
     </div>
-    <Footer />
     <ToastContainer />
   </div>;
 }

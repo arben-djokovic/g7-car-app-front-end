@@ -52,6 +52,11 @@
   margin-bottom: 20px;
 }
 
+.registerSection .form .formInputDiv .selectLocation {
+  background-color: #152836;
+  margin-top: 5px;
+}
+
 .registerSection .form .formInputDiv input {
   margin-top: 5px;
   width: calc(100% - 16px);
@@ -129,6 +134,11 @@
 .registerSection .welcome .welcomeContent .logo {
   height: 3vw;
   min-height: 30px;
+  cursor: pointer;
+}
+
+.registerSection .welcome .welcomeContent .logo:hover {
+  opacity: .8;
 }
 
 .registerSection .welcome .welcomeContent .text {

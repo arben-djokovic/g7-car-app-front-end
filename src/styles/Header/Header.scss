@@ -27,9 +27,9 @@
         }
         .mobileNavigationDiv{
             z-index: 3;
-            position: absolute;
+            position: fixed;
             top: 0;
-            right: -100vw;
+            left: 100vw;
             background-color: #071620;
             height: 100vh;
             width: 100vw;
@@ -88,7 +88,7 @@
         }
         .mobileNavShow{
             display: flex;
-            right: 0;
+            left: 0;
         }
     }
     .pcHeader{

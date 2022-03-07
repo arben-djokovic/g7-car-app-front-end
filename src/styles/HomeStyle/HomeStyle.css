@@ -83,13 +83,13 @@
   background-color: #071620;
   padding: 30px;
   position: absolute;
-  bottom: -130px;
+  bottom: 0;
   z-index: 2;
   width: 60vw;
   min-width: 500px;
   left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
+  -webkit-transform: translate(-50%, 50%);
+          transform: translate(-50%, 50%);
 }
 
 .homePage .firstSection .searchDiv .searchHeader {
@@ -225,10 +225,15 @@
   display: -ms-flexbox;
   display: flex;
   text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
 }
 
-.homePage .firstSection .searchDiv .searchThirdDiv .price .priceText {
-  margin-right: 10px;
+.homePage .firstSection .searchDiv .searchThirdDiv .price .range input {
+  width: 70%;
 }
 
 .homePage .recommendedCars {
@@ -509,6 +514,11 @@
   margin-bottom: 20px;
 }
 
+.homePage .contactForm .form {
+  max-width: 400px;
+  width: 70%;
+}
+
 .homePage .contactForm .form > div {
   margin: 20px 0px;
 }
@@ -539,7 +549,7 @@
 }
 
 .homePage .sponsors {
-  margin-bottom: 100px;
+  padding-bottom: 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -555,9 +565,6 @@
 }
 
 @media only screen and (max-width: 1000px) {
-  .homePage .firstSection .searchDiv {
-    bottom: -150px;
-  }
   .homePage .firstSection .searchThirdDiv .price {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

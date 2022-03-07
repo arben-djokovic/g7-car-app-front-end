@@ -205,6 +205,10 @@
   color: gray;
 }
 
+.productPage .mainSection .secondSection .carDetailsSection > div .second {
+  text-align: right;
+}
+
 .productPage .mainSection .secondSection .carDetailsSection > div > div {
   display: -webkit-box;
   display: -ms-flexbox;

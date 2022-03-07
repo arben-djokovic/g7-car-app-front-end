@@ -1,8 +1,9 @@
 import React,{ useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Header from './Header';
-import Footer from './Footer';
 import '../styles/LoginStyle/LoginStyle.css'
+import { ToastContainer, toast } from 'react-toastify'
+import api from '../api/apiCalls'
+import { auth } from '../services/AuthService';
 
 export default function LogInPage() {
 
@@ -14,11 +15,33 @@ export default function LogInPage() {
   }, [])
   const navigate = useNavigate()
 
-  const logInBtn = () => {
+  const logInBtn = async () => {
+    if(usernameInput.length === 0 || passwordInput.length === 0){
+      toast.error('Please fill all input fields')
+    }
+    else{
+      let userInfos = {
+        username: String(usernameInput),
+        password: String(passwordInput)
+      }
+      try{
+        const response = await api.post('/auth/jwt/create/',  userInfos)
+        auth.login(response.data.access, response.data.refresh, usernameInput)
+        navigate('/')
+        console.log(response.data)
+      }
+      catch(error){
+        if(error.response.data.detail === 'No active account found with the given credentials'){
+          toast.error('Uncorrect password or username')
+        }
+        else{
+          console.log(error.response.data)
+        }
+      }
+    }
   }
 
   return <div className='loginPage'>
-  <Header />
   <div className="login">
     <div className="form">
       <div className="formInputDiv">
@@ -36,9 +59,9 @@ export default function LogInPage() {
     </div>
     <div className="welcome">
       <div className="welcomeContent">
-        <img className='logo' src="./assets/logo.png" alt="" />
+        <img className='logo' onClick={()=>{navigate('/')}} src="./assets/logo.png" alt="" />
         <div className="text">
-          <h1>Register</h1>
+          <h1>Log in</h1>
           <h3>Welcome to Autohunt</h3>
         </div>
         <div className="icons">
@@ -49,6 +72,6 @@ export default function LogInPage() {
       </div>
     </div>
   </div>
-  <Footer />
+  <ToastContainer />
 </div>
 }

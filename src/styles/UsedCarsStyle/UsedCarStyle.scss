@@ -18,6 +18,7 @@
             max-width: 450px;
             background-color: #071620;
             margin-left: 0px;
+            margin-bottom: 50px;
             .filterHeader{
                 color: white;
                 padding-bottom: 15px;
@@ -31,6 +32,24 @@
                     cursor: pointer;
                     &:hover{
                         opacity: .8;
+                    }
+                }
+            }
+            .selectCondition{
+                margin: 20px 0;
+                &>p{
+                    font-size: 18px;
+                }
+                .radioBtns{
+                    display: flex;
+                    margin: 10px 0;
+                    .radioBtn{
+                        margin: 0 10px;
+                        text-align: center;
+                        cursor: pointer;
+                        input, label, p {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
@@ -116,6 +135,7 @@
                     width: 90%;
                 }
             }
+            // Apply Filter
             .resetFilters{
                 width: 100%;
                 border: 2px solid #007CC7;
@@ -126,6 +146,10 @@
                 &:hover{
                     opacity: .8;
                 }
+                &:active{
+                    border: 2px solid red;
+                    color: red;
+                }
             }
         }
         .mainSeciton{
@@ -134,6 +158,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin-bottom: 100px;
             grid-gap: 30px;
             .searchSection{
                 width: 100%;
@@ -192,6 +217,7 @@
                     align-items: center;
                     text-align: center;
                     padding: 10px 2px;
+                    min-width: 70px;
                     cursor: pointer;
                     &:hover{
                         opacity: .8;
@@ -199,7 +225,7 @@
                 }
             }
             .carsSection{
-                padding-bottom: 100px;
+                padding-bottom: 20px;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -217,11 +243,43 @@
                     grid-gap: 20px;
                     .carImages{
                         max-height: 200px;
-                        width: auto;
-                        max-width: 100%;
+                        // width: auto;
+                        // max-width: 100%;
                     }
                     img{
                         max-width: 350px;
+                    }
+                }
+            }
+            .nextOrPreviousPage{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                grid-gap: 20px;
+                p{
+                    padding: 3px 10px;
+                    font-size: 20px;
+                    background-color: black;
+                    border: 1px solid white;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                    }
+                }
+                .noMore{
+                    border: 1px solid gray;
+                    color: gray;
+                    cursor: default;
+                    &:hover{
+                        opacity: 1;
+                    }
+                }
+                .more{
+                    border: 1px solid white;
+                    background-color: black;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
                     }
                 }
             }
@@ -276,6 +334,13 @@
                         grid-gap: 20px;
                         img{
                             max-width: 350px;
+                        }
+                        .aboutCar{
+                            width: 100%;
+                        }
+                        .carInfos{
+                            display: flex;
+                            flex-direction: column;
                         }
                     }
                 }

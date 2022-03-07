@@ -1,9 +1,12 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import '../styles/FaqStyle/FaqStyle.css'
-import Header from './Header'
-import Footer from './Footer'
 
 export default function FaqPage() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+    
     let [car, setCar] = useState(true)
     let [buy, setBuy] = useState(false)
     let [sell, setSell] = useState(false)
@@ -59,7 +62,6 @@ export default function FaqPage() {
 
   return (
     <div>
-        <Header />
         <div className="faqPage">
             <div className="header">
                 <h1>FAQ</h1>
@@ -182,7 +184,6 @@ export default function FaqPage() {
                 </div>
             </div>
         </div>
-        <Footer />
     </div>
   )
 }

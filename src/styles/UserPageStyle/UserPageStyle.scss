@@ -1,0 +1,189 @@
+
+.userPage{
+    background-color: black;
+    min-height: 80vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 200px;
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+    .userInfos{
+        background-color: #071620;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        grid-gap: 50px;
+        position: relative;
+        min-width: 250px;
+        max-width: 100vw;
+        .fa-edit, .fa-times{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            &:hover{
+                opacity: .8;
+            }
+        }
+        img{
+            height: 45px;
+        }
+        .infos{
+            display: flex;
+            flex-direction: column;
+            grid-gap: 15px;
+            h2{
+                font-size: 20px;
+            }
+            p{
+                font-size: 14px;
+                color: gray;
+            }
+        }
+        .editProfile{
+            display: flex;
+            flex-direction: column;
+            grid-gap: 30px;
+            .editProfileBtn{
+                background-color: rgb(22, 114, 253);
+                text-align: center;
+                padding: 7px;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+            p{
+                margin-bottom: 5px;
+            }
+            .selectLocation {
+                background-color: #152836;
+                color: white;
+                width: 100%;
+            }
+            input{
+                background-color: #152836;
+                border: none;
+                font-size: 18px;
+                color: white;
+                padding: 5px;
+            }
+        }
+        .logOut{
+            display: flex;
+            flex-direction: column;
+            grid-gap: 15px;
+            cursor: pointer;
+            &:hover{
+                opacity: .8;
+            }
+            .fa{
+                margin-right: 5px;
+            }
+            h2{
+                font-size: 20px;
+            }
+        }
+        .delete{
+            p{
+                color: red;
+                cursor: pointer;
+                &:hover{
+                    color: rgb(212, 85, 85);
+                }
+            }
+        }
+    }
+    .cars{
+        h2{
+            margin-bottom: 30px;
+        }
+        .carsList{    
+            padding-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            grid-gap: 20px;
+            .carDiv{
+                position: relative;
+                .deleteBtn{
+                    z-index: 2;
+                    position: absolute;
+                    right: 50px;
+                    top: 20px;
+                    background-color: rgb(245, 69, 69);
+                    color: white;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    span{
+                        margin-top: -3px;
+                        margin-left: -2px;
+                    }
+                    cursor: pointer;
+                    &:hover{
+                        background-color: rgb(255, 102, 0);
+                    }
+                } 
+            }
+            .car{
+                flex-direction: row;
+                max-width: unset;
+                width: unset;
+                grid-gap: 20px;
+                align-items: center;
+                .carImages{
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .userPage{
+        flex-direction: column;
+        align-items: center;
+        grid-gap: 100px;
+        margin-bottom: 100px;
+        .cars{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90vw;
+        }
+    }
+}
+@media only screen and (max-width: 500px) {
+    .userPage{
+        .cars{
+            .carsList{
+                .car{
+                    display: flex;
+                    flex-direction: column;
+                    .carImages{
+                        width: 90%;
+                    }
+                    .carName{
+                        margin-bottom: 10px;
+                    }
+                    .carPrice{
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

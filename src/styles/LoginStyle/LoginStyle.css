@@ -118,6 +118,11 @@
 .login .welcome .welcomeContent .logo {
   height: 3vw;
   min-height: 30px;
+  cursor: pointer;
+}
+
+.login .welcome .welcomeContent .logo:hover {
+  opacity: .8;
 }
 
 .login .welcome .welcomeContent .text {

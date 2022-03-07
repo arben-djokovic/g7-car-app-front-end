@@ -24,12 +24,11 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
   grid-gap: 20px;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  height: 500px;
 }
 
 .faqPage .mainSection .secondSection .menu {

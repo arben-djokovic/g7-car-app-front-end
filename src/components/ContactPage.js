@@ -1,7 +1,5 @@
 import React,{ useEffect, useState, useRef } from 'react';
-import Header from './Header';
 import '../styles/ContactStyle/ContactStyle.css'
-import Footer from './Footer';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { toast, ToastContainer} from 'react-toastify';
 
@@ -61,7 +59,6 @@ export default function ContactPage() {
   }, [])
   const position = [42.440247, 19.258012]
   return <div className='contactPage'>
-    <Header />
     <div className="contactDiv">
       <div className="firstSection">
         <h2>Get In Touch</h2>
@@ -122,7 +119,6 @@ export default function ContactPage() {
       </Marker>
     </MapContainer>
     </div>
-    <Footer />
     <ToastContainer />
   </div>;
 }

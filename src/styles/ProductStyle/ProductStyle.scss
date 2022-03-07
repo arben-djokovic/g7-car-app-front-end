@@ -134,6 +134,9 @@
           .first{
             color: gray;
           }
+          .second{
+            text-align: right;
+          }
           &>div{
             display: flex;
             flex-direction: column;

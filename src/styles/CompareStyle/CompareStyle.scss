@@ -38,6 +38,9 @@
                         &:hover{
                             opacity: .9;
                         }
+                        p{
+                            text-align: center;
+                        }
                     }
                 } 
             }
@@ -105,7 +108,7 @@
                             display: flex;
                             justify-content: space-around;
                             grid-gap: 10px;
-                            padding-top: 10px;
+                            padding: 10px;
                         }
                         .historyFiles{
                             display: flex;

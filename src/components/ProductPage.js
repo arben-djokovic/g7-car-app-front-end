@@ -1,32 +1,96 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Header from './Header';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
 import '../styles/ProductStyle/ProductStyle.css'
-import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { useSelector } from 'react-redux';
+import api from '../api/apiCalls'
 
 export default function ProductPage() {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   const navigate = useNavigate()
+
+  let compareCar1 = useSelector(store => store.compareCar1)
+  let compareCar2 = useSelector(store => store.compareCar2)
+
   const refName = useRef()
   const refEmail = useRef()
   const refComment = useRef()
-  let [position, setPosition] = useState([40.00000, 31.332322])
 
+  let [location, setLocation] = useState()
+  let [position, setPosition] = useState([42.768804, 19.263593])
   let [nameInput, setNameInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
   let [commentInput, setCommentInput] = useState('')
+  let [productId, setProductId] = useState(window.location.href.split('/').slice(-1)[0])
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  let [car, setCar] = useState({features: [1,2]})
+  let [userInfo, setUserInfo] = useState({user:{email:''}})
+  let [images, setImages] = useState([])
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    fetchCarById()
   }, [])
+
+  useEffect(()=>{
+    fetchLocation()
+  },[location])
+  
+  useEffect(()=>{
+    if(car.created_by){
+      fetchUserInfo()
+      fetchModelImages()
+    }
+  },[car])
+
+  const fetchCarById = async () => {
+    try{
+      const response = await api.get('/vehicle/' + productId + '/')
+      setCar(response.data)
+      setLocation(response.data.location)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchLocation = async () => {
+    try{
+      const response = await api.get('/locations')
+      response.data.map(locationItem => {
+        if(locationItem.value == location){
+          setPosition([locationItem.latitude, locationItem.longitude])
+        }
+      })
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const compareThisCar = () => {
+    if(compareCar1.length < 1){
+      navigate('/compare/' + productId + '&' + compareCar2)
+    }
+    else if(compareCar2.length < 1){
+      navigate('/compare/' + compareCar1 + '&' + productId)
+    }
+    else{
+      navigate('/compare/' + productId + '&' + compareCar2)
+    }
+  }
+
+  const fetchUserInfo = async() =>{
+    try{
+      const response = await api.get('/user/' + car.created_by)
+      setUserInfo(response.data[0])
+    }
+    catch(error){
+    }
+  }
 
   const contactDealer = () => {
     if (nameInput.length <= 1 || (emailInput.length < 3 || !emailInput.includes('@') || !emailInput.includes('.')) || commentInput.length < 30) {
@@ -59,11 +123,24 @@ export default function ProductPage() {
       toast.success("Message Sent")
     }
   }
+  
+    const fetchModelImages = async() => {
+        if(car.brand_model) {
+            try{
+                const response = await api.get('/banners/' + car.brand_model + '/')
+                setImages([ response.data.image1, response.data.image2, response.data.image3,response.data.banner])
+            }
+            catch(err){
+                console.log(err.response.data)
+                console.log(err.request.message)
+            }
+        }
+    }
+
 
   return <div className='productPage'>
-    <Header />
     <div className="productHeader">
-      <h1>Tesla Model 3 Stanfsd fds fsdfsd</h1>
+      <h1>{car.name}</h1>
     </div>
     <div className="sliderSection">
       <Swiper
@@ -78,24 +155,13 @@ export default function ProductPage() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
+        {images.map((imgUrl, i) => {
+          return(
+            <SwiperSlide key={imgUrl + i}>
+              <img src={imgUrl} />
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -107,24 +173,13 @@ export default function ProductPage() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="../assets/tesla-car.png" />
-        </SwiperSlide>
+      {images.map((imgUrl, i) => {
+        return(
+          <SwiperSlide key={imgUrl + i}>
+            <img src={imgUrl} />
+          </SwiperSlide>
+        )
+      })}
 
       </Swiper>
     </div>
@@ -132,43 +187,34 @@ export default function ProductPage() {
       <div className="firstSection">
         <div className="description">
           <h2>Description</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias expedita nostrum distinctio fugit hic illo exercitationem! Incidunt pariatur exercitationem commodi alias reprehenderit, earum recusandae eligendi, obcaecati nobis at, dolorum odit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat rerum animi tempora, quos commodi ea cumque ad incidunt quaerat iste quasi dignissimos ipsa, adipisci iusto voluptatem nihil esse vero mollitia?</p>
+          <p>{car.description}</p>
         </div>
-        <div className="featuresSection">
+       {/* <div className="featuresSection">
           <h2>Dealer Info</h2>
-          <div className="features">
-            <div className="feature">
+           <div className="features">
+            {car.features.length > 1 ? car.features.map(feature => {
+              return(<div key={feature} className="feature">
               <img src="../assets/checkOn.png" alt="" />
-              <p>AutoPilot</p>
-            </div>
-            <div className="feature">
-              <img src="../assets/checkOn.png" alt="" />
-              <p>AutoPilot</p>
-            </div>
-            <div className="feature">
-              <img src="../assets/checkOn.png" alt="" />
-              <p>AutoPilot</p>
-            </div>
-            <div className="feature">
-              <img src="../assets/checkOn.png" alt="" />
-              <p>AutoPilot</p>
-            </div>
+              <p>{feature}</p>
+            </div>)}): car.features
+          } 
+            
           </div>
-        </div>
+        </div>*/}
         <div className="dealerInfoSection">
           <h2>Dealer Info</h2>
           <div className="dealerInfo">
             <div className="name">
-              <h3>Alfred Goure</h3>
+              <h3>{userInfo.full_name}</h3>
               <p>Dealer</p>
             </div>
             <div className="phone">
               <i className="fa fa-phone"></i>
-              <h3>069-405-596</h3>
+              <h3>{userInfo.phone}</h3>
             </div>
             <div className="mail">
               <i className="fa fa-envelope"></i>
-              <h3>email@gmail.com</h3>
+              <h3>{userInfo.user.email}</h3>
             </div>
           </div>
         </div>
@@ -211,31 +257,31 @@ export default function ProductPage() {
             <div>
               <div>
                 <p className='first'>Brand</p>
-                <p>Tesla</p>
+                <p className='second'>{car.brand}</p>
               </div>
               <div>
                 <p className='first'>Model</p>
-                <p>Model 3</p>
+                <p className='second'>{car.brand_model}</p>
               </div>
               <div>
                 <p className='first'>Condition</p>
-                <p>New</p>
+                <p className='second'>{car.condition}</p>
               </div>
               <div>
                 <p className='first'>Year</p>
-                <p>2019</p>
+                <p className='second'>{car.year}</p>
               </div>
               <div>
                 <p className='first'>Body Type</p>
-                <p>Sedan</p>
+                <p className='second'>{car.vehicle_type}</p>
               </div>
               <div>
                 <p className='first'>Seats</p>
-                <p>5</p>
+                <p className='second'>{car.seat_count}</p>
               </div>
               <div>
                 <p className='first'>Exterior Color</p>
-                <p>Red</p>
+                <p className='second'>{car.color}</p>
               </div>
             </div>
           </div>
@@ -244,79 +290,79 @@ export default function ProductPage() {
             <div className="engine">
               <div>
                 <p className='first'>Fuel Type</p>
-                <p>Electric</p>
+                <p className='second'>{car.fuel_type}</p>
               </div>
               <div>
-                <p className='first'>Mielage</p>
-                <p>340 km</p>
+                <p className='first'>Milage</p>
+                <p className='second'>{car.milage} km</p>
               </div>
               <div>
                 <p className='first'>Transmission</p>
-                <p>Automatic</p>
+                <p className='second'>{car.gear_type}</p>
               </div>
               <div>
                 <p className='first'>Drivetrain</p>
-                <p>Rear-wheel Drive</p>
+                <p className='second'>{car.drivetrain}</p>
               </div>
               <div>
                 <p className='first'>Power</p>
-                <p>211 KW</p>
+                <p className='second'>{car.horse_power}</p>
               </div>
             </div>
           </div>
-          <div className="batterySection">
+          {/* <div className="batterySection">
             <h2>Batery & Charging</h2>
             <div>
               <div>
                 <p className='first'>Battery Capacity</p>
-                <p>55.0-kWh</p>
+                <p className='second'>55.0-kWh</p>
               </div>
               <div>
                 <p className='first'>Charge Speed</p>
-                <p>64 km/h</p>
+                <p className='second'>64 km/h</p>
               </div>
               <div>
                 <p className='first'>Charge Port</p>
-                <p>Type 2</p>
+                <p className='second'>Type 2</p>
               </div>
               <div>
                 <p className='first'>Charge Time (0 - Full)</p>
-                <p>330 mnt</p>
+                <p className='second'>330 mnt</p>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="dimensionsSection">
             <h2>Dimensions</h2>
             <div className="dimension">
               <div>
                 <p className='first'>Length</p>
-                <p>4649 mm</p>
+                <p className='second'>{car['length']} mm</p>
               </div>
               <div>
                 <p className='first'>Width</p>
-                <p>1849 mm</p>
+                <p className='second'>{car.width} mm</p>
               </div>
               <div>
                 <p className='first'>Height</p>
-                <p>1443 mm</p>
+                <p className='second'>{car.height} mm</p>
               </div>
               <div>
                 <p className='first'>Cargo Volume</p>
-                <p>542 L</p>
+                <p className='second'>{car.cargo_volume} L</p>
               </div>
             </div>
           </div>
           {/* <p className='history'>Vehicle History /</p> */}
-          <div onClick={() => { navigate('/compare') }} className="compareCarBtn"><p>Compare Car</p></div>
+          <div onClick={compareThisCar} className="compareCarBtn"><p>Compare Car</p></div>
         </div>
       </div>
 
     </div>
     <div className="thirdSection">
       <h2>Location</h2>
-      <p>9500 E Tsala Apopka Dr, Floral City, FL, 34436, Florida, USA</p>
+      <p>{location}, Montenegro</p>
       <div className="map" id="map">
-        <MapContainer center={position} zoom={12}>
+        <MapContainer center={position} zoom={8}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -329,7 +375,6 @@ export default function ProductPage() {
         </MapContainer>
       </div>
     </div>
-    <Footer />
     <ToastContainer />
   </div>;
 }

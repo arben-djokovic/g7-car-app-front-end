@@ -1,34 +1,79 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Header from './Header';
 import '../styles/SellStyle/SellStyle.css'
-import Footer from './Footer';
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import api from '../api/apiCalls'
 
 export default function SellPage() {
+
+  // refs
   const refTitle = useRef()
   const refCondition = useRef()
-  const refImages = useRef()
+  // version 2 => const refImages = useRef()
   const refPrice = useRef()
   const refCity = useRef()
   const refFuelType = useRef()
   const refColor = useRef()
-  let [position, setPosition] = useState([40.00000, 31.332322])
+  const refBrand = useRef()
+  const refModel = useRef()
+  const refBodyType = useRef()
+  const refYear = useRef()
+  const refMileage = useRef()
+  const refTransmission = useRef()
+  const refDescription = useRef()
+  const refDrivetrain = useRef()
+  const refPower = useRef()
+  const refEngineCapacity = useRef()
+
+  let [passengerCapacity, setPassengerCapacity] = useState(2)
+  let [images, setImages] = useState([]);
+  let [titleField, setTitleField] = useState('')
+  let [condition1Field, setCondition1Field]= useState('off')
+  let [condition2Field, setCondition2Field]= useState('off')
+  let [city, setCity] = useState('')
+  let [price, setPrice] = useState('')
+  let [cargoVolume, setCargoVolume] = useState('')
+  let [height, setHeight] = useState('')
+  let [width, setWidth] = useState('')
+  let [length, setLength] = useState('')
+  let [power, setPower] = useState('')
+  let [engineCapacity, setEngineCapacity] = useState('')
+  let [mileage, setMileage] = useState('')
+  let [bodyType, setBodyType] = useState('')
+  let [selectedTransmission, setSelectedTransmission] = useState('')
+  let [selectedDrivetrain, setSelectedDrivetrain] = useState('')
+  let [selectedBrand, setSelectedBrand] = useState('')
+  let [selectedModel, setSelectedModel] = useState('')
+  let [selectedColor, setSelectedColor] = useState('')
+  let [selectedFeatures, setSelectedFeatures] = useState('')
+  let [description, setDescription] = useState('')
+  let [year, setYear] = useState('')
+  let [fuelType, setFuelType] = useState('')
+  // let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
+  let [position, setPosition] = useState([42.768804, 19.263593])
 
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    fetchBrands()
+    fetchBodyTypes()
+    fetchColors()
+    fetchDrivetrains()
+    fetchFuelTypes()
+    fetchTransmissions()
+    fetchLocation()
+    fetchUserInfo()
+    setTimeout(() => {
+      setYearsOptions(yearsOptionFirst)
+    }, 500);
   }, [])
-  const options = [
-    { value: '1', label: 'Opcija 1' },
-    { value: '2', label: 'Opcija 2' },
-    { value: '3', label: 'Opcija 3' },
-    { value: '4', label: 'Opcija 4' }
-  ]
+
+  useEffect(()=>{
+    selectedBrand && fetchModels()
+  },[selectedBrand])
   
   let inputImage = (e) => {
-
     for(let i = 0;  i <= e.target.files.length; i++){
       if (e.target.files && e.target.files[i]) {
         let reader = new FileReader();
@@ -41,7 +86,153 @@ export default function SellPage() {
     
     
   }
+  
+    let yearsOptionFirst = []
+    for(let i = 2022; i > 1980; i--){
+      yearsOptionFirst = [...yearsOptionFirst, {label: i, value: i}]
+    }
+    //options 
+    let [optionsTransmissions, setOptionsTransmissions] = useState([])
+    let [exteriorColors, setExteriorColors] = useState([])
+    let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
+    let [optionsBrands, setOptionsBrands] = useState([])
+    let [optionsLocation, setOptionsLocation] = useState([])
+    let [optionsModels, setOptionsModels] = useState([])
+    let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
+    let [userInfo, setUserInfo] = useState({})
+    let [yearsOptions, setYearsOptions] = useState([])
+    let [bodyTypesOptions, setBodyTypesOptions] = useState([])
+    let featuresOptions = ['Power Steering','Heated Seats','Rear Parking Sensor','USB Port','AC','Wifi','Roof Rack','Sound System','Alarm','Cruise Control','Power Windows','Memory Seat','Bluetooth','Front Parking Sensor','Sunroof', 'Other']
 
+  //fetch functions
+  const fetchBodyTypes = async () => {
+    try{
+      let brands = []
+      const response = await api.get('/vehicle-types')
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setBodyTypesOptions(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchBrands = async () => {
+    try{
+      const response = await api.get('/brands')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsBrands(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchModels = async () => {
+    try {
+      const response = await api.get('/models/' + selectedBrand)
+      let models = []
+      response.data.forEach(element => {
+        models.push({ value: element.value, label: element.value })
+      });
+      setTimeout(() => {
+        setOptionsModels(models)
+      }, 100);
+    }
+    catch (err) {
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchColors = async () => {
+    try{
+      const response = await api.get('/colors')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setExteriorColors(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchDrivetrains = async () => {
+    try{
+      const response = await api.get('/drivetrains')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsDrivetrains(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchFuelTypes = async () => {
+    try{
+      const response = await api.get('/fuel-types')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsFuelTypes(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchTransmissions = async () => {
+    try{
+      const response = await api.get('/gear-types')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({value: element.value, label: element.value})
+      });
+      setTimeout(() => {
+        setOptionsTransmissions(brands)
+      }, 100);
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchLocation = async () => {
+    try {
+      const response = await api.get('/locations')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+      });
+      setTimeout(() => {
+        setOptionsLocation(brands)
+      }, 100);
+    }
+    catch (err) {
+      console.log('error')
+      console.log(err)
+    }
+  }
   
   const customStyles = {
     option: (provided, state) => ({
@@ -71,92 +262,211 @@ export default function SellPage() {
     }
   };
 
+  const changeCity = (e) => {
+    setCity(e.value)
+    setPosition([Number(e.latitude), Number(e.longitude)])
+  }
   
-  const removeImage = (img1) => {
-    let newArray = [...images]
+  // version 2 =>  const removeImage = (img1) => {
+  //   let newArray = [...images]
 
-    for( var i = 0; i < newArray.length; i++){               
-      if ( newArray[i] === img1) { 
-          newArray.splice(i, 1); 
-          i--; 
-      }
-    } 
-    setTimeout(() => {
-      setImages([...newArray])
-    }, 200);
+  //   for( var i = 0; i < newArray.length; i++){               
+  //     if ( newArray[i] === img1) { 
+  //         newArray.splice(i, 1); 
+  //         i--; 
+  //     }
+  //   } 
+  //   setTimeout(() => {
+  //     setImages([...newArray])
+  //   }, 200);
+  // }
+  const fetchUserInfo = async() => {
+    console.log(localStorage.getItem('username'))
+    try{
+      const response = await api.get('/user/' + localStorage.getItem('username'))
+      setUserInfo(response.data[0])
+    }
+    catch(err){
+      console.log(err)
+    }
   }
 
-  let [passengerCapacity, setPassengerCapacity] = useState(2)
-  let [images, setImages] = useState([]);
-  let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
-  let [titleField, setTitleField] = useState('')
-  let [condition1Field, setCondition1Field]= useState('off')
-  let [condition2Field, setCondition2Field]= useState('off')
-  let [city, setCity] = useState('')
-  let [price, setPrice] = useState('')
-  let [cargoVolume, setCargoVolume] = useState('')
-  let [height, setHeight] = useState('')
-  let [width, setWidth] = useState('')
-  let [length, setLength] = useState('')
-  let [power, setPower] = useState('')
-  let [engineCapacity, setEngineCapacity] = useState('')
-  let [mileage, setMileage] = useState('')
-  let [bodyType, setBodyType] = useState('')
-  let [brand, setBrand] = useState('')
-  let [model, setModel] = useState('')
-  let [fuelType, setFuelType] = useState('')
 
   const checkFields = () => {
-    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 || images.length < 3 && city.length === 0){
+    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 /* || images.length < 3 */ || city.length === 0 || selectedBrand.length === 0 || selectedModel.length === 0 || bodyType.length === 0 || year.length === 0 || selectedColor.length === 0 || power.length === 0 || engineCapacity.length === 0 || selectedDrivetrain.length === 0 || description.length === 0 || selectedColor.length === 0 || selectedTransmission.length === 0 || fuelType.length === 0){
       if(titleField.length < 2){
         refTitle.current.style.color = 'red'
-        toast.error('Add car title ')
       }
       else{
         refTitle.current.style.color = 'transparent'
       }
       if(condition1Field == 'off' && condition2Field == 'off'){
         refCondition.current.style.color = 'red'
-        toast.error('Set car condition')
       }
       else{
         refCondition.current.style.color = 'transparent'
       }
-      console.log(price)
       if(price.length === 0){
         refPrice.current.style.color = 'red'
-        toast.error('Add price for your car')
       }
       else{
         refPrice.current.style.color = 'transparent'
       }
-      if(images.length < 3){
-        refImages.current.style.color = 'red'
-        toast.error('Add minimum 3 images of your car')
-      }
-      else{
-        refImages.current.style.color = 'transparent'
-      }
+      // version2 =>  if(images.length < 3){
+      //   refImages.current.style.color = 'red'
+      //   toast.error('Add minimum 3 images of your car')
+      // }
+      // else{
+      //   refImages.current.style.color = 'transparent'
+      // }
       if(city.length === 0){
         refCity.current.style.color = 'red'
-        toast.error('Chose city')
       }
       else{
         refCity.current.style.color = 'transparent'
       }
+      if(selectedBrand === ''){
+        refBrand.current.style.color = 'red'
+      }
+      else{
+        refBrand.current.style.color = 'transparent'
+      }
+      if(selectedModel === ''){
+        refModel.current.style.color = 'red'
+      }
+      else{
+        refModel.current.style.color = 'transparent'
+      }
+      if(bodyType === ''){
+        refBodyType.current.style.color = 'red'
+      }
+      else{
+        refBodyType.current.style.color = 'transparent'
+      }
+      if(year === ''){
+        refYear.current.style.color = 'red'
+      }
+      else{
+        refYear.current.style.color = 'transparent'
+      }
+      if(fuelType.length === 0){
+        refFuelType.current.style.color = 'red'
+      }
+      else{
+        refFuelType.current.style.color = 'transparent'
+      }
+      if(mileage.length === 0){
+        refMileage.current.style.color = 'red'
+      }
+      else{
+        refMileage.current.style.color = 'transparent'
+      }
+      if(selectedTransmission.length === 0){
+        refTransmission.current.style.color = 'red'
+      }
+      else{
+        refTransmission.current.style.color = 'transparent'
+      }
+      if(selectedColor.length === 0){
+        refColor.current.style.color = 'red'
+      }
+      else{
+        refColor.current.style.color = 'transparent'
+      }
+      if(description.length === 0){
+        refDescription.current.style.color = 'red'
+      }
+      else{
+        refDescription.current.style.color = 'transparent'
+      }
+      if(selectedDrivetrain.length === 0){
+        refDrivetrain.current.style.color = 'red'
+      }
+      else{
+        refDrivetrain.current.style.color = 'transparent'
+      }
+      if(engineCapacity.length === 0){
+        refEngineCapacity.current.style.color = 'red'
+      }
+      else{
+        refEngineCapacity.current.style.color = 'transparent'
+      }
+      if(power.length === 0){
+        refPower.current.style.color = 'red'
+      }
+      else{
+        refPower.current.style.color = 'transparent'
+      }
+      toast.error('Check fields!')
     }
     else{
-      refImages.current.style.color = 'transparent'
+      // refImages.current.style.color = 'transparent'
       refCity.current.style.color = 'transparent'
       refCondition.current.style.color = 'transparent'
       refPrice.current.style.color = 'transparent'
       refTitle.current.style.color = 'transparent'
-      toast.success('Car added!')
+      refBrand.current.style.color = 'transparent'
+      refModel.current.style.color = 'transparent'
+      refBodyType.current.style.color = 'transparent'
+      refYear.current.style.color = 'transparent'
+      let newCar = {
+          description: description, 
+          name: titleField,
+          condition: condition1Field ? 'New' : 'Used',
+          brand: selectedBrand,
+          brand_model: selectedModel.value,
+          vehicle_type: bodyType,
+          horse_power: Number(power),
+          seat_count: Number(passengerCapacity),
+          location: city,
+          engine_capacity: Number(engineCapacity),//
+          price: Number(price),
+          color: selectedColor,
+          gear_type: selectedTransmission,
+          year: Number(year),
+          fuel_type: fuelType,
+          drivetrain: selectedDrivetrain,
+          //version2 =>  features: [...selectedFeatures],
+          length: Number(length),//
+          mileage: Number(mileage),//
+          width: Number(width),    //
+          height: Number(height),  //
+          cargo_volume: Number(cargoVolume),//
+          user: userInfo.user.id
+      }
+      addVehicleToBackend(newCar)
     }
   }
+  const addVehicleToBackend = async (newCar) =>{
+    console.log(newCar)
+    try{
+      const response = await api.post('/vehicle/', newCar)
+      toast.success('Yeyyyyy')
+      console.log(response)
+    }
+    catch(error){
+      toast.error('Try again after refreshing page')
+      console.log(error.response)
+      console.log(error.request)
+      console.log(error.message)
+    }
+  }
+  const addOrRemoveFeature = (featureClicked) => {
+    if(selectedFeatures.includes(featureClicked)){
+      let testArray = [...selectedFeatures]
+      testArray.map((el, index) => {
+        if(el === featureClicked){
+          testArray.splice(index, 1)
+        }
+      })
+      setSelectedFeatures([...testArray])
+    }
+    else{
+      setSelectedFeatures([...selectedFeatures, featureClicked])
+    }
+  }  
 
   return <div>
-    <Header />
     <form className="sellPage">
       <div className="header">
         <h1>Sell Your Car</h1>
@@ -170,16 +480,16 @@ export default function SellPage() {
             <input onChange={(e)=>{setTitleField(e.target.value)}} type="text" />
           </div>
           <div className="section2">
-            <p>Condition<span ref={refCondition} className='required'>*error</span></p>
+            <p>Condition<span ref={refCondition} className='required'>*required</span></p>
             <div className='radioBtns'>
               <div className="radioBtn">
-                <input onChange={(e)=>{setCondition1Field(e.target.value)}} type="radio" id='1' name="radioBtn" />
+                <input onChange={(e)=>{setCondition1Field(true)}} type="radio" id='1' name="radioBtn" />
                 <label htmlFor="1">
                   <p>New</p>
                 </label>
               </div>
               <div className="radioBtn">
-                <input onChange={(e)=>{setCondition2Field(e.target.value)}} type="radio" id='2' name="radioBtn" />
+                <input onChange={(e)=>{setCondition1Field(false)}} type="radio" id='2' name="radioBtn" />
                 <label htmlFor="2">
                   <p>Used</p>
                 </label>
@@ -187,20 +497,20 @@ export default function SellPage() {
             </div>
           </div>
           <div className="section3">
-            <p>Body Type</p>
-            <Select onChange={(e)=>{setBodyType(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
+            <p>Body Type<span ref={refBodyType} className='required'>*required</span></p>
+            <Select onChange={(e)=>{setBodyType(e.value)}} className='sectionFirst' styles={customStyles} options={bodyTypesOptions} />
           </div>
           <div className="section4">
-            <p>Brand</p>
-            <Select onChange={(e)=>{setBrand(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
+            <p>Brand<span ref={refBrand} className='required'>*required</span></p>
+            <Select onChange={(e)=>{setSelectedBrand(e.value); setSelectedModel('')}} className='sectionFirst' styles={customStyles} options={optionsBrands} />
           </div>
           <div className="section5">
-            <p>Model</p>
-            <Select onChange={(e)=>{setModel(e.value)}} className='sectionFirst' styles={customStyles} options={options} />
+            <p>Model<span ref={refModel} className='required'>*required</span></p>
+            <Select className='select' onChange={(e)=>{setSelectedModel(e)}} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="section6">
-            <p>Year</p>
-            <Select className='sectionFirst' styles={customStyles} options={options} />
+            <p>Year<span ref={refYear} className='required'>*required</span></p>
+            <Select onChange={(e)=>{setYear(e.value)}} className='sectionFirst' styles={customStyles} options={yearsOptions} />
           </div>
           <div className="section7">
             <p>Passenger Capacity</p>
@@ -217,12 +527,12 @@ export default function SellPage() {
             </div>
           </div>
           <div className="section8">
-            <p>Exterior Color<span ref={refColor} className='required'>*error</span></p>
-            <Select className='sectionFirst' styles={customStyles} options={options} />
+            <p>Exterior Color<span ref={refColor} className='required'>*required</span></p>
+            <Select className='sectionFirst' onChange={(e)=>{setSelectedColor(e.value)}} styles={customStyles} options={exteriorColors} />
           </div>
           <div className="section9">
-            <p>Description</p>
-            <textarea maxLength={250} placeholder='Write description about your car' className='textArea' id="" cols="30" rows="8"></textarea>
+            <p>Description<span ref={refDescription} className='required'>*required</span></p>
+            <textarea maxLength={250} onChange={(e)=>{setDescription(e.target.value)}} placeholder='Write description about your car' className='textArea' id="" cols="30" rows="8"></textarea>
           </div>
         </div>
       </div>
@@ -231,36 +541,36 @@ export default function SellPage() {
         <h2>Engine Details</h2>
         <div className="mainSecion">
           <div className='first'>
-            <p>Fuel Type<span ref={refFuelType} className='required'>*error</span></p>
-            <Select onChange={(e)=>{setFuelType(e.value)}} className='select' styles={customStyles} options={options} />
+            <p>Fuel Type<span ref={refFuelType} className='required'>*required</span></p>
+            <Select onChange={(e)=>{setFuelType(e.value)}} className='select' styles={customStyles} options={optionsFuelTypes} />
           </div>
           <div className='mid'>
-            <p>Mileage</p>
+            <p>Mileage<span ref={refMileage} className='required'>*required</span></p>
             <div className="inputDiv">
               <input onChange={(e)=>{setMileage(e.target.value)}} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
           <div className='last'>
-            <p>Transmission</p>
-            <Select className='select' styles={customStyles} options={options} />
+            <p>Transmission<span ref={refTransmission} className='required'>*required</span></p>
+            <Select className='select' onChange={(e)=>{setSelectedTransmission(e.value)}} styles={customStyles} options={optionsTransmissions} />
           </div>
           <div className='first'>
-            <p>Drivetrain</p>
-            <Select className='select' styles={customStyles} options={options} />
+            <p>Drivetrain<span ref={refDrivetrain} className='required'>*required</span></p>
+            <Select className='select' onChange={(e)=>{setSelectedDrivetrain(e.value)}} styles={customStyles} options={optionsDrivetrains} />
           </div>
           <div className='mid'>
-            <p>Engine Capacity</p>
+            <p>Engine Capacity<span ref={refEngineCapacity} className='required'>*required</span></p>
             <div className="inputDiv">
               <input onChange={(e)=>{setEngineCapacity(e.target.value)}} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
           <div className='last'>
-            <p>Power</p>
+            <p>Power<span ref={refPower} className='required'>*required</span></p>
             <div className="inputDiv">
               <input onChange={(e)=>{setPower(e.target.value)}} type="number" name="" id="" />
-              <p>km</p>
+              <p>hp</p>
             </div>
           </div>
         </div>
@@ -303,86 +613,17 @@ export default function SellPage() {
       <div className="features">
         <h2>Features</h2>
         <div className="checkList">
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="11" />
-            <label htmlFor="11">
-              <p>Power Steering</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="12" />
-            <label htmlFor="12">
-              <p>Heated Seats</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="13" />
-            <label htmlFor="13">
-              <p>Rear Parking Sensor</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="14" />
-            <label htmlFor="14">
-              <p>USB Port</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="15" />
-            <label htmlFor="15">
-              <p>AC</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="16" />
-            <label htmlFor="16">
-              <p>Wifi</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="17" />
-            <label htmlFor="17">
-              <p>Roof Rack</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="18" />
-            <label htmlFor="18">
-              <p>Sound System</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="19" />
-            <label htmlFor="19">
-              <p>Alarm</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="20" />
-            <label htmlFor="20">
-              <p>Cruise Control</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="21" />
-            <label htmlFor="21">
-              <p>Power Windows</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="22" />
-            <label htmlFor="22">
-              <p>Memory Seat</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="23" />
-            <label htmlFor="23">
-              <p>Bluetooth</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="24" />
-            <label htmlFor="24">
-              <p>Front Parking Sensor</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="25" />
-            <label htmlFor="25">
-              <p>Sunroof</p>
-            </label>
-          </div>
-          <div className="checkDiv"><input type="checkbox" name="featuresCheckbox" id="26" />
-            <label htmlFor="26">
-              <p>Other</p>
-            </label>
-          </div>
+          {featuresOptions.map(featureOption => {
+            return(
+            <div key={featureOption} className="checkDiv">
+              <input type="checkbox" onClick={()=>{addOrRemoveFeature(featureOption)}} name="featuresCheckbox" id={'featuresOptions' + featureOption} />
+              <label htmlFor={'featuresOptions' + featureOption}>
+                <p>{featureOption}</p>
+              </label>
+            </div>
+            )
+          })}
+        
         </div>
         {/* <textarea placeholder='Write another feature here' className='textArea' name="" id="" cols="30" rows="10"></textarea> */}
       </div>
@@ -390,14 +631,10 @@ export default function SellPage() {
       <div className="location">
         <h2>Location</h2>
         <div className="content">
-          <p>City:<span ref={refCity} className='required'>*error</span></p>
-          <Select onChange={(e)=>{setCity(e.value)}} className='selectLocation' options={options} styles={customStyles} />
+          <p>City:<span ref={refCity} className='required'>*required</span></p>
+          <Select onChange={(e)=>{changeCity(e)}} className='selectLocation' options={optionsLocation} styles={customStyles} />
           <div className="map" id="map">
-        <MapContainer  eventHandlers={{
-    click: (e) => {
-      console.log('marker clicked', e)
-    },
-  }} center={position} zoom={12}>
+        <MapContainer center={position} zoom={8}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -415,7 +652,7 @@ export default function SellPage() {
       <div className="price">
         <h2>Price</h2>
         <div className="content">
-          <p>Full Price:<span ref={refPrice} className='required'>*error</span></p>
+          <p>Full Price:<span ref={refPrice} className='required'>*required</span></p>
           <div className="input">
             <p>$</p>
             <input onChange={(e)=>{setPrice(e.target.value)}} type="number" />
@@ -424,8 +661,8 @@ export default function SellPage() {
         </div>
       </div>
 
-      <div className="images">
-        <h2>Images<span ref={refImages} className='required'>*error</span></h2>
+      {/*version2 =>  <div className="images">
+        <h2>Images<span ref={refImages} className='required'>*required (min 3)</span></h2>
         <div className="content">
           <div className="displayImages">
             {images.length ? images.map((img1, i) => {
@@ -440,7 +677,7 @@ export default function SellPage() {
             <p className='inputBtn'>Chose image</p>
           </label>
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="vehicleHistory">
         <h2>Vehicle History</h2>
@@ -459,7 +696,6 @@ export default function SellPage() {
         <p onClick={checkFields}>Sell My Car</p>
       </div>
     </form>
-    <Footer />
     <ToastContainer />
   </div>;
 }

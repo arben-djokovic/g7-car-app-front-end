@@ -1,10 +1,11 @@
 import React,{ useEffect, useRef, useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
 import '../styles/RegisterStyle/RegisterStyle.css'
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../api/apiCalls'
+import validator from 'validator'
+import Select from 'react-select'
 
 export default function RegisterPage() {
 
@@ -13,22 +14,69 @@ export default function RegisterPage() {
   const refNumber = useRef()
   const refPassword = useRef()
   const refUsername = useRef()
+  const refLocation = useRef()
 
   let [passwordInput, setPasswordInput] = useState('')
   let [nameInput, setNameInput] = useState('')
   let [numberInput, setNumberInput] = useState('')
   let [emailInput, setEmailInput] = useState('')
   let [usernameInput, setUsernameInput] = useState('')
+  let [optionsLocation, setOptionsLocation] = useState([])
+  let [location, setLocation] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    fetchLocation()
   }, [])
-
+  const fetchLocation = async () => {
+    try {
+      const response = await api.get('/locations')
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+      });
+      setTimeout(() => {
+        setOptionsLocation(brands)
+      }, 100);
+    }
+    catch (err) {
+      console.log('error')
+      console.log(err)
+    }
+  }
   const navigate = useNavigate()
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: '1px dotted pink',
+      color: 'white',
+      backgroundColor: '#152836',
+      padding: 20,
+      margin: 0,
+      cursor: 'pointer'
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      color: 'white'
+    }),
+    control: () => ({
+      // // none of react-select's styles are passed to <Control />
+      // width: 200,
+      display: 'flex',
+      color: 'white',
+    }),
+    singleValue: (provided, state) => {
+      const transition = 'opacity 300ms';
+      const color = 'color: white'
+
+      return { ...provided, transition, color };
+    }
+  };
 
   const registerBtn = () => {
-    if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.') || passwordInput.length < 5 || nameInput.length < 3 || numberInput.length < 6 || usernameInput.includes(' ') || usernameInput.length < 3 ){
-      if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
+    console.log(location)
+    if(!validator.isEmail(emailInput) || passwordInput.length < 5 || nameInput.length < 3 || numberInput.length < 6 || usernameInput.includes(' ') || usernameInput.length < 3 || location.length === 0){
+      if(!validator.isEmail(emailInput)){
         refEmail.current.style.color = 'red'
         toast.error("Please input real email!")
       }
@@ -46,7 +94,7 @@ export default function RegisterPage() {
         refName.current.style.color = 'red'
         toast.error("Name must have minimum 3 characters!")
       }
-      else{
+      else if(nameInput.length >= 3){
         refName.current.style.color = 'transparent'
       }
       if(numberInput.length < 6){
@@ -63,6 +111,13 @@ export default function RegisterPage() {
       else{
         refNumber.current.style.color = 'transparent'
       }
+      if(location.length === 0){
+        refLocation.current.style.color = 'red'
+        toast.error("Select Location")
+      }
+      else{
+        refLocation.current.style.color = 'transparent'
+      }
     }
     else{
       refEmail.current.style.color = 'transparent'
@@ -70,12 +125,32 @@ export default function RegisterPage() {
       refNumber.current.style.color = 'transparent'
       refPassword.current.style.color = 'transparent'
       refUsername.current.style.color = 'transparent'
-      toast.success('Inputs are good')
+      let newUser = {
+        user: {
+            email: String(emailInput),
+            password: String(passwordInput),
+            username: String(usernameInput)
+        },
+        location: String(location),
+        phone: String(numberInput),
+        full_name: nameInput
+      }
+      console.log(newUser)
+      addNewUser(newUser)
+    }
+  }
+  const addNewUser = async (newUser) => {
+    try{
+      const response = await api.post('/user/create/', newUser)
+      navigate('/log-in')
+      console.log(response)
+    }
+    catch(error){
+      console.log(error)
     }
   }
 
   return <div className='registerPage'>
-  <Header />
   <div className="registerSection">
     <div className="form">
       <div className="formInputDiv">
@@ -98,6 +173,10 @@ export default function RegisterPage() {
         <p>Password<span ref={refPassword} className='required'>*error</span></p>
         <input onChange={(e)=>{setPasswordInput(e.target.value)}} placeholder='password' type="password" />
       </div>
+      <div className="formInputDiv">
+        <p>Location<span ref={refLocation} className='required'>*error</span></p>
+        <Select onChange={(e)=>{setLocation(e.value)}} className='selectLocation' options={optionsLocation} styles={customStyles} />
+      </div>
       <div onClick={registerBtn} className="loginBtn">Create My Account</div>
       <p className='register'>Already have an account? <span onClick={()=>{
         navigate('/log-in')
@@ -105,7 +184,7 @@ export default function RegisterPage() {
     </div>
     <div className="welcome">
       <div className="welcomeContent">
-        <img className='logo' src="./assets/logo.png" alt="" />
+        <img onClick={()=>{navigate('/')}} className='logo' src="./assets/logo.png" alt="" />
         <div className="text">
           <h1>Register</h1>
           <h3>Welcome to Autohunt</h3>
@@ -118,7 +197,6 @@ export default function RegisterPage() {
       </div>
     </div>
   </div>
-  <Footer />
   <ToastContainer />
 </div>;
 }

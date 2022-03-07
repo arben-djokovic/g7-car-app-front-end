@@ -1,41 +1,59 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import '../styles/CarStyle/CarStyle.css'
 import { useNavigate } from 'react-router';
+import api from '../api/apiCalls';
 
-export default function Car({ isNew }) {
+export default function Car( {car} ) {
 
     const navigate = useNavigate()
+    let [banner, setBanner] = useState('')
+    useEffect(()=>{
+        fetchModelImages()
+    }, [car])
 
-    return <div onClick={()=>{navigate('/product/1')}} className="car">
-        <img className='carImages' src="../assets/tesla-car.png" alt="" />
+    const fetchModelImages = async() => {
+        if(car.brand_model) {
+            try{
+                const response = await api.get('/banners/' + car.brand_model + '/')
+                setBanner(response.data.banner)
+            }
+            catch(err){
+                console.log(err.response.data)
+                console.log(err.request.message)
+            }
+        }
+    }
+
+    return <div onClick={()=>{navigate('/product/'+car.id)}} className="car">
+        <img className='carImages' src={banner} alt="" />
         <div className="aboutCar">
-            {isNew ? <p className="newBage">New</p> : <p className="newBage">Used</p>}
-            <h2 className="carName">Tesla Model 3 Standard Range Plus</h2>
-            <h2 className="carPrice">$18,990</h2>
+            <p className="newBage">{car.condition}</p>
+            <h2 className="carName">{car.name}</h2>
+            <h2 className="carPrice">${car.price}</h2>
             <p className="carLocation">Florida, USA</p>
             <div className="carInfos">
                 <div>
                     <div>
-                        <img src="./assets/calendar.png" alt="" />
-                        <p>2020</p>
+                        <img src="../assets/calendar.png" alt="" />
+                        <p>{car.year}</p>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <img src="./assets/wheel.png" alt="" />
-                        <p>Rear-wheel Drive</p>
+                        <img src="../assets/wheel.png" alt="" />
+                        <p>{car.drivetrain}</p>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <img src="./assets/gas.png" alt="" />
-                        <p>Electric</p>
+                        <img src="../assets/gas.png" alt="" />
+                        <p>{car.fuel_type}</p>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <img src="./assets/seats.png" alt="" />
-                        <p>5</p>
+                        <img src="../assets/seats.png" alt="" />
+                        <p>{car.seat_count}</p>
                     </div>
                 </div>
             </div>

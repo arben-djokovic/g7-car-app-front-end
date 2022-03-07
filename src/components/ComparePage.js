@@ -1,11 +1,10 @@
 import React,{ useEffect, useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
 import '../styles/CompareStyle/CompareStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { compareCar1Action, compareCar2Action } from './../redux/actions';
+import api from '../api/apiCalls'
 
 export default function ComparePage() {
 
@@ -14,6 +13,10 @@ export default function ComparePage() {
     let zadnjiDio = window.location.href.split('/')[window.location.href.split('/').length - 1]
     dispatch(compareCar1Action(zadnjiDio.split('&')[0]))
     dispatch(compareCar2Action(zadnjiDio.split('&')[1]))
+    
+    fetchFirstCarById(zadnjiDio.split('&')[0])
+    fetchSecondCarById(zadnjiDio.split('&')[1])
+
   }, [])
 
   const navigate = useNavigate()
@@ -21,16 +24,38 @@ export default function ComparePage() {
 
   let compareCar1 = useSelector(store => store.compareCar1)
   let compareCar2 = useSelector(store => store.compareCar2)
+  
+  let [car1, setCar1] = useState({features: []})
+  let [car2, setCar2] = useState({features: []})
 
   let [filterOptions1, setFilterOptions1] = useState(true)
   let [filterOptions2, setFilterOptions2] = useState(true)
   let [filterOptions3, setFilterOptions3] = useState(true)
   let [filterOptions4, setFilterOptions4] = useState(true)
-  let [filterOptions5, setFilterOptions5] = useState(true)
-  // let [filterOptions6, setFilterOptions6] = useState(true)
+  let [filterOptions5, setFilterOptions5] = useState(true) 
 
 
 
+  const fetchFirstCarById = async (id) => {
+    try{
+      const response = await api.get('/vehicle/'+id)
+      setCar1(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
+  const fetchSecondCarById = async (id) => {
+    try{
+      const response = await api.get('/vehicle/'+id)
+      setCar2(response.data)
+    }
+    catch(err){
+      console.log('error')
+      console.log(err)
+    }
+  }
   const closeOptions = (e) => {
     if (e.target.id == 1) {
       setFilterOptions1(filterOptions1 => !filterOptions1)
@@ -47,9 +72,6 @@ export default function ComparePage() {
     else if (e.target.id == 5) {
       setFilterOptions5(filterOptions5 => !filterOptions5)
     }
-    // else if (e.target.id == 6) {
-    //   setFilterOptions6(filterOptions6 => !filterOptions6)
-    // }
     if (e.target.parentElement.children[1].className === 'optionsOpen') {
       e.target.parentElement.children[1].style.cssText += 'margin-top: -30px'
       setTimeout(() => {
@@ -64,7 +86,6 @@ export default function ComparePage() {
     }
   }
   return <div>
-    <Header />
     <div className="comparePage">
       <div className="header">
         <h1>Compare Cars</h1>
@@ -81,8 +102,8 @@ export default function ComparePage() {
                 <p>X REMOVE</p>
               </div>
             </div>
-            <Car />
-          </div> : <div className='unSelectedCar'>
+            <Car car={car1} />
+          </div> : <div onClick={()=>{navigate('/search?')}} className='unSelectedCar'>
               <p>Add Car</p>
             </div>}
           {compareCar2.length ? <div className="firstCard">
@@ -94,8 +115,8 @@ export default function ComparePage() {
                 <p>X REMOVE</p>
               </div>
             </div>
-            <Car />
-          </div> : <div className='unSelectedCar'>
+            <Car car={car2} />
+          </div> : <div onClick={()=>{navigate('/search?')}} className='unSelectedCar'>
               <p>Add Car</p>
             </div>}
         </div>
@@ -112,8 +133,8 @@ export default function ComparePage() {
                     <p>Body Type</p>
                   </div>
                   <div className="infos">
-                    <p>Pickup Truck</p>
-                    <p>SUV</p>
+                    <p>{car1.vehicle_type}</p>
+                    <p>{car2.vehicle_type}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -121,8 +142,8 @@ export default function ComparePage() {
                     <p>Exterior Color</p>
                   </div>
                   <div className="infos">
-                    <p>Black</p>
-                    <p>Blue</p>
+                    <p>{car1.color}</p>
+                    <p>{car2.color}</p>
                   </div>
                 </div>
               </div>
@@ -141,8 +162,8 @@ export default function ComparePage() {
                     <p>Milage</p>
                   </div>
                   <div className="infos">
-                    <p>788 km</p>
-                    <p>722 km</p>
+                    <p>{car1.milage} km</p>
+                    <p>{car2.milage} km</p>
                   </div>
                 </div>
                 <div className="section">
@@ -150,8 +171,8 @@ export default function ComparePage() {
                     <p>Transmission</p>
                   </div>
                   <div className="infos">
-                    <p>Automatic</p>
-                    <p>Automatic</p>
+                    <p>{car1.gear_type}</p>
+                    <p>{car2.gear_type}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -159,8 +180,8 @@ export default function ComparePage() {
                     <p>Engine Capacity</p>
                   </div>
                   <div className="infos">
-                    <p>6700 cc</p>
-                    <p>3471 cc</p>
+                    <p>{car1.horse_power}hp</p>
+                    <p>{car2.horse_power}hp</p>
                   </div>
                 </div>
               </div>
@@ -179,8 +200,8 @@ export default function ComparePage() {
                     <p>Length</p>
                   </div>
                   <div className="infos">
-                    <p>6350 mm</p>
-                    <p>6350 mm</p>
+                    <p>{car1['length']} mm</p>
+                    <p>{car2['length']} mm</p>
                   </div>
                 </div>
                 <div className="section">
@@ -188,8 +209,8 @@ export default function ComparePage() {
                     <p>Width</p>
                   </div>
                   <div className="infos">
-                    <p>2689 mm</p>
-                    <p>2689 mm</p>
+                    <p>{car1.width} mm</p>
+                    <p>{car2.width} mm</p>
                   </div>
                 </div>
                 <div className="section">
@@ -197,8 +218,8 @@ export default function ComparePage() {
                     <p>Height</p>
                   </div>
                   <div className="infos">
-                    <p>2014 mm</p>
-                    <p>2014 mm</p>
+                    <p>{car1.height} mm</p>
+                    <p>{car1.height} mm</p>
                   </div>
                 </div>
                 <div className="section">
@@ -206,8 +227,8 @@ export default function ComparePage() {
                     <p>Cargo Volume</p>
                   </div>
                   <div className="infos">
-                    <p>1475 L</p>
-                    <p>1475 L</p>
+                    <p>{car1.cargo_volume} L</p>
+                    <p>{car2.cargo_volume} L</p>
                   </div>
                 </div>
               </div>
@@ -223,11 +244,11 @@ export default function ComparePage() {
               <div className={filterOptions4 ? 'optionsOpen' : 'optionsClosed'} >
                 <div className="section">
                   <div className="sectionHeader">
-                    <p>Cruise Control</p>
+                    <p>USB Port</p>
                   </div>
                   <div className="infos">
-                    <p>Optional</p>
-                    <p>Standard</p>
+                    <p>{car1.features.includes('USB Port') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('USB Port') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -235,8 +256,8 @@ export default function ComparePage() {
                     <p>Heated Seat</p>
                   </div>
                   <div className="infos">
-                    <p>No</p>
-                    <p>Yes</p>
+                    <p>{car1.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -244,8 +265,8 @@ export default function ComparePage() {
                     <p>Front Parking Sensor</p>
                   </div>
                   <div className="infos">
-                    <p>No</p>
-                    <p>Yes</p>
+                    <p>{car1.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -253,8 +274,8 @@ export default function ComparePage() {
                     <p>Bluetooth</p>
                   </div>
                   <div className="infos">
-                    <p>Yes</p>
-                    <p>Yes</p>
+                    <p>{car1.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -262,17 +283,17 @@ export default function ComparePage() {
                     <p>Sunroof</p>
                   </div>
                   <div className="infos">
-                    <p>Yes</p>
-                    <p>Yes</p>
+                    <p>{car1.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
                   <div className="sectionHeader">
-                    <p>Upholstery</p>
+                    <p>Alarm</p>
                   </div>
                   <div className="infos">
-                    <p>Vinyl</p>
-                    <p>Leather</p>
+                    <p>{car1.features.includes('Alarm') ? 'Yes' : 'No'}</p>
+                    <p>{car2.features.includes('Alarm') ? 'Yes' : 'No'}</p>
                   </div>
                 </div>
                 <div className="section">
@@ -280,8 +301,20 @@ export default function ComparePage() {
                     <p>Other</p>
                   </div>
                   <div className="infos">
-                    <p>Power Steering, Alarm, Wifi, USB Port</p>
-                    <p>Keyless Start, Sound System, Wifi, USB Port</p>
+                    <p>{car1.features.map(carFeature => {
+                      if(carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm'){
+                      } 
+                      else{
+                        return(<span key={carFeature}>{carFeature} </span>)
+                      }
+                    })}</p>
+                    <p>{car2.features.map(carFeature => {
+                      if(carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm'){
+                      } 
+                      else{
+                        return(<span key={carFeature}>{carFeature}, </span>)
+                      }
+                    })}</p>
                   </div>
                 </div>
               </div>
@@ -315,13 +348,14 @@ export default function ComparePage() {
                       <img src="../assets/tesla-car.png" alt="" />
                       <img src="../assets/tesla-car.png" alt="" />
                     </div>
-                    {/* <p>See more</p> */}
+                    {/* version2 => <p>See more</p> */}
                   </div>
                 </div>
               </div>
           </div>
         </div>
-        {/* <div className="vehicleHistory">
+        {/* version2 =>
+        <div className="vehicleHistory">
           <div className="selectSection">
               <div onClick={closeOptions} id="6" className="selectHeader">
                 <p></p>
@@ -341,6 +375,5 @@ export default function ComparePage() {
        
       </div>
     </div>
-    <Footer />
   </div>;
 }

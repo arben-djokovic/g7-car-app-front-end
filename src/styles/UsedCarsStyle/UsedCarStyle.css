@@ -26,6 +26,7 @@
   max-width: 450px;
   background-color: #071620;
   margin-left: 0px;
+  margin-bottom: 50px;
 }
 
 .usedCars .usedCarsContent .filterSection .filterHeader {
@@ -51,6 +52,31 @@
 
 .usedCars .usedCarsContent .filterSection .filterHeader .fa:hover {
   opacity: .8;
+}
+
+.usedCars .usedCarsContent .filterSection .selectCondition {
+  margin: 20px 0;
+}
+
+.usedCars .usedCarsContent .filterSection .selectCondition > p {
+  font-size: 18px;
+}
+
+.usedCars .usedCarsContent .filterSection .selectCondition .radioBtns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 0;
+}
+
+.usedCars .usedCarsContent .filterSection .selectCondition .radioBtns .radioBtn {
+  margin: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .filterSection .selectCondition .radioBtns .radioBtn input, .usedCars .usedCarsContent .filterSection .selectCondition .radioBtns .radioBtn label, .usedCars .usedCarsContent .filterSection .selectCondition .radioBtns .radioBtn p {
+  cursor: pointer;
 }
 
 .usedCars .usedCarsContent .filterSection .selectSection {
@@ -187,6 +213,11 @@
   opacity: .8;
 }
 
+.usedCars .usedCarsContent .filterSection .resetFilters:active {
+  border: 2px solid red;
+  color: red;
+}
+
 .usedCars .usedCarsContent .mainSeciton {
   width: 50vw;
   display: -webkit-box;
@@ -202,6 +233,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin-bottom: 100px;
   grid-gap: 30px;
 }
 
@@ -295,6 +327,7 @@
           align-items: center;
   text-align: center;
   padding: 10px 2px;
+  min-width: 70px;
   cursor: pointer;
 }
 
@@ -303,7 +336,7 @@
 }
 
 .usedCars .usedCarsContent .mainSeciton .carsSection {
-  padding-bottom: 100px;
+  padding-bottom: 20px;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -340,12 +373,55 @@
 
 .usedCars .usedCarsContent .mainSeciton .carsSection .car .carImages {
   max-height: 200px;
-  width: auto;
-  max-width: 100%;
 }
 
 .usedCars .usedCarsContent .mainSeciton .carsSection .car img {
   max-width: 350px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  grid-gap: 20px;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage p {
+  padding: 3px 10px;
+  font-size: 20px;
+  background-color: black;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage p:hover {
+  opacity: .8;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage .noMore {
+  border: 1px solid gray;
+  color: gray;
+  cursor: default;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage .noMore:hover {
+  opacity: 1;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage .more {
+  border: 1px solid white;
+  background-color: black;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .mainSeciton .nextOrPreviousPage .more:hover {
+  opacity: .8;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -410,6 +486,18 @@
   }
   .usedCars .usedCarsContent .mainSeciton .carsSection .car img {
     max-width: 350px;
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection .car .aboutCar {
+    width: 100%;
+  }
+  .usedCars .usedCarsContent .mainSeciton .carsSection .car .carInfos {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 

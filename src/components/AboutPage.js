@@ -1,8 +1,6 @@
 import React,{useEffect} from 'react';
-import Header from './Header';
 import '../styles/AboutStyle/AboutStyle.css'
 import { useNavigate } from 'react-router';
-import Footer from './Footer';
 
 export default function AboutPage() {
   const navigate = useNavigate()
@@ -10,7 +8,6 @@ export default function AboutPage() {
     window.scrollTo(0, 0)
   }, [])
   return <div className='about'>
-    <Header />
     <div className="firstSection">
       <h1>About Us</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel aliquet tortor ut sit sit. Velit imperdiet integer elementum a scelerisque pulvinar venenatis sodales.</p>
@@ -71,6 +68,5 @@ export default function AboutPage() {
         <img src="./assets/peugeot-logo.png" alt="" />
         <img src="./assets/volvo-logo.png" alt="" />
       </div>
-      <Footer />
   </div>;
 }

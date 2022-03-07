@@ -33,6 +33,10 @@
             width: 70%;
             min-width: 250px;
             margin-bottom: 20px;
+            .selectLocation{
+                background-color: #152836;
+                margin-top: 5px;
+            }
             input{
                 margin-top: 5px;
                 width: calc(100% - 16px);
@@ -87,6 +91,10 @@
             .logo{
                 height: 3vw;
                 min-height: 30px;
+                cursor: pointer;
+                &:hover{
+                    opacity: .8;
+                }
             }
                 .text{
                     margin: 20px 0px;

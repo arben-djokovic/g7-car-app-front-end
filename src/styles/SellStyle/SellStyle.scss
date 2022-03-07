@@ -4,6 +4,11 @@
       -webkit-appearance: none;
       margin: 0;
     }
+    .carDetails, .engineDetails, .dimensions, .features, .location, .price, .images{
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .map{
         margin-top: 30px;
         height: 350px; 
@@ -32,7 +37,6 @@
     .carDetails {
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -119,7 +123,6 @@
     .engineDetails {
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -188,7 +191,6 @@
     .dimensions {
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -233,7 +235,6 @@
     .features{
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -270,7 +271,6 @@
     .location{
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -297,7 +297,6 @@
     .price{
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
@@ -332,7 +331,6 @@
     .images{
         padding: 4vw;
         background-color: #071620;
-        margin: 0px 2vw;
         margin-bottom: 50px;
         h2 {
             margin-bottom: 30px;
