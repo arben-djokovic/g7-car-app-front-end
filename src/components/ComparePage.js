@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/CompareStyle/CompareStyle.css'
 import Car from './Car';
 import { useNavigate } from 'react-router';
@@ -13,7 +13,7 @@ export default function ComparePage() {
     let zadnjiDio = window.location.href.split('/')[window.location.href.split('/').length - 1]
     dispatch(compareCar1Action(zadnjiDio.split('&')[0]))
     dispatch(compareCar2Action(zadnjiDio.split('&')[1]))
-    
+
     fetchFirstCarById(zadnjiDio.split('&')[0])
     fetchSecondCarById(zadnjiDio.split('&')[1])
 
@@ -24,35 +24,33 @@ export default function ComparePage() {
 
   let compareCar1 = useSelector(store => store.compareCar1)
   let compareCar2 = useSelector(store => store.compareCar2)
-  
-  let [car1, setCar1] = useState({features: []})
-  let [car2, setCar2] = useState({features: []})
+
+  let [car1, setCar1] = useState({ features: [] })
+  let [car2, setCar2] = useState({ features: [] })
 
   let [filterOptions1, setFilterOptions1] = useState(true)
   let [filterOptions2, setFilterOptions2] = useState(true)
   let [filterOptions3, setFilterOptions3] = useState(true)
   let [filterOptions4, setFilterOptions4] = useState(true)
-  let [filterOptions5, setFilterOptions5] = useState(true) 
+  let [filterOptions5, setFilterOptions5] = useState(true)
 
 
 
   const fetchFirstCarById = async (id) => {
-    try{
-      const response = await api.get('/vehicle/'+id)
+    try {
+      const response = await api.get('/vehicle/' + id)
       setCar1(response.data)
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchSecondCarById = async (id) => {
-    try{
-      const response = await api.get('/vehicle/'+id)
+    try {
+      const response = await api.get('/vehicle/' + id)
       setCar2(response.data)
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
@@ -95,263 +93,263 @@ export default function ComparePage() {
         <div className="compareCards">
           {compareCar1.length ? <div className="firstCard">
             <div className="removeCar">
-              <div onClick={()=>{
-                  dispatch(compareCar1Action(''))
-                  navigate('/compare/' + '' + '&' +compareCar2)
-                }} className="removeCarBtn">
+              <div onClick={() => {
+                dispatch(compareCar1Action(''))
+                navigate('/compare/' + '' + '&' + compareCar2)
+              }} className="removeCarBtn">
                 <p>X REMOVE</p>
               </div>
             </div>
             <Car car={car1} />
-          </div> : <div onClick={()=>{navigate('/search?')}} className='unSelectedCar'>
-              <p>Add Car</p>
-            </div>}
+          </div> : <div onClick={() => { navigate('/search?') }} className='unSelectedCar'>
+            <p>Add Car</p>
+          </div>}
           {compareCar2.length ? <div className="firstCard">
             <div className="removeCar">
-              <div onClick={()=>{
-                  dispatch(compareCar2Action(''))
-                  navigate('/compare/' + compareCar1 + '&' + '')
-                }} className="removeCarBtn">
+              <div onClick={() => {
+                dispatch(compareCar2Action(''))
+                navigate('/compare/' + compareCar1 + '&' + '')
+              }} className="removeCarBtn">
                 <p>X REMOVE</p>
               </div>
             </div>
             <Car car={car2} />
-          </div> : <div onClick={()=>{navigate('/search?')}} className='unSelectedCar'>
-              <p>Add Car</p>
-            </div>}
+          </div> : <div onClick={() => { navigate('/search?') }} className='unSelectedCar'>
+            <p>Add Car</p>
+          </div>}
         </div>
         <div className="generalInfo">
           <div className="selectSection">
-              <div onClick={closeOptions} id="1" className="selectHeader">
-                <p></p>
-                <h3>General Infos</h3>
-                {filterOptions1 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
-              </div>
-              <div className={filterOptions1 ? 'optionsOpen' : 'optionsClosed'} >
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Body Type</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.vehicle_type}</p>
-                    <p>{car2.vehicle_type}</p>
-                  </div>
+            <div onClick={closeOptions} id="1" className="selectHeader">
+              <p></p>
+              <h3>General Infos</h3>
+              {filterOptions1 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
+            </div>
+            <div className={filterOptions1 ? 'optionsOpen' : 'optionsClosed'} >
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Body Type</p>
                 </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Exterior Color</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.color}</p>
-                    <p>{car2.color}</p>
-                  </div>
+                <div className="infos">
+                  <p>{car1.vehicle_type}</p>
+                  <p>{car2.vehicle_type}</p>
                 </div>
               </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Exterior Color</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.color}</p>
+                  <p>{car2.color}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="engineDetails">
           <div className="selectSection">
-              <div onClick={closeOptions} id="2" className="selectHeader">
-                <p></p>
-                <h3>Engine Details</h3>
-                {filterOptions2 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
-              </div>
-              <div className={filterOptions2 ? 'optionsOpen' : 'optionsClosed'} >
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Milage</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.milage} km</p>
-                    <p>{car2.milage} km</p>
-                  </div>
+            <div onClick={closeOptions} id="2" className="selectHeader">
+              <p></p>
+              <h3>Engine Details</h3>
+              {filterOptions2 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
+            </div>
+            <div className={filterOptions2 ? 'optionsOpen' : 'optionsClosed'} >
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Milage</p>
                 </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Transmission</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.gear_type}</p>
-                    <p>{car2.gear_type}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Engine Capacity</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.horse_power}hp</p>
-                    <p>{car2.horse_power}hp</p>
-                  </div>
+                <div className="infos">
+                  <p>{car1.milage} km</p>
+                  <p>{car2.milage} km</p>
                 </div>
               </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Transmission</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.gear_type}</p>
+                  <p>{car2.gear_type}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Engine Capacity</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.horse_power}hp</p>
+                  <p>{car2.horse_power}hp</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="dimensionsDetails">
           <div className="selectSection">
-              <div onClick={closeOptions} id="3" className="selectHeader">
-                <p></p>
-                <h3>Dimensions Details</h3>
-                {filterOptions3 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
-              </div>
-              <div className={filterOptions3 ? 'optionsOpen' : 'optionsClosed'} >
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Length</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1['length']} mm</p>
-                    <p>{car2['length']} mm</p>
-                  </div>
+            <div onClick={closeOptions} id="3" className="selectHeader">
+              <p></p>
+              <h3>Dimensions Details</h3>
+              {filterOptions3 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
+            </div>
+            <div className={filterOptions3 ? 'optionsOpen' : 'optionsClosed'} >
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Length</p>
                 </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Width</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.width} mm</p>
-                    <p>{car2.width} mm</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Height</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.height} mm</p>
-                    <p>{car1.height} mm</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Cargo Volume</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.cargo_volume} L</p>
-                    <p>{car2.cargo_volume} L</p>
-                  </div>
+                <div className="infos">
+                  <p>{car1['length']} mm</p>
+                  <p>{car2['length']} mm</p>
                 </div>
               </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Width</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.width} mm</p>
+                  <p>{car2.width} mm</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Height</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.height} mm</p>
+                  <p>{car1.height} mm</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Cargo Volume</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.cargo_volume} L</p>
+                  <p>{car2.cargo_volume} L</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="feature">
+        {/* version 2 => <div className="feature">
           <div className="selectSection">
-              <div onClick={closeOptions} id="4" className="selectHeader">
-                <p></p>
-                <h3>Feature</h3>
-                {filterOptions4 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
-              </div>
-              <div className={filterOptions4 ? 'optionsOpen' : 'optionsClosed'} >
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>USB Port</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('USB Port') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('USB Port') ? 'Yes' : 'No'}</p>
-                  </div>
+            <div onClick={closeOptions} id="4" className="selectHeader">
+              <p></p>
+              <h3>Feature</h3>
+              {filterOptions4 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
+            </div>
+            <div className={filterOptions4 ? 'optionsOpen' : 'optionsClosed'} >
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>USB Port</p>
                 </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Heated Seat</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Front Parking Sensor</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Bluetooth</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Sunroof</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Alarm</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.includes('Alarm') ? 'Yes' : 'No'}</p>
-                    <p>{car2.features.includes('Alarm') ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="section">
-                  <div className="sectionHeader">
-                    <p>Other</p>
-                  </div>
-                  <div className="infos">
-                    <p>{car1.features.map(carFeature => {
-                      if(carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm'){
-                      } 
-                      else{
-                        return(<span key={carFeature}>{carFeature} </span>)
-                      }
-                    })}</p>
-                    <p>{car2.features.map(carFeature => {
-                      if(carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm'){
-                      } 
-                      else{
-                        return(<span key={carFeature}>{carFeature}, </span>)
-                      }
-                    })}</p>
-                  </div>
+                <div className="infos">
+                  <p>{car1.features.includes('USB Port') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('USB Port') ? 'Yes' : 'No'}</p>
                 </div>
               </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Heated Seat</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('Heated Seats') ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Front Parking Sensor</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('Front Parking Sensor') ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Bluetooth</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('Bluetooth') ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Sunroof</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('Sunroof') ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Alarm</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.includes('Alarm') ? 'Yes' : 'No'}</p>
+                  <p>{car2.features.includes('Alarm') ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+              <div className="section">
+                <div className="sectionHeader">
+                  <p>Other</p>
+                </div>
+                <div className="infos">
+                  <p>{car1.features.map(carFeature => {
+                    if (carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm') {
+                    }
+                    else {
+                      return (<span key={carFeature}>{carFeature} </span>)
+                    }
+                  })}</p>
+                  <p>{car2.features.map(carFeature => {
+                    if (carFeature === 'USB Port' || carFeature === 'Heated Seat' || carFeature === 'Front Parking Sensor' || carFeature === 'Bluetooth' || carFeature === 'Sunroof' || carFeature === 'Alarm') {
+                    }
+                    else {
+                      return (<span key={carFeature}>{carFeature}, </span>)
+                    }
+                  })}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </div> */}
         <div className="images">
           <div className="selectSection">
-              <div onClick={closeOptions} id="5" className="selectHeader">
-                <p></p>
-                <h3>Images</h3>
-                {filterOptions5 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
-              </div>
-              <div className={filterOptions5 ? 'optionsOpen' : 'optionsClosed'} >
-                 <div className="sectionImage">
-                  <div className="imagesSection">
-                    <div className="images">
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                    </div>
-                    {/* <p>See more</p> */}
+            <div onClick={closeOptions} id="5" className="selectHeader">
+              <p></p>
+              <h3>Images</h3>
+              {filterOptions5 ? <img className='arrow' src="./assets/upload.png" alt="" /> : <img className='arrow' src="./assets/down-arrow.png" alt="" />}
+            </div>
+            <div className={filterOptions5 ? 'optionsOpen' : 'optionsClosed'} >
+              <div className="sectionImage">
+                <div className="imagesSection">
+                  <div className="images">
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
                   </div>
-                  <div className="imagesSection">
-                    <div className="images">
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                      <img src="../assets/tesla-car.png" alt="" />
-                    </div>
-                    {/* version2 => <p>See more</p> */}
+                  {/* <p>See more</p> */}
+                </div>
+                <div className="imagesSection">
+                  <div className="images">
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
+                    <img src="../assets/tesla-car.png" alt="" />
                   </div>
+                  {/* version2 => <p>See more</p> */}
                 </div>
               </div>
+            </div>
           </div>
         </div>
         {/* version2 =>
@@ -372,7 +370,7 @@ export default function ComparePage() {
               </div>
           </div>
         </div> */}
-       
+
       </div>
     </div>
   </div>;

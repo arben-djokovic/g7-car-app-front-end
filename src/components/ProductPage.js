@@ -26,8 +26,8 @@ export default function ProductPage() {
   let [commentInput, setCommentInput] = useState('')
   let [productId, setProductId] = useState(window.location.href.split('/').slice(-1)[0])
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  let [car, setCar] = useState({features: [1,2]})
-  let [userInfo, setUserInfo] = useState({user:{email:''}})
+  let [car, setCar] = useState({ features: [1, 2] })
+  let [userInfo, setUserInfo] = useState({ user: { email: '' } })
   let [images, setImages] = useState([])
 
   useEffect(() => {
@@ -35,60 +35,58 @@ export default function ProductPage() {
     fetchCarById()
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchLocation()
-  },[location])
-  
-  useEffect(()=>{
-    if(car.created_by){
+  }, [location])
+
+  useEffect(() => {
+    if (car.created_by) {
       fetchUserInfo()
       fetchModelImages()
     }
-  },[car])
+  }, [car])
 
   const fetchCarById = async () => {
-    try{
+    try {
       const response = await api.get('/vehicle/' + productId + '/')
       setCar(response.data)
       setLocation(response.data.location)
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchLocation = async () => {
-    try{
+    try {
       const response = await api.get('/locations')
       response.data.map(locationItem => {
-        if(locationItem.value == location){
+        if (locationItem.value == location) {
           setPosition([locationItem.latitude, locationItem.longitude])
         }
       })
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const compareThisCar = () => {
-    if(compareCar1.length < 1){
+    if (compareCar1.length < 1) {
       navigate('/compare/' + productId + '&' + compareCar2)
     }
-    else if(compareCar2.length < 1){
+    else if (compareCar2.length < 1) {
       navigate('/compare/' + compareCar1 + '&' + productId)
     }
-    else{
+    else {
       navigate('/compare/' + productId + '&' + compareCar2)
     }
   }
 
-  const fetchUserInfo = async() =>{
-    try{
+  const fetchUserInfo = async () => {
+    try {
       const response = await api.get('/user/' + car.created_by)
       setUserInfo(response.data[0])
     }
-    catch(error){
+    catch (error) {
     }
   }
 
@@ -123,19 +121,18 @@ export default function ProductPage() {
       toast.success("Message Sent")
     }
   }
-  
-    const fetchModelImages = async() => {
-        if(car.brand_model) {
-            try{
-                const response = await api.get('/banners/' + car.brand_model + '/')
-                setImages([ response.data.image1, response.data.image2, response.data.image3,response.data.banner])
-            }
-            catch(err){
-                console.log(err.response.data)
-                console.log(err.request.message)
-            }
-        }
+
+  const fetchModelImages = async () => {
+    if (car.brand_model) {
+      try {
+        const response = await api.get('/banners/' + car.brand_model + '/')
+        setImages([response.data.image1, response.data.image2, response.data.image3, response.data.banner])
+      }
+      catch (err) {
+        console.log(err.response.data)
+      }
     }
+  }
 
 
   return <div className='productPage'>
@@ -156,7 +153,7 @@ export default function ProductPage() {
         className="mySwiper2"
       >
         {images.map((imgUrl, i) => {
-          return(
+          return (
             <SwiperSlide key={imgUrl + i}>
               <img src={imgUrl} />
             </SwiperSlide>
@@ -173,13 +170,13 @@ export default function ProductPage() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-      {images.map((imgUrl, i) => {
-        return(
-          <SwiperSlide key={imgUrl + i}>
-            <img src={imgUrl} />
-          </SwiperSlide>
-        )
-      })}
+        {images.map((imgUrl, i) => {
+          return (
+            <SwiperSlide key={imgUrl + i}>
+              <img src={imgUrl} />
+            </SwiperSlide>
+          )
+        })}
 
       </Swiper>
     </div>
@@ -189,7 +186,7 @@ export default function ProductPage() {
           <h2>Description</h2>
           <p>{car.description}</p>
         </div>
-       {/* <div className="featuresSection">
+        {/* <div className="featuresSection">
           <h2>Dealer Info</h2>
            <div className="features">
             {car.features.length > 1 ? car.features.map(feature => {

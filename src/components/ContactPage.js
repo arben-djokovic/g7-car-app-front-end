@@ -1,7 +1,7 @@
-import React,{ useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../styles/ContactStyle/ContactStyle.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function ContactPage() {
   let [nameInput, setNameInput] = useState('')
@@ -15,37 +15,37 @@ export default function ContactPage() {
   const refCommentError = useRef()
 
   const sendMessage = () => {
-    if(nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30){
-      if(nameInput.length < 3){
+    if (nameInput.length < 3 || (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) || phoneInput.length < 4 || commentInput.length < 30) {
+      if (nameInput.length < 3) {
         refNameError.current.style.color = 'red'
         toast.error('Name must have minimum 3 characters')
       }
-      else{
+      else {
         refNameError.current.style.color = 'transparent'
       }
-      if(emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')){
+      if (emailInput.length < 4 || !emailInput.includes('@') || !emailInput.includes('.')) {
         refEmailError.current.style.color = 'red'
         toast.error('Input real email')
       }
-      else{
+      else {
         refEmailError.current.style.color = 'transparent'
       }
-      if(phoneInput.length < 4){
+      if (phoneInput.length < 4) {
         refPhoneError.current.style.color = 'red'
         toast.error('Phone number must have minimum 4 characters')
       }
-      else{
+      else {
         refPhoneError.current.style.color = 'transparent'
       }
-      if(commentInput.length < 30){
+      if (commentInput.length < 30) {
         refCommentError.current.style.color = 'red'
         toast.error('Comment length must be between 30-300')
       }
-      else{
+      else {
         refCommentError.current.style.color = 'transparent'
       }
     }
-    else{
+    else {
       refNameError.current.style.color = 'transparent'
       refEmailError.current.style.color = 'transparent'
       refPhoneError.current.style.color = 'transparent'
@@ -65,19 +65,19 @@ export default function ContactPage() {
         <div className="form">
           <div>
             <p>Name<span ref={refNameError} className='required'>*error</span></p>
-            <input onChange={(e)=>{setNameInput(e.target.value)}} placeholder='Full Name' type="name" />
+            <input onChange={(e) => { setNameInput(e.target.value) }} placeholder='Full Name' type="name" />
           </div>
           <div>
             <p>Email<span ref={refEmailError} className='required'>*error</span></p>
-            <input onChange={(e)=>{setEmailInput(e.target.value)}} placeholder='email@mail.com' type="email" />
+            <input onChange={(e) => { setEmailInput(e.target.value) }} placeholder='email@mail.com' type="email" />
           </div>
           <div>
             <p>Phone<span ref={refPhoneError} className='required'>*error</span></p>
-            <input onChange={(e)=>{setPhoneInput(e.target.value)}} placeholder='000-000-000' type="number" />
+            <input onChange={(e) => { setPhoneInput(e.target.value) }} placeholder='000-000-000' type="number" />
           </div>
           <div>
             <p>Comment<span ref={refCommentError} className='required'>*error</span></p>
-            <textarea onChange={(e)=>{setCommentInput(e.target.value)}} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
+            <textarea onChange={(e) => { setCommentInput(e.target.value) }} maxLength={300} placeholder='Leave a message here' name="" id="" cols="30" rows="10"></textarea>
           </div>
           <p onClick={sendMessage} className="sendBtn">Send</p>
         </div>
@@ -107,17 +107,17 @@ export default function ContactPage() {
       </div>
     </div>
     <div className="map" id="map">
-    <MapContainer center={position} zoom={14}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    </MapContainer>
+      <MapContainer center={position} zoom={14}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
     </div>
     <ToastContainer />
   </div>;

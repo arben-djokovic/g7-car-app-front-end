@@ -350,6 +350,10 @@
   opacity: 0.4;
 }
 
+.productPage .mySwiper .swiper-slide img {
+  width: 100%;
+}
+
 .productPage .mySwiper .swiper-slide-thumb-active {
   opacity: 1;
 }
@@ -362,6 +366,10 @@
 }
 
 @media only screen and (max-width: 1000px) {
+  .mySwiper2 .swiper-slide img {
+    width: 100%;
+    height: auto;
+  }
   .productPage .mainSection .firstSection .features {
     -ms-grid-columns: (auto)[1];
         grid-template-columns: repeat(1, auto);

@@ -3,20 +3,20 @@ import '../styles/FooterStyle/FooterStyle.css'
 import { useNavigate } from 'react-router';
 
 export default function Footer() {
-  
+
   const navigate = useNavigate()
 
   return <div className='footer'>
-    <img onClick={()=>{navigate('/')}} className='logo' src="../assets/logo.png" alt="" />
+    <img onClick={() => { navigate('/') }} className='logo' src="../assets/logo.png" alt="" />
     <div className="footerSecond">
       <div className='links'>
-        <p onClick={()=>{
+        <p onClick={() => {
           navigate('/about')
         }}>ABOUT US</p>
-        <p onClick={()=>{
+        <p onClick={() => {
           navigate('/faq')
         }}>FAQ</p>
-        <p onClick={()=>{
+        <p onClick={() => {
           navigate('/contact')
         }}>CONTACT</p>
       </div>

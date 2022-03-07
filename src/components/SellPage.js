@@ -4,6 +4,7 @@ import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import api from '../api/apiCalls'
+import { useNavigate } from 'react-router';
 
 export default function SellPage() {
 
@@ -26,11 +27,13 @@ export default function SellPage() {
   const refPower = useRef()
   const refEngineCapacity = useRef()
 
+  const navigate = useNavigate()
+
   let [passengerCapacity, setPassengerCapacity] = useState(2)
   let [images, setImages] = useState([]);
   let [titleField, setTitleField] = useState('')
-  let [condition1Field, setCondition1Field]= useState('off')
-  let [condition2Field, setCondition2Field]= useState('off')
+  let [condition1Field, setCondition1Field] = useState('off')
+  let [condition2Field, setCondition2Field] = useState('off')
   let [city, setCity] = useState('')
   let [price, setPrice] = useState('')
   let [cargoVolume, setCargoVolume] = useState('')
@@ -69,12 +72,12 @@ export default function SellPage() {
     }, 500);
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     selectedBrand && fetchModels()
-  },[selectedBrand])
-  
+  }, [selectedBrand])
+
   let inputImage = (e) => {
-    for(let i = 0;  i <= e.target.files.length; i++){
+    for (let i = 0; i <= e.target.files.length; i++) {
       if (e.target.files && e.target.files[i]) {
         let reader = new FileReader();
         reader.onload = (e) => {
@@ -83,57 +86,55 @@ export default function SellPage() {
         reader.readAsDataURL(e.target.files[i]);
       }
     }
-    
-    
+
+
   }
-  
-    let yearsOptionFirst = []
-    for(let i = 2022; i > 1980; i--){
-      yearsOptionFirst = [...yearsOptionFirst, {label: i, value: i}]
-    }
-    //options 
-    let [optionsTransmissions, setOptionsTransmissions] = useState([])
-    let [exteriorColors, setExteriorColors] = useState([])
-    let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
-    let [optionsBrands, setOptionsBrands] = useState([])
-    let [optionsLocation, setOptionsLocation] = useState([])
-    let [optionsModels, setOptionsModels] = useState([])
-    let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
-    let [userInfo, setUserInfo] = useState({})
-    let [yearsOptions, setYearsOptions] = useState([])
-    let [bodyTypesOptions, setBodyTypesOptions] = useState([])
-    let featuresOptions = ['Power Steering','Heated Seats','Rear Parking Sensor','USB Port','AC','Wifi','Roof Rack','Sound System','Alarm','Cruise Control','Power Windows','Memory Seat','Bluetooth','Front Parking Sensor','Sunroof', 'Other']
+
+  let yearsOptionFirst = []
+  for (let i = 2022; i > 1980; i--) {
+    yearsOptionFirst = [...yearsOptionFirst, { label: i, value: i }]
+  }
+  //options 
+  let [optionsTransmissions, setOptionsTransmissions] = useState([])
+  let [exteriorColors, setExteriorColors] = useState([])
+  let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
+  let [optionsBrands, setOptionsBrands] = useState([])
+  let [optionsLocation, setOptionsLocation] = useState([])
+  let [optionsModels, setOptionsModels] = useState([])
+  let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
+  let [userInfo, setUserInfo] = useState({})
+  let [yearsOptions, setYearsOptions] = useState([])
+  let [bodyTypesOptions, setBodyTypesOptions] = useState([])
+  let featuresOptions = ['Power Steering', 'Heated Seats', 'Rear Parking Sensor', 'USB Port', 'AC', 'Wifi', 'Roof Rack', 'Sound System', 'Alarm', 'Cruise Control', 'Power Windows', 'Memory Seat', 'Bluetooth', 'Front Parking Sensor', 'Sunroof', 'Other']
 
   //fetch functions
   const fetchBodyTypes = async () => {
-    try{
+    try {
       let brands = []
       const response = await api.get('/vehicle-types')
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setBodyTypesOptions(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchBrands = async () => {
-    try{
+    try {
       const response = await api.get('/brands')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setOptionsBrands(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
@@ -149,71 +150,66 @@ export default function SellPage() {
       }, 100);
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
   const fetchColors = async () => {
-    try{
+    try {
       const response = await api.get('/colors')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setExteriorColors(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchDrivetrains = async () => {
-    try{
+    try {
       const response = await api.get('/drivetrains')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setOptionsDrivetrains(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchFuelTypes = async () => {
-    try{
+    try {
       const response = await api.get('/fuel-types')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setOptionsFuelTypes(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
   const fetchTransmissions = async () => {
-    try{
+    try {
       const response = await api.get('/gear-types')
       let brands = []
       response.data.forEach(element => {
-        brands.push({value: element.value, label: element.value})
+        brands.push({ value: element.value, label: element.value })
       });
       setTimeout(() => {
         setOptionsTransmissions(brands)
       }, 100);
     }
-    catch(err){
-      console.log('error')
+    catch (err) {
       console.log(err)
     }
   }
@@ -229,11 +225,10 @@ export default function SellPage() {
       }, 100);
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
-  
+
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -266,7 +261,7 @@ export default function SellPage() {
     setCity(e.value)
     setPosition([Number(e.latitude), Number(e.longitude)])
   }
-  
+
   // version 2 =>  const removeImage = (img1) => {
   //   let newArray = [...images]
 
@@ -280,36 +275,35 @@ export default function SellPage() {
   //     setImages([...newArray])
   //   }, 200);
   // }
-  const fetchUserInfo = async() => {
-    console.log(localStorage.getItem('username'))
-    try{
+  const fetchUserInfo = async () => {
+    try {
       const response = await api.get('/user/' + localStorage.getItem('username'))
       setUserInfo(response.data[0])
     }
-    catch(err){
+    catch (err) {
       console.log(err)
     }
   }
 
 
   const checkFields = () => {
-    if(titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 /* || images.length < 3 */ || city.length === 0 || selectedBrand.length === 0 || selectedModel.length === 0 || bodyType.length === 0 || year.length === 0 || selectedColor.length === 0 || power.length === 0 || engineCapacity.length === 0 || selectedDrivetrain.length === 0 || description.length === 0 || selectedColor.length === 0 || selectedTransmission.length === 0 || fuelType.length === 0){
-      if(titleField.length < 2){
+    if (titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 /* || images.length < 3 */ || city.length === 0 || selectedBrand.length === 0 || selectedModel.length === 0 || bodyType.length === 0 || year.length === 0 || selectedColor.length === 0 || power.length === 0 || engineCapacity.length === 0 || selectedDrivetrain.length === 0 || description.length === 0 || selectedColor.length === 0 || selectedTransmission.length === 0 || fuelType.length === 0) {
+      if (titleField.length < 2) {
         refTitle.current.style.color = 'red'
       }
-      else{
+      else {
         refTitle.current.style.color = 'transparent'
       }
-      if(condition1Field == 'off' && condition2Field == 'off'){
+      if (condition1Field == 'off' && condition2Field == 'off') {
         refCondition.current.style.color = 'red'
       }
-      else{
+      else {
         refCondition.current.style.color = 'transparent'
       }
-      if(price.length === 0){
+      if (price.length === 0) {
         refPrice.current.style.color = 'red'
       }
-      else{
+      else {
         refPrice.current.style.color = 'transparent'
       }
       // version2 =>  if(images.length < 3){
@@ -319,87 +313,87 @@ export default function SellPage() {
       // else{
       //   refImages.current.style.color = 'transparent'
       // }
-      if(city.length === 0){
+      if (city.length === 0) {
         refCity.current.style.color = 'red'
       }
-      else{
+      else {
         refCity.current.style.color = 'transparent'
       }
-      if(selectedBrand === ''){
+      if (selectedBrand === '') {
         refBrand.current.style.color = 'red'
       }
-      else{
+      else {
         refBrand.current.style.color = 'transparent'
       }
-      if(selectedModel === ''){
+      if (selectedModel === '') {
         refModel.current.style.color = 'red'
       }
-      else{
+      else {
         refModel.current.style.color = 'transparent'
       }
-      if(bodyType === ''){
+      if (bodyType === '') {
         refBodyType.current.style.color = 'red'
       }
-      else{
+      else {
         refBodyType.current.style.color = 'transparent'
       }
-      if(year === ''){
+      if (year === '') {
         refYear.current.style.color = 'red'
       }
-      else{
+      else {
         refYear.current.style.color = 'transparent'
       }
-      if(fuelType.length === 0){
+      if (fuelType.length === 0) {
         refFuelType.current.style.color = 'red'
       }
-      else{
+      else {
         refFuelType.current.style.color = 'transparent'
       }
-      if(mileage.length === 0){
+      if (mileage.length === 0) {
         refMileage.current.style.color = 'red'
       }
-      else{
+      else {
         refMileage.current.style.color = 'transparent'
       }
-      if(selectedTransmission.length === 0){
+      if (selectedTransmission.length === 0) {
         refTransmission.current.style.color = 'red'
       }
-      else{
+      else {
         refTransmission.current.style.color = 'transparent'
       }
-      if(selectedColor.length === 0){
+      if (selectedColor.length === 0) {
         refColor.current.style.color = 'red'
       }
-      else{
+      else {
         refColor.current.style.color = 'transparent'
       }
-      if(description.length === 0){
+      if (description.length === 0) {
         refDescription.current.style.color = 'red'
       }
-      else{
+      else {
         refDescription.current.style.color = 'transparent'
       }
-      if(selectedDrivetrain.length === 0){
+      if (selectedDrivetrain.length === 0) {
         refDrivetrain.current.style.color = 'red'
       }
-      else{
+      else {
         refDrivetrain.current.style.color = 'transparent'
       }
-      if(engineCapacity.length === 0){
+      if (engineCapacity.length === 0) {
         refEngineCapacity.current.style.color = 'red'
       }
-      else{
+      else {
         refEngineCapacity.current.style.color = 'transparent'
       }
-      if(power.length === 0){
+      if (power.length === 0) {
         refPower.current.style.color = 'red'
       }
-      else{
+      else {
         refPower.current.style.color = 'transparent'
       }
       toast.error('Check fields!')
     }
-    else{
+    else {
       // refImages.current.style.color = 'transparent'
       refCity.current.style.color = 'transparent'
       refCondition.current.style.color = 'transparent'
@@ -410,61 +404,58 @@ export default function SellPage() {
       refBodyType.current.style.color = 'transparent'
       refYear.current.style.color = 'transparent'
       let newCar = {
-          description: description, 
-          name: titleField,
-          condition: condition1Field ? 'New' : 'Used',
-          brand: selectedBrand,
-          brand_model: selectedModel.value,
-          vehicle_type: bodyType,
-          horse_power: Number(power),
-          seat_count: Number(passengerCapacity),
-          location: city,
-          engine_capacity: Number(engineCapacity),//
-          price: Number(price),
-          color: selectedColor,
-          gear_type: selectedTransmission,
-          year: Number(year),
-          fuel_type: fuelType,
-          drivetrain: selectedDrivetrain,
-          //version2 =>  features: [...selectedFeatures],
-          length: Number(length),//
-          mileage: Number(mileage),//
-          width: Number(width),    //
-          height: Number(height),  //
-          cargo_volume: Number(cargoVolume),//
-          user: userInfo.user.id
+        description: description,
+        name: titleField,
+        condition: condition1Field ? 'New' : 'Used',
+        brand: selectedBrand,
+        brand_model: selectedModel.value,
+        vehicle_type: bodyType,
+        horse_power: Number(power),
+        seat_count: Number(passengerCapacity),
+        location: city,
+        engine_capacity: Number(engineCapacity),//
+        price: Number(price),
+        color: selectedColor,
+        gear_type: selectedTransmission,
+        year: Number(year),
+        fuel_type: fuelType,
+        drivetrain: selectedDrivetrain,
+        //version2 =>  features: [...selectedFeatures],
+        length: Number(length),//
+        mileage: Number(mileage),//
+        width: Number(width),    //
+        height: Number(height),  //
+        cargo_volume: Number(cargoVolume),//
+        user: userInfo.user.id
       }
       addVehicleToBackend(newCar)
     }
   }
-  const addVehicleToBackend = async (newCar) =>{
-    console.log(newCar)
-    try{
+  const addVehicleToBackend = async (newCar) => {
+    try {
       const response = await api.post('/vehicle/', newCar)
       toast.success('Yeyyyyy')
-      console.log(response)
+      navigate('/user/' + userInfo.user.username )
     }
-    catch(error){
+    catch (error) {
       toast.error('Try again after refreshing page')
       console.log(error.response)
-      console.log(error.request)
-      console.log(error.message)
     }
   }
   const addOrRemoveFeature = (featureClicked) => {
-    if(selectedFeatures.includes(featureClicked)){
+    if (selectedFeatures.includes(featureClicked)) {
       let testArray = [...selectedFeatures]
       testArray.map((el, index) => {
-        if(el === featureClicked){
+        if (el === featureClicked) {
           testArray.splice(index, 1)
         }
       })
       setSelectedFeatures([...testArray])
     }
-    else{
+    else {
       setSelectedFeatures([...selectedFeatures, featureClicked])
     }
-  }  
+  }
 
   return <div>
     <form className="sellPage">
@@ -477,19 +468,19 @@ export default function SellPage() {
         <div className="carDetailsMain">
           <div className="section1">
             <p>Title<span ref={refTitle} className='required'>*error</span></p>
-            <input onChange={(e)=>{setTitleField(e.target.value)}} type="text" />
+            <input onChange={(e) => { setTitleField(e.target.value) }} type="text" />
           </div>
           <div className="section2">
             <p>Condition<span ref={refCondition} className='required'>*required</span></p>
             <div className='radioBtns'>
               <div className="radioBtn">
-                <input onChange={(e)=>{setCondition1Field(true)}} type="radio" id='1' name="radioBtn" />
+                <input onChange={(e) => { setCondition1Field(true) }} type="radio" id='1' name="radioBtn" />
                 <label htmlFor="1">
                   <p>New</p>
                 </label>
               </div>
               <div className="radioBtn">
-                <input onChange={(e)=>{setCondition1Field(false)}} type="radio" id='2' name="radioBtn" />
+                <input onChange={(e) => { setCondition1Field(false) }} type="radio" id='2' name="radioBtn" />
                 <label htmlFor="2">
                   <p>Used</p>
                 </label>
@@ -498,19 +489,19 @@ export default function SellPage() {
           </div>
           <div className="section3">
             <p>Body Type<span ref={refBodyType} className='required'>*required</span></p>
-            <Select onChange={(e)=>{setBodyType(e.value)}} className='sectionFirst' styles={customStyles} options={bodyTypesOptions} />
+            <Select onChange={(e) => { setBodyType(e.value) }} className='sectionFirst' styles={customStyles} options={bodyTypesOptions} />
           </div>
           <div className="section4">
             <p>Brand<span ref={refBrand} className='required'>*required</span></p>
-            <Select onChange={(e)=>{setSelectedBrand(e.value); setSelectedModel('')}} className='sectionFirst' styles={customStyles} options={optionsBrands} />
+            <Select onChange={(e) => { setSelectedBrand(e.value); setSelectedModel('') }} className='sectionFirst' styles={customStyles} options={optionsBrands} />
           </div>
           <div className="section5">
             <p>Model<span ref={refModel} className='required'>*required</span></p>
-            <Select className='select' onChange={(e)=>{setSelectedModel(e)}} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
+            <Select className='select' onChange={(e) => { setSelectedModel(e) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="section6">
             <p>Year<span ref={refYear} className='required'>*required</span></p>
-            <Select onChange={(e)=>{setYear(e.value)}} className='sectionFirst' styles={customStyles} options={yearsOptions} />
+            <Select onChange={(e) => { setYear(e.value) }} className='sectionFirst' styles={customStyles} options={yearsOptions} />
           </div>
           <div className="section7">
             <p>Passenger Capacity</p>
@@ -528,11 +519,11 @@ export default function SellPage() {
           </div>
           <div className="section8">
             <p>Exterior Color<span ref={refColor} className='required'>*required</span></p>
-            <Select className='sectionFirst' onChange={(e)=>{setSelectedColor(e.value)}} styles={customStyles} options={exteriorColors} />
+            <Select className='sectionFirst' onChange={(e) => { setSelectedColor(e.value) }} styles={customStyles} options={exteriorColors} />
           </div>
           <div className="section9">
             <p>Description<span ref={refDescription} className='required'>*required</span></p>
-            <textarea maxLength={250} onChange={(e)=>{setDescription(e.target.value)}} placeholder='Write description about your car' className='textArea' id="" cols="30" rows="8"></textarea>
+            <textarea maxLength={250} onChange={(e) => { setDescription(e.target.value) }} placeholder='Write description about your car' className='textArea' id="" cols="30" rows="8"></textarea>
           </div>
         </div>
       </div>
@@ -542,34 +533,34 @@ export default function SellPage() {
         <div className="mainSecion">
           <div className='first'>
             <p>Fuel Type<span ref={refFuelType} className='required'>*required</span></p>
-            <Select onChange={(e)=>{setFuelType(e.value)}} className='select' styles={customStyles} options={optionsFuelTypes} />
+            <Select onChange={(e) => { setFuelType(e.value) }} className='select' styles={customStyles} options={optionsFuelTypes} />
           </div>
           <div className='mid'>
             <p>Mileage<span ref={refMileage} className='required'>*required</span></p>
             <div className="inputDiv">
-              <input onChange={(e)=>{setMileage(e.target.value)}} type="number" name="" id="" />
+              <input onChange={(e) => { setMileage(e.target.value) }} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
           <div className='last'>
             <p>Transmission<span ref={refTransmission} className='required'>*required</span></p>
-            <Select className='select' onChange={(e)=>{setSelectedTransmission(e.value)}} styles={customStyles} options={optionsTransmissions} />
+            <Select className='select' onChange={(e) => { setSelectedTransmission(e.value) }} styles={customStyles} options={optionsTransmissions} />
           </div>
           <div className='first'>
             <p>Drivetrain<span ref={refDrivetrain} className='required'>*required</span></p>
-            <Select className='select' onChange={(e)=>{setSelectedDrivetrain(e.value)}} styles={customStyles} options={optionsDrivetrains} />
+            <Select className='select' onChange={(e) => { setSelectedDrivetrain(e.value) }} styles={customStyles} options={optionsDrivetrains} />
           </div>
           <div className='mid'>
             <p>Engine Capacity<span ref={refEngineCapacity} className='required'>*required</span></p>
             <div className="inputDiv">
-              <input onChange={(e)=>{setEngineCapacity(e.target.value)}} type="number" name="" id="" />
+              <input onChange={(e) => { setEngineCapacity(e.target.value) }} type="number" name="" id="" />
               <p>km</p>
             </div>
           </div>
           <div className='last'>
             <p>Power<span ref={refPower} className='required'>*required</span></p>
             <div className="inputDiv">
-              <input onChange={(e)=>{setPower(e.target.value)}} type="number" name="" id="" />
+              <input onChange={(e) => { setPower(e.target.value) }} type="number" name="" id="" />
               <p>hp</p>
             </div>
           </div>
@@ -582,28 +573,28 @@ export default function SellPage() {
           <div className="inputDiv">
             <p>Length</p>
             <div>
-              <input onChange={(e)=>{setLength(e.target.value)}} type="number" />
+              <input onChange={(e) => { setLength(e.target.value) }} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Width</p>
             <div>
-              <input onChange={(e)=>{setWidth(e.target.value)}} type="number" />
+              <input onChange={(e) => { setWidth(e.target.value) }} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Height</p>
             <div>
-              <input onChange={(e)=>{setHeight(e.target.value)}} type="number" />
+              <input onChange={(e) => { setHeight(e.target.value) }} type="number" />
               <p>mm</p>
             </div>
           </div>
           <div className="inputDiv">
             <p>Cargo Volume</p>
             <div>
-              <input onChange={(e)=>{setCargoVolume(e.target.value)}} type="number" />
+              <input onChange={(e) => { setCargoVolume(e.target.value) }} type="number" />
               <p>L</p>
             </div>
           </div>
@@ -614,16 +605,16 @@ export default function SellPage() {
         <h2>Features</h2>
         <div className="checkList">
           {featuresOptions.map(featureOption => {
-            return(
-            <div key={featureOption} className="checkDiv">
-              <input type="checkbox" onClick={()=>{addOrRemoveFeature(featureOption)}} name="featuresCheckbox" id={'featuresOptions' + featureOption} />
-              <label htmlFor={'featuresOptions' + featureOption}>
-                <p>{featureOption}</p>
-              </label>
-            </div>
+            return (
+              <div key={featureOption} className="checkDiv">
+                <input type="checkbox" onClick={() => { addOrRemoveFeature(featureOption) }} name="featuresCheckbox" id={'featuresOptions' + featureOption} />
+                <label htmlFor={'featuresOptions' + featureOption}>
+                  <p>{featureOption}</p>
+                </label>
+              </div>
             )
           })}
-        
+
         </div>
         {/* <textarea placeholder='Write another feature here' className='textArea' name="" id="" cols="30" rows="10"></textarea> */}
       </div>
@@ -632,20 +623,20 @@ export default function SellPage() {
         <h2>Location</h2>
         <div className="content">
           <p>City:<span ref={refCity} className='required'>*required</span></p>
-          <Select onChange={(e)=>{changeCity(e)}} className='selectLocation' options={optionsLocation} styles={customStyles} />
+          <Select onChange={(e) => { changeCity(e) }} className='selectLocation' options={optionsLocation} styles={customStyles} />
           <div className="map" id="map">
-        <MapContainer center={position} zoom={8}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={position}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
-      </div>
+            <MapContainer center={position} zoom={8}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+            </MapContainer>
+          </div>
         </div>
       </div>
 
@@ -655,9 +646,9 @@ export default function SellPage() {
           <p>Full Price:<span ref={refPrice} className='required'>*required</span></p>
           <div className="input">
             <p>$</p>
-            <input onChange={(e)=>{setPrice(e.target.value)}} type="number" />
+            <input onChange={(e) => { setPrice(e.target.value) }} type="number" />
           </div>
-          
+
         </div>
       </div>
 

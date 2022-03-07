@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/FaqStyle/FaqStyle.css'
 
 export default function FaqPage() {
@@ -6,7 +6,7 @@ export default function FaqPage() {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
-    
+
     let [car, setCar] = useState(true)
     let [buy, setBuy] = useState(false)
     let [sell, setSell] = useState(false)
@@ -47,60 +47,60 @@ export default function FaqPage() {
             setPrivacyFilterOptions8(privacyFilterOptions8 => !privacyFilterOptions8)
         }
         if (e.target.parentElement.children[1].className === 'optionsOpen') {
-          e.target.parentElement.children[1].style.cssText += 'margin-top: -30px'
-          setTimeout(() => {
-            e.target.parentElement.children[1].style.cssText += 'display: none'
-          }, 500);
+            e.target.parentElement.children[1].style.cssText += 'margin-top: -30px'
+            setTimeout(() => {
+                e.target.parentElement.children[1].style.cssText += 'display: none'
+            }, 500);
         }
         else {
-          e.target.parentElement.children[1].style.cssText += 'display: block'
-          setTimeout(() => {
-            e.target.parentElement.children[1].style.cssText += 'margin-top: 0px'
-          }, 10);
+            e.target.parentElement.children[1].style.cssText += 'display: block'
+            setTimeout(() => {
+                e.target.parentElement.children[1].style.cssText += 'margin-top: 0px'
+            }, 10);
         }
-      }
+    }
 
-  return (
-    <div>
-        <div className="faqPage">
-            <div className="header">
-                <h1>FAQ</h1>
-                <p>Homepage - FAQ</p>
-            </div>
-            <div className="mainSection">
-                <div className="secondHeader">
-                    <h1>FREQUENTLY ASKED QUESTION</h1>
-                    <h2>Et proin eu, ut lectus nibh nullam tortor mi. </h2>
+    return (
+        <div>
+            <div className="faqPage">
+                <div className="header">
+                    <h1>FAQ</h1>
+                    <p>Homepage - FAQ</p>
                 </div>
-                <div className="secondSection">
-                    <div className="menu">
-                        <p onClick={()=>{
-                            setCar(true)
-                            setBuy(false)
-                            setSell(false)
-                            setPrivacy(false)
-                        }} className={car ? 'menuItemSelected' : 'menuItem'}>Car</p>
-                        <p onClick={()=>{
-                            setCar(false)
-                            setBuy(true)
-                            setSell(false)
-                            setPrivacy(false)
-                        }} className={buy ? 'menuItemSelected' : 'menuItem'}>Buy</p>
-                        <p onClick={()=>{
-                            setCar(false)
-                            setBuy(false)
-                            setSell(true)
-                            setPrivacy(false)
-                        }} className={sell ? 'menuItemSelected' : 'menuItem'}>Sell</p>
-                        <p onClick={()=>{
-                            setCar(false)
-                            setBuy(false)
-                            setSell(false)
-                            setPrivacy(true)
-                        }} className={privacy ? 'menuItemSelected' : 'menuItem'}>Privacy</p>
+                <div className="mainSection">
+                    <div className="secondHeader">
+                        <h1>FREQUENTLY ASKED QUESTION</h1>
+                        <h2>Et proin eu, ut lectus nibh nullam tortor mi. </h2>
                     </div>
-                    <div className='content'>
-                        {car && <div className='selectSections' >
+                    <div className="secondSection">
+                        <div className="menu">
+                            <p onClick={() => {
+                                setCar(true)
+                                setBuy(false)
+                                setSell(false)
+                                setPrivacy(false)
+                            }} className={car ? 'menuItemSelected' : 'menuItem'}>Car</p>
+                            <p onClick={() => {
+                                setCar(false)
+                                setBuy(true)
+                                setSell(false)
+                                setPrivacy(false)
+                            }} className={buy ? 'menuItemSelected' : 'menuItem'}>Buy</p>
+                            <p onClick={() => {
+                                setCar(false)
+                                setBuy(false)
+                                setSell(true)
+                                setPrivacy(false)
+                            }} className={sell ? 'menuItemSelected' : 'menuItem'}>Sell</p>
+                            <p onClick={() => {
+                                setCar(false)
+                                setBuy(false)
+                                setSell(false)
+                                setPrivacy(true)
+                            }} className={privacy ? 'menuItemSelected' : 'menuItem'}>Privacy</p>
+                        </div>
+                        <div className='content'>
+                            {car && <div className='selectSections' >
                                 <div className="selectSection">
                                     <div onClick={closeOptions} id="1" className="selectHeader">
                                         <h3>How to compare car?</h3>
@@ -180,10 +180,10 @@ export default function FaqPage() {
                                     </div>
                                 </div>
                             </div>}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }

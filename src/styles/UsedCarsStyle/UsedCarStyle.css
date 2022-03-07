@@ -255,6 +255,12 @@
 .usedCars .usedCarsContent .mainSeciton .searchSection .fa {
   font-size: 25px;
   padding: 10px;
+  cursor: pointer;
+}
+
+.usedCars .usedCarsContent .mainSeciton .searchSection .fa:hover {
+  opacity: .8;
+  background-color: #071620;
 }
 
 .usedCars .usedCarsContent .mainSeciton .searchSection input {

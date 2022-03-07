@@ -10,4 +10,9 @@ body {
   color: white;
   overflow-x: hidden;
 }
+
+.leaflet-marker-icon {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
 /*# sourceMappingURL=AppStyle.css.map */

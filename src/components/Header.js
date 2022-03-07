@@ -36,7 +36,7 @@ export default function Header() {
           <h2 onClick={() => { navigate('/used-cars?offset=0') }} className='navLink'>Used Cars</h2>
           <h2 onClick={() => { navigate('/compare/' + compareCar1 + '&' + compareCar2) }} className='navLink'>Compare</h2>
           <h2 onClick={() => { navigate('/sell') }} className='navLink'>Sell</h2>
-          {getAuthStatus() ? <div onClick={() => { navigate('/user/'+localStorage.getItem('username')) }} className="singInDiv">
+          {getAuthStatus() ? <div onClick={() => { navigate('/user/' + localStorage.getItem('username')) }} className="singInDiv">
             <i className="fa fa-user" aria-hidden="true"></i>
             <h4>{localStorage.getItem('username')}</h4>
           </div> : <div onClick={() => { navigate('/log-in') }} className="singInDiv">
@@ -84,13 +84,13 @@ export default function Header() {
           <h2 onClick={() => { mobileNavigateTo('/compare/' + compareCar1 + '&' + compareCar2) }} >Compare</h2>
           <h2 onClick={() => { mobileNavigateTo('/sell') }} >Sell</h2>
         </div>
-        {getAuthStatus() ? <div onClick={() => { mobileNavigateTo('/user/'+localStorage.getItem('username')) }} className="singInDiv">
-            <i className="fa fa-user" aria-hidden="true"></i>
-            <h4>{localStorage.getItem('username')}</h4>
-          </div> : <div onClick={() => { mobileNavigateTo('/log-in') }} className="singInDiv">
-            <i className="fa fa-user" aria-hidden="true"></i>
-            <h4>Sing in</h4>
-          </div>}
+        {getAuthStatus() ? <div onClick={() => { mobileNavigateTo('/user/' + localStorage.getItem('username')) }} className="singInDiv">
+          <i className="fa fa-user" aria-hidden="true"></i>
+          <h4>{localStorage.getItem('username')}</h4>
+        </div> : <div onClick={() => { mobileNavigateTo('/log-in') }} className="singInDiv">
+          <i className="fa fa-user" aria-hidden="true"></i>
+          <h4>Sing in</h4>
+        </div>}
       </div>
     </div>
     {/* MOBILE HEADER END */}

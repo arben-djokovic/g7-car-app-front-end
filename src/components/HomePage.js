@@ -13,8 +13,8 @@ import api from '../api/apiCalls'
 
 export default function HomePage() {
 
-  let [threeNewCars, setThreeNewCars] = useState( [1,2,3])
-  let [threeUsedCars, setThreeUsedCars] = useState( [1,2,3])
+  let [threeNewCars, setThreeNewCars] = useState([1, 2, 3])
+  let [threeUsedCars, setThreeUsedCars] = useState([1, 2, 3])
   let [selectedBrand, setSelectedBrand] = useState('')
   let [selectedModel, setSelectedModel] = useState('')
   let [selectedLocation, setSelectedLocation] = useState('')
@@ -27,9 +27,9 @@ export default function HomePage() {
     fetchLocation()
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchModels()
-  },[selectedBrand])
+  }, [selectedBrand])
 
   //functions
   const fetchThreeUsedCars = async () => {
@@ -38,7 +38,6 @@ export default function HomePage() {
       setThreeUsedCars(response.data)
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
@@ -48,7 +47,6 @@ export default function HomePage() {
       setThreeNewCars(response.data)
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
@@ -64,12 +62,11 @@ export default function HomePage() {
       }, 100);
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
   const fetchModels = async () => {
-    if(selectedBrand.length){
+    if (selectedBrand.length) {
       try {
         const response = await api.get('/models/' + selectedBrand)
         let models = []
@@ -81,7 +78,6 @@ export default function HomePage() {
         }, 100);
       }
       catch (err) {
-        console.log('error')
         console.log(err)
       }
     }
@@ -98,7 +94,6 @@ export default function HomePage() {
       }, 100);
     }
     catch (err) {
-      console.log('error')
       console.log(err)
     }
   }
@@ -143,27 +138,27 @@ export default function HomePage() {
   }
   const searchCars = () => {
     let url = ''
-    if(!selectedAll){
-      if(selectedNew){
+    if (!selectedAll) {
+      if (selectedNew) {
         url = '/new-cars?'
       }
-      else if(selectedUsed){
+      else if (selectedUsed) {
         url = '/used-cars?'
       }
     }
-    else{
+    else {
       url = '/search?'
     }
-    if(selectedBrand){
+    if (selectedBrand) {
       url = url + 'brand=' + selectedBrand + '&'
     }
-    if(selectedModel){
+    if (selectedModel) {
       url = url + 'model=' + selectedModel.value + '&'
     }
-    if(selectedLocation){
+    if (selectedLocation) {
       url = url + 'location=' + selectedLocation + '&'
     }
-    if(selectedRange){
+    if (selectedRange) {
       url = url + 'min-price=' + selectedRange + '&'
     }
     navigate(url)
@@ -341,13 +336,13 @@ export default function HomePage() {
               <i className="fa fa-search" aria-hidden="true"></i>
               <input placeholder='Search' type="text" />
             </div>
-            <Select onChange={(e)=>{setSelectedBrand(e.value); setSelectedModel('')}} className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
-            <Select className='select' onChange={(e)=>{setSelectedModel(e)}} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
+            <Select onChange={(e) => { setSelectedBrand(e.value); setSelectedModel('') }} className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
+            <Select className='select' onChange={(e) => { setSelectedModel(e) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="searchThirdDiv">
             <div className="searchSecondDivInput">
               <i className="fa fa-map-marker" aria-hidden="true"></i>
-              <Select className='select' onChange={(e)=>{setSelectedLocation(e.value)}} styles={customStyles} placeholder={'Location...'} options={optionsLocation} />
+              <Select className='select' onChange={(e) => { setSelectedLocation(e.value) }} styles={customStyles} placeholder={'Location...'} options={optionsLocation} />
             </div>
             <div className="price">
               <div className="priceText">
@@ -355,12 +350,12 @@ export default function HomePage() {
                   Price Range
                 </div>
                 <div className="priceTextSecond">
-                  $0 - $3,000,000
+                  $0 - $300,000
                 </div>
               </div>
               <div className="range">
                 <h2>{'$' + selectedRange}</h2>
-                <input step={500} onChange={(e) => { setSelectedRange(e.target.value) }} value={selectedRange} type="range" max={3000000} />
+                <input step={500} onChange={(e) => { setSelectedRange(e.target.value) }} value={selectedRange} type="range" max={300000} />
               </div>
             </div>
             <div onClick={searchCars} className='submit'>Search</div>

@@ -1,36 +1,35 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/CarStyle/CarStyle.css'
 import { useNavigate } from 'react-router';
 import api from '../api/apiCalls';
 
-export default function Car( {car} ) {
+export default function Car({ car }) {
 
     const navigate = useNavigate()
     let [banner, setBanner] = useState('')
-    useEffect(()=>{
+    useEffect(() => {
         fetchModelImages()
     }, [car])
 
-    const fetchModelImages = async() => {
-        if(car.brand_model) {
-            try{
+    const fetchModelImages = async () => {
+        if (car.brand_model) {
+            try {
                 const response = await api.get('/banners/' + car.brand_model + '/')
                 setBanner(response.data.banner)
             }
-            catch(err){
+            catch (err) {
                 console.log(err.response.data)
-                console.log(err.request.message)
             }
         }
     }
 
-    return <div onClick={()=>{navigate('/product/'+car.id)}} className="car">
+    return <div onClick={() => { navigate('/product/' + car.id) }} className="car">
         <img className='carImages' src={banner} alt="" />
         <div className="aboutCar">
             <p className="newBage">{car.condition}</p>
             <h2 className="carName">{car.name}</h2>
             <h2 className="carPrice">${car.price}</h2>
-            <p className="carLocation">Florida, USA</p>
+            <p className="carLocation">{car.location}, Montenegro</p>
             <div className="carInfos">
                 <div>
                     <div>

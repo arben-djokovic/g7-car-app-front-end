@@ -170,6 +170,11 @@
                 .fa{
                     font-size: 25px;
                     padding: 10px;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: .8;
+                        background-color: #071620;
+                    }
                 }
                 input{
                     height: 100%;
