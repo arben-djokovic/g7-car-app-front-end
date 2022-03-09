@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import api from '../api/apiCalls'
 import validator from 'validator'
 import Select from 'react-select'
+import { auth } from '../services/AuthService';
 
 export default function RegisterPage() {
 
@@ -133,13 +134,24 @@ export default function RegisterPage() {
         phone: String(numberInput),
         full_name: nameInput
       }
-      addNewUser(newUser)
+      let userLogIn = {
+        username: usernameInput,
+        password: passwordInput
+      }
+      addNewUser(newUser, userLogIn)
     }
   }
-  const addNewUser = async (newUser) => {
+  const addNewUser = async (newUser, userLogIn) => {
     try {
       const response = await api.post('/user/create/', newUser)
-      navigate('/log-in')
+      try {
+            const response = await api.post('/auth/jwt/create/', userLogIn)
+            auth.login(response.data.access, response.data.refresh, userLogIn.username)
+            navigate('/')
+          }
+          catch (error) {
+            navigate('/log-in')
+          }
     }
     catch (error) {
       console.log(error)

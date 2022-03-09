@@ -21,21 +21,52 @@ export default function ComparePage() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   let compareCar1 = useSelector(store => store.compareCar1)
   let compareCar2 = useSelector(store => store.compareCar2)
 
   let [car1, setCar1] = useState({ features: [] })
   let [car2, setCar2] = useState({ features: [] })
+  let [images1, setImages1] = useState([])
+  let [images2, setImages2] = useState([])
 
   let [filterOptions1, setFilterOptions1] = useState(true)
   let [filterOptions2, setFilterOptions2] = useState(true)
   let [filterOptions3, setFilterOptions3] = useState(true)
-  let [filterOptions4, setFilterOptions4] = useState(true)
+  // version 2 let [filterOptions4, setFilterOptions4] = useState(true)
   let [filterOptions5, setFilterOptions5] = useState(true)
 
-
-
+  useEffect(() => {
+    if (car1.created_by) {
+      fetchModelImages1()
+    }
+  }, [car1])
+  useEffect(() => {
+    if (car2.created_by) {
+      fetchModelImages2()
+    }
+  }, [car2])
+  const fetchModelImages1 = async () => {
+    if (car1.brand_model) {
+      try {
+        const response = await api.get('/banners/' + car1.brand_model + '/')
+        setImages1([response.data.image1, response.data.image2, response.data.image3, response.data.banner])
+      }
+      catch (err) {
+        console.log(err.response.data)
+      }
+    }
+  }
+  const fetchModelImages2 = async () => {
+    if (car2.brand_model) {
+      try {
+        const response = await api.get('/banners/' + car2.brand_model + '/')
+        setImages2([response.data.image1, response.data.image2, response.data.image3, response.data.banner])
+      }
+      catch (err) {
+        console.log(err.response.data)
+      }
+    }
+  }
   const fetchFirstCarById = async (id) => {
     try {
       const response = await api.get('/vehicle/' + id)
@@ -64,9 +95,9 @@ export default function ComparePage() {
     else if (e.target.id == 3) {
       setFilterOptions3(filterOptions3 => !filterOptions3)
     }
-    else if (e.target.id == 4) {
-      setFilterOptions4(filterOptions4 => !filterOptions4)
-    }
+    // version 2 => else if (e.target.id == 4) {
+    //   setFilterOptions4(filterOptions4 => !filterOptions4)
+    // }
     else if (e.target.id == 5) {
       setFilterOptions5(filterOptions5 => !filterOptions5)
     }
@@ -329,22 +360,17 @@ export default function ComparePage() {
               <div className="sectionImage">
                 <div className="imagesSection">
                   <div className="images">
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
+                  {images1.map((img, i) => {
+                      return(<img key={i + img} src={img} alt="" />)
+                    })}
                   </div>
-                  {/* <p>See more</p> */}
+                  {/*version2 =>  <p>See more</p> */}
                 </div>
                 <div className="imagesSection">
                   <div className="images">
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
-                    <img src="../assets/tesla-car.png" alt="" />
+                    {images2.map((img, i) => {
+                      return(<img key={i + img} src={img} alt="" />)
+                    })}
                   </div>
                   {/* version2 => <p>See more</p> */}
                 </div>

@@ -64,6 +64,7 @@ export default function NewCarPage() {
     if (filterUrl.includes('brand=')) {
       setSelectedBrands(filterUrl.split('brand=')[1].split('&')[0].split(","))
     }
+    
     if (filterUrl.includes('model=')) {
       setSelectedModels(filterUrl.split('model=')[1].split('&')[0].split(","))
     }
@@ -195,7 +196,10 @@ export default function NewCarPage() {
     if (selectedBrands.length > 0 && selectedBrands.length !== optionsBrands.length) {
       url = url + 'brand=' + selectedBrands + '&'
     }
-    if (selectedModels.length > 0 && selectedModels.length !== modelOptions.length) {
+    else if(selectedBrands.length === 0){
+      setSelectedModels([])
+    }
+    if ((selectedModels.length > 0 && selectedModels.length !== modelOptions.length) && selectedBrands.length > 0) {
       url = url + 'model=' + selectedModels + '&'
     }
     if (selectedCapacitys.length > 0 && selectedCapacitys.length !== passengerCapacity.length) {
@@ -468,7 +472,7 @@ export default function NewCarPage() {
     <div className="usedCars">
 
       <div className="header">
-        <h1>Search Cars</h1>
+        <h1>New Cars</h1>
         <p>Homepage - New Cars</p>
       </div>
 
