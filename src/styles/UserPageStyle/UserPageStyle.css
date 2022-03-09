@@ -19,6 +19,12 @@
   margin: 0;
 }
 
+.userPage .cars {
+  width: 100%;
+  max-width: 60vw;
+  min-width: 200px;
+}
+
 .userPage input[type=number] {
   -moz-appearance: textfield;
 }

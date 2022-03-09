@@ -241,7 +241,6 @@ export default function NewCarPage() {
     window.scroll(0, 0)
     setOffset(Number(offset) + 10)
   }
-
   const closeOptions = (e) => {
     if (e.target.id == 1) {
       setFilterOptions1(filterOptions => !filterOptions)
@@ -318,7 +317,7 @@ export default function NewCarPage() {
       if (e.target.name === 'year') {
         let test = selectedYears
         test.forEach((selectedBrand, index) => {
-          if (selectedBrand == year) {
+          if (selectedBrand == year.replaceAll(' ', '%20')) {
             test.splice(index, 1)
           }
         })
@@ -329,7 +328,7 @@ export default function NewCarPage() {
       else if (e.target.name === 'brand') {
         let test = selectedBrands
         test.forEach((selectedBrand, index) => {
-          if (selectedBrand === year) {
+          if (selectedBrand === year.replaceAll(' ', '%20')) {
             test.splice(index, 1)
           }
         })
@@ -351,7 +350,7 @@ export default function NewCarPage() {
       else if (e.target.name === 'capacity') {
         let test = selectedCapacitys
         test.forEach((selectedCapacity, index) => {
-          if (selectedCapacity === year) {
+          if (selectedCapacity === year.replaceAll(' ', '%20')) {
             test.splice(index, 1)
           }
         })
@@ -362,7 +361,7 @@ export default function NewCarPage() {
       else if (e.target.name === 'color') {
         let test = selectedColors
         test.forEach((selectedColor, index) => {
-          if (selectedColor === year.value) {
+          if (selectedColor === year.value.replaceAll(' ', '%20')) {
             test.splice(index, 1)
           }
         })
@@ -373,7 +372,7 @@ export default function NewCarPage() {
       else if (e.target.name === 'model') {
         let test = selectedModels
         test.forEach((selectedColor, index) => {
-          if (selectedColor === year) {
+          if (selectedColor === year.replaceAll(' ', '%20')) {
             test.splice(index, 1)
           }
         })
@@ -469,7 +468,7 @@ export default function NewCarPage() {
     <div className="usedCars">
 
       <div className="header">
-        <h1>New Cars</h1>
+        <h1>Search Cars</h1>
         <p>Homepage - New Cars</p>
       </div>
 
@@ -509,7 +508,7 @@ export default function NewCarPage() {
               <div className={filterOptions2 ? 'optionsOpen' : 'optionsClosed'} >
                 {optionsBrands.map(brand => {
                   return (<div key={'brand' + brand.value}>
-                    <input defaultChecked={selectedBrands.includes(brand.value)} type="checkbox" name="brand" onChange={(e) => { changeOptions(e, brand.value) }} id={'brand' + brand.value} />
+                    <input defaultChecked={selectedBrands.includes(brand.value.replaceAll(" ", '%20'))} type="checkbox" name="brand" onChange={(e) => { changeOptions(e, brand.value) }} id={'brand' + brand.value} />
                     <label htmlFor={'brand' + brand.value}>
                       <p>{brand.value}</p>
                     </label>
@@ -525,7 +524,7 @@ export default function NewCarPage() {
               <div className={filterOptions3 ? 'optionsOpen' : 'optionsClosed'} >
                 {modelOptions.map((modelOption, i) => {
                   return (<div key={'modelOption' + i}>
-                    <input defaultChecked={selectedModels.includes(modelOption.value)} type="checkbox" name="model" onChange={(e) => { changeOptions(e, modelOption.value) }} id={'modelOption' + modelOption.value} />
+                    <input defaultChecked={selectedModels.includes(modelOption.value.replaceAll(" ", '%20'))} type="checkbox" name="model" onChange={(e) => { changeOptions(e, modelOption.value) }} id={'modelOption' + modelOption.value} />
                     <label htmlFor={'modelOption' + modelOption.value}>
                       <p>{modelOption.value}</p>
                     </label>
@@ -541,7 +540,7 @@ export default function NewCarPage() {
               <div className={filterOptions4 ? 'optionsOpen' : 'optionsClosed'} >
                 {bodyTypesOptions.map((bodyTypeOption, i) => {
                   return (<div key={'bodyTypesOptions' + i}>
-                    <input defaultChecked={selectedBodyTypes.includes(bodyTypeOption.value)} type="checkbox" name="body-type" onChange={(e) => { changeOptions(e, bodyTypeOption.value) }} id={'bodyTypeOption' + bodyTypeOption.value} />
+                    <input defaultChecked={selectedBodyTypes.includes(bodyTypeOption.value.replaceAll(" ", '%20'))} type="checkbox" name="body-type" onChange={(e) => { changeOptions(e, bodyTypeOption.value) }} id={'bodyTypeOption' + bodyTypeOption.value} />
                     <label htmlFor={'bodyTypeOption' + bodyTypeOption.value}>
                       <p>{bodyTypeOption.value}</p>
                     </label>
@@ -574,7 +573,7 @@ export default function NewCarPage() {
               <div className={filterOptions6 ? 'optionsOpen' : 'optionsClosed'} >
                 {optionsFuelTypes.map(fuelType => {
                   return (<div key={'fuelType' + fuelType.value}>
-                    <input defaultChecked={selectedFuelTypes.includes(fuelType.value)} onChange={(e) => { changeOptions(e, fuelType) }} type="checkbox" name="fuel-type" id={'fuelType' + fuelType.value} />
+                    <input defaultChecked={selectedFuelTypes.includes(fuelType.value.replaceAll(" ", '%20'))} onChange={(e) => { changeOptions(e, fuelType) }} type="checkbox" name="fuel-type" id={'fuelType' + fuelType.value} />
                     <label htmlFor={'fuelType' + fuelType.value}>
                       <p>{fuelType.value}</p>
                     </label>

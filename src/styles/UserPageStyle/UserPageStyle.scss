@@ -11,6 +11,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.cars{
+    width: 100%;
+    max-width: 60vw;
+    min-width: 200px;
+}
 
 /* Firefox */
 input[type=number] {
