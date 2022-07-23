@@ -67,7 +67,7 @@ export default function SearchPage() {
     if (filterUrl.includes('brand=')) {
       setSelectedBrands(filterUrl.split('brand=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('model=') || filterUrl.includes('brand=')) {
+    if (filterUrl.includes('model=')) {
       setSelectedModels(filterUrl.split('model=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('vehicle-type=')) {

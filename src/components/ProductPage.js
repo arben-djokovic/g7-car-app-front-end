@@ -246,7 +246,7 @@ export default function ProductPage() {
       </div>
       <div className="secondSection">
         <div className="priceSection">
-          <p>$15,193</p>
+          <p>${car.price}</p>
         </div>
         <div className="carDetailsSection">
           <div className="carDetails">
