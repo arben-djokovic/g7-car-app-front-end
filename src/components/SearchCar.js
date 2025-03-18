@@ -4,7 +4,10 @@ import Car from './Car';
 import api from '../api/apiCalls'
 import { useNavigate } from 'react-router';
 
-export default function SearchPage() {
+export default function SearchCar({conditionURL}) {
+  let [condition1Field, setCondition1Field] = useState(true)
+  let [condition2Field, setCondition2Field] = useState(false)
+  let [condition3Field, setCondition3Field] = useState(false)
 
   let [selectedYears, setSelectedYears] = useState([])
   let [selectedBrands, setSelectedBrands] = useState([])
@@ -15,9 +18,6 @@ export default function SearchPage() {
   let [selectedTransmissions, setSelectedTransmissions] = useState([])
   let [selectedFuelTypes, setSelectedFuelTypes] = useState([])
   let [selectedDriverTrains, setSelectedDriverTrains] = useState([])
-  let [condition1Field, setCondition1Field] = useState(true)
-  let [condition2Field, setCondition2Field] = useState(false)
-  let [condition3Field, setCondition3Field] = useState(false)
   let url = ''
   let [secondUrl, setSecondUrl] = useState('')
 
@@ -50,23 +50,59 @@ export default function SearchPage() {
   }, [window.location.href])
 
   useEffect(() => {
-    fetchModels()
+    let models = []
+    let optionsBrands2 = optionsBrands.filter(el => selectedBrands.includes(el.value))
+    optionsBrands2.forEach(el => {
+      el.models.forEach(el2 => {
+        models = [...models, { value: el2, label: el2 }]
+      })
+    })
+    let models2 = models.flat()
+    setModelOptions(models2)
+    console.log(models2)
   }, [selectedBrands])
 
+
+  const conditionChange = (e) => {
+    if (e.target.id === 'condition1') {
+      setCondition1Field(true)
+      setCondition2Field(false)
+      setCondition3Field(false)
+    }
+    else if (e.target.id === 'condition2') {
+      setCondition2Field(true)
+      setCondition1Field(false)
+      setCondition3Field(false)
+    }
+    else if (e.target.id === 'condition3') {
+      setCondition3Field(true)
+      setCondition2Field(false)
+      setCondition1Field(false)
+    }
+  }
+
   let getFiltersFromUrl = () => {
-    let filterUrl = window.location.href.split('/search')[1].replace('?', '')
+    let filterUrl
+    if(conditionURL === 'New') {
+      filterUrl = window.location.href.split('/new-cars')[1].replace('?', '')
+    }else if(conditionURL === 'Used'){
+      filterUrl = window.location.href.split('/used-cars')[1].replace('?', '')
+    }else{
+      filterUrl = window.location.href.split('/search')[1].replace('?', '')
+    }
     if (filterUrl.includes('offset=')) {
       setOffset(filterUrl.split('offset=')[1].split('&')[0])
     }
     if (filterUrl.includes('year=')) {
       setSelectedYears(filterUrl.split('year=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('seat-count=')) {
-      setSelectedCapacitys(filterUrl.split('seat-count=')[1].split('&')[0].split(","))
+    if (filterUrl.includes('seat_count=')) {
+      setSelectedCapacitys(filterUrl.split('seat_count=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('brand=')) {
       setSelectedBrands(filterUrl.split('brand=')[1].split('&')[0].split(","))
     }
+    
     if (filterUrl.includes('model=')) {
       setSelectedModels(filterUrl.split('model=')[1].split('&')[0].split(","))
     }
@@ -88,31 +124,14 @@ export default function SearchPage() {
     if (filterUrl.includes('color=')) {
       setSelectedColors(filterUrl.split('color=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('condition=')) {
-      if (filterUrl.split('condition=')[1].split('&')[0] == 'New') {
-        setCondition1Field(false)
-        setCondition2Field(true)
-        setCondition3Field(false)
-      }
-      else if (filterUrl.split('condition=')[1].split('&')[0] == 'Used') {
-        setCondition1Field(false)
-        setCondition2Field(false)
-        setCondition3Field(true)
-      }
-      else {
-        setCondition1Field(true)
-        setCondition2Field(false)
-        setCondition3Field(false)
-      }
-    }
   }
 
   let yearsOptionFirst = []
-  for (let i = 2022; i > 1980; i--) {
+  for (let i = 2025; i > 1980; i--) {
     yearsOptionFirst = [...yearsOptionFirst, i]
   }
 
-  let [passengerCapacity, setPassengerCapacity] = useState([1, 2, 3, 4, 5, 6, 7, 8])
+  const passengerCapacity = [1, 2, 3, 4, 5, 6, 7, 8]
   let [filterOptions1, setFilterOptions1] = useState(false)
   let [filterOptions2, setFilterOptions2] = useState(false)
   let [filterOptions3, setFilterOptions3] = useState(false)
@@ -128,7 +147,7 @@ export default function SearchPage() {
   // functions
   const fetchCars = async () => {
     try {
-      const response = await api.get('/vehicles/?limit=10&' + window.location.href.split('/search?')[1])
+      const response = await api.get('/cars/?condition=New&limit=10&' + window.location.href.split('/new-cars?')[1])
       setCarsToDisplay(response.data)
     }
     catch (err) {
@@ -137,8 +156,14 @@ export default function SearchPage() {
   }
   const fetchBodyTypes = async () => {
     try {
-      const response = await api.get('/vehicle-types')
-      setBodyTypesOptions(response.data)
+      const response = await api.get('/body-types')
+      let bodyTypes = []
+      response.data.forEach(element => {
+        bodyTypes.push({ value: element.name, label: element.name })
+      })
+      setTimeout(() => {
+        setBodyTypesOptions(bodyTypes)
+      }, 100);
     }
     catch (err) {
       console.log(err)
@@ -147,23 +172,12 @@ export default function SearchPage() {
   const fetchBrands = async () => {
     try {
       const response = await api.get('/brands')
-      setOptionsBrands(response.data)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-  const fetchModels = async () => {
-    try {
-      let models = []
-      for (let i = 0; i < selectedBrands.length; i++) {
-        const response = await api.get('/models/' + selectedBrands[i])
-        response.data.forEach(element => {
-          models.push({ value: element.value, label: element.value })
-        });
-      }
+      let brands = []
+      response.data.forEach(element => {
+        brands.push({ value: element.name, label: element.name, id: element.id, models: element.models })
+      });
       setTimeout(() => {
-        setModelOptions(models)
+        setOptionsBrands(brands)
       }, 100);
     }
     catch (err) {
@@ -173,7 +187,13 @@ export default function SearchPage() {
   const fetchColors = async () => {
     try {
       const response = await api.get('/colors')
-      setExteriorColors(response.data)
+      let colors = []
+      response.data.forEach(element => {
+        colors.push({ value: element.name, label: element.name })
+      })
+      setTimeout(() => {
+        setExteriorColors(colors)
+      }, 100);
     }
     catch (err) {
       console.log(err)
@@ -181,8 +201,14 @@ export default function SearchPage() {
   }
   const fetchDrivetrains = async () => {
     try {
-      const response = await api.get('/drivetrains')
-      setOptionsDrivetrains(response.data)
+      const response = await api.get('/drive-trains')
+      let drivetrains = []
+      response.data.forEach(element => {
+        drivetrains.push({ value: element.name, label: element.name })
+      })
+      setTimeout(() => {
+        setOptionsDrivetrains(drivetrains)
+      }, 100);
     }
     catch (err) {
       console.log(err)
@@ -191,7 +217,13 @@ export default function SearchPage() {
   const fetchFuelTypes = async () => {
     try {
       const response = await api.get('/fuel-types')
-      setFuelTypes(response.data)
+      let fuelTypes = []
+      response.data.forEach(element => {
+        fuelTypes.push({ value: element.name, label: element.name })
+      })
+      setTimeout(() => {
+        setOptionsFuelTypes(fuelTypes)
+      }, 100);
     }
     catch (err) {
       console.log(err)
@@ -199,8 +231,14 @@ export default function SearchPage() {
   }
   const fetchTransmissions = async () => {
     try {
-      const response = await api.get('/gear-types')
-      setOptionsTransmissions(response.data)
+      const response = await api.get('/transmissions')
+      let transmissions = []
+      response.data.forEach(element => {
+        transmissions.push({ value: element.name, label: element.name })
+      })
+      setTimeout(() => {
+        setOptionsTransmissions(transmissions)
+      }, 100);
     }
     catch (err) {
       console.log(err)
@@ -222,7 +260,7 @@ export default function SearchPage() {
       url = url + 'model=' + selectedModels + '&'
     }
     if (selectedCapacitys.length > 0 && selectedCapacitys.length !== passengerCapacity.length) {
-      url = url + 'seat-count=' + selectedCapacitys + '&'
+      url = url + 'seat_count=' + selectedCapacitys + '&'
     }
     if (selectedBodyTypes.length > 0 && selectedBodyTypes.length !== 2) {
       url = url + 'vehicle-type=' + selectedBodyTypes + '&'
@@ -245,49 +283,30 @@ export default function SearchPage() {
     if (searchInput.length > 0) {
       url = url + 'name-search=' + searchInput + '&'
     }
-    if (condition1Field !== true) {
-      if (condition2Field === true) {
-        url = url + 'condition=New' + '&'
-      }
-      else if (condition3Field === true) {
-        url = url + 'condition=Used' + '&'
-      }
-    }
     setTimeout(() => {
       setSecondUrl(url)
       window.scroll(0, 0)
-      navigate('/search?' + url + 'offset=0')
+      if(conditionURL === 'New') {
+        navigate('/new-cars?' + url + 'offset=0')
+      }else if(conditionURL === 'Used') {
+        navigate('/used-cars?' + url + 'offset=0')
+      }else{
+        navigate('/search?' + url + 'offset=0')
+      }
       closePhoneFilter()
     }, 500);
   }
   const previousPage = () => {
-    navigate('/search?' + secondUrl + 'offset=' + (Number(offset) - 10))
+    navigate('/new-cars?' + secondUrl + 'offset=' + (Number(offset) - 10))
     fetchCars(Number(offset) - 10)
     window.scroll(0, 0)
     setOffset(Number(offset) - 10)
   }
   const nextPage = () => {
-    navigate('/search?' + secondUrl + 'offset=' + (Number(offset) + 10))
+    navigate('/new-cars?' + secondUrl + 'offset=' + (Number(offset) + 10))
     fetchCars()
     window.scroll(0, 0)
     setOffset(Number(offset) + 10)
-  }
-  let conditionChange = (e) => {
-    if (e.target.id === 'condition1') {
-      setCondition1Field(true)
-      setCondition2Field(false)
-      setCondition3Field(false)
-    }
-    else if (e.target.id === 'condition2') {
-      setCondition2Field(true)
-      setCondition1Field(false)
-      setCondition3Field(false)
-    }
-    else if (e.target.id === 'condition3') {
-      setCondition3Field(true)
-      setCondition2Field(false)
-      setCondition1Field(false)
-    }
   }
   const closeOptions = (e) => {
     if (e.target.id == 1) {
@@ -479,45 +498,17 @@ export default function SearchPage() {
   let [exteriorColors, setExteriorColors] = useState([])
   let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
   let [optionsBrands, setOptionsBrands] = useState([])
-  let [optionsFuelTypes, setFuelTypes] = useState([])
+  let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
   let [yearsOptions, setYearsOptions] = useState([])
   let [bodyTypesOptions, setBodyTypesOptions] = useState([])
   let [modelOptions, setModelOptions] = useState([])
-
-  //styles
-  // version 2 =>
-  // const customStyles = {
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //     borderBottom: '1px dotted pink',
-  //     color: 'white',
-  //     backgroundColor: '#152836',
-  //     padding: 15,
-  //     margin: 0,
-  //     cursor: 'pointer'
-  //   }),
-  //   menu: (provided, state) => ({
-  //     ...provided,
-  //     color: 'white'
-  //   }),
-  //   control: () => ({
-  //     display: 'flex',
-  //     color: 'white',
-  //   }),
-  //   singleValue: (provided, state) => {
-  //     const transition = 'opacity 300ms';
-  //     const color = 'color: white'
-
-  //     return { ...provided, transition, color };
-  //   }
-  // };
 
   return <div>
     <div className="usedCars">
 
       <div className="header">
-        <h1>Search Cars</h1>
-        <p>Homepage - Search Cars</p>
+        <h1>{conditionURL} Cars</h1>
+        <p>Homepage - {conditionURL} Cars</p>
       </div>
 
       <div className="usedCarsContent">
@@ -528,7 +519,7 @@ export default function SearchPage() {
             <i onClick={closePhoneFilter} className="fa fa-close"></i>
           </div>
           <div className="filterSectionAll">
-            <div className="selectCondition">
+          {conditionURL === "All" && <div className="selectCondition">
               <p>Condition</p>
               <div className='radioBtns'>
                 <div className="radioBtn">
@@ -550,7 +541,7 @@ export default function SearchPage() {
                   </label>
                 </div>
               </div>
-            </div>
+            </div>}
             <div className="selectSection">
               <div onClick={closeOptions} id="1" className="selectHeader">
                 <h3>Year</h3>
@@ -742,7 +733,7 @@ export default function SearchPage() {
           </div>
           <div className="carsSection">
             {carsToDisplay.map(car => {
-              return (<Car key={car.id} car={car} />)
+              return (<Car key={car._id} car={car} />)
             })}
 
           </div>

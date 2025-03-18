@@ -21,8 +21,10 @@ export default function LogInPage() {
     }
     else {
       let userInfos = {
-        username: String(usernameInput),
-        password: String(passwordInput)
+        requestBody: {
+          username: String(usernameInput),
+          password: String(passwordInput)
+        }
       }
       try {
         const response = await api.post('/auth/jwt/create/', userInfos)

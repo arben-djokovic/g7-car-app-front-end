@@ -34,7 +34,8 @@ export default function HomePage() {
   //functions
   const fetchThreeUsedCars = async () => {
     try {
-      const response = await api.get('/vehicles?limit=3&condition=Used')
+      const response = await api.get('/cars?limit=3&condition=Used')
+      console.log(response.data)
       setThreeUsedCars(response.data)
     }
     catch (err) {
@@ -43,7 +44,8 @@ export default function HomePage() {
   }
   const fetchThreeNewCars = async () => {
     try {
-      const response = await api.get('/vehicles?limit=3&condition=New')
+      const response = await api.get('/cars?limit=3&condition=New')
+      console.log(response.data)
       setThreeNewCars(response.data)
     }
     catch (err) {
@@ -55,7 +57,7 @@ export default function HomePage() {
       const response = await api.get('/brands')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element.id, models: element.models })
       });
       setTimeout(() => {
         setOptionsBrands(brands)
@@ -67,6 +69,7 @@ export default function HomePage() {
   }
   const fetchModels = async () => {
     if (selectedBrand.length) {
+      console.log(selectedBrand)
       try {
         const response = await api.get('/models/' + selectedBrand)
         let models = []
@@ -87,7 +90,7 @@ export default function HomePage() {
       const response = await api.get('/locations')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+        brands.push({ value: element.name, label: element.name, latitude: element.latitude, longitude: element.longitude })
       });
       setTimeout(() => {
         setOptionsLocation(brands)
@@ -336,7 +339,11 @@ export default function HomePage() {
               <i className="fa fa-search" aria-hidden="true"></i>
               <input placeholder='Search' type="text" />
             </div>
-            <Select onChange={(e) => { setSelectedBrand(e.value); setSelectedModel('') }} className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
+            <Select onChange={(e) => { setSelectedBrand(e.value);
+              let modelsTest = optionsBrands.find(brand => brand.value === e.value).models
+              let models = modelsTest.map(model => { return { value: model, label: model } })
+              setOptionsModels(models)
+              setSelectedModel('') }} className='select' styles={customStyles} placeholder={'Brands...'} options={optionsBrands} />
             <Select className='select' onChange={(e) => { setSelectedModel(e) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="searchThirdDiv">
