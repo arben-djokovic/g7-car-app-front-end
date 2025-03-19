@@ -5,29 +5,29 @@ import api from '../../api/apiCalls'
 import { useNavigate } from 'react-router';
 
 export default function SearchCar({conditionURL}) {
-  let [condition1Field, setCondition1Field] = useState(true)
-  let [condition2Field, setCondition2Field] = useState(false)
-  let [condition3Field, setCondition3Field] = useState(false)
+  const [condition1Field, setCondition1Field] = useState(true)
+  const [condition2Field, setCondition2Field] = useState(false)
+  const [condition3Field, setCondition3Field] = useState(false)
 
-  let [selectedYears, setSelectedYears] = useState([])
-  let [selectedBrands, setSelectedBrands] = useState([])
-  let [selectedBodyTypes, setSelectedBodyTypes] = useState([])
-  let [selectedCapacitys, setSelectedCapacitys] = useState([])
-  let [selectedColors, setSelectedColors] = useState([])
-  let [selectedModels, setSelectedModels] = useState([])
-  let [selectedTransmissions, setSelectedTransmissions] = useState([])
-  let [selectedFuelTypes, setSelectedFuelTypes] = useState([])
-  let [selectedDriverTrains, setSelectedDriverTrains] = useState([])
+  const [selectedYears, setSelectedYears] = useState([])
+  const [selectedBrands, setSelectedBrands] = useState([])
+  const [selectedBodyTypes, setSelectedBodyTypes] = useState([])
+  const [selectedCapacitys, setSelectedCapacitys] = useState([])
+  const [selectedColors, setSelectedColors] = useState([])
+  const [selectedModels, setSelectedModels] = useState([])
+  const [selectedTransmissions, setSelectedTransmissions] = useState([])
+  const [selectedFuelTypes, setSelectedFuelTypes] = useState([])
+  const [selectedDriverTrains, setSelectedDriverTrains] = useState([])
   let url = ''
-  let [secondUrl, setSecondUrl] = useState('')
+  const [secondUrl, setSecondUrl] = useState('')
 
-  let [carsToDisplay, setCarsToDisplay] = useState([])
-  let [offset, setOffset] = useState(0)
+  const [carsToDisplay, setCarsToDisplay] = useState([])
+  const [offset, setOffset] = useState(0)
   const navigate = useNavigate()
 
-  let [searchInput, setSearchInput] = useState('')
-  let [selectedRange, setSelectedRange] = useState(0)
-  let filterSection = useRef()
+  const [searchInput, setSearchInput] = useState('')
+  const [selectedRange, setSelectedRange] = useState(0)
+  const filterSection = useRef()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -81,13 +81,22 @@ export default function SearchCar({conditionURL}) {
     }
   }
 
-  let getFiltersFromUrl = () => {
+  const getFiltersFromUrl = () => {
     let filterUrl
     if(conditionURL === 'New') {
+      setCondition2Field(true)
+      setCondition1Field(false)
+      setCondition3Field(false)
       filterUrl = window.location.href.split('/new-cars')[1].replace('?', '')
     }else if(conditionURL === 'Used'){
+      setCondition3Field(true)
+      setCondition2Field(false)
+      setCondition1Field(false)
       filterUrl = window.location.href.split('/used-cars')[1].replace('?', '')
     }else{
+      setCondition1Field(true)
+      setCondition2Field(false)
+      setCondition3Field(false)
       filterUrl = window.location.href.split('/search')[1].replace('?', '')
     }
     if (filterUrl.includes('offset=')) {
@@ -118,11 +127,14 @@ export default function SearchCar({conditionURL}) {
     if (filterUrl.includes('drivetrain=')) {
       setSelectedDriverTrains(filterUrl.split('drivetrain=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('min-price=')) {
-      setSelectedRange(filterUrl.split('min-price=')[1].split('&')[0].split(","))
+    if (filterUrl.includes('maxprice=')) {
+      setSelectedRange(filterUrl.split('maxprice=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('color=')) {
       setSelectedColors(filterUrl.split('color=')[1].split('&')[0].split(","))
+    }
+    if(filterUrl.includes('namesearch=')){
+      setSearchInput(filterUrl.split('namesearch=')[1].split('&')[0])
     }
   }
 
@@ -132,22 +144,31 @@ export default function SearchCar({conditionURL}) {
   }
 
   const passengerCapacity = [1, 2, 3, 4, 5, 6, 7, 8]
-  let [filterOptions1, setFilterOptions1] = useState(false)
-  let [filterOptions2, setFilterOptions2] = useState(false)
-  let [filterOptions3, setFilterOptions3] = useState(false)
-  let [filterOptions4, setFilterOptions4] = useState(false)
-  let [filterOptions5, setFilterOptions5] = useState(false)
-  let [filterOptions6, setFilterOptions6] = useState(false)
-  let [filterOptions7, setFilterOptions7] = useState(false)
-  let [filterOptions8, setFilterOptions8] = useState(false)
-  let [filterOptions9, setFilterOptions9] = useState(false)
+  const [filterOptions1, setFilterOptions1] = useState(false)
+  const [filterOptions2, setFilterOptions2] = useState(false)
+  const [filterOptions3, setFilterOptions3] = useState(false)
+  const [filterOptions4, setFilterOptions4] = useState(false)
+  const [filterOptions5, setFilterOptions5] = useState(false)
+  const [filterOptions6, setFilterOptions6] = useState(false)
+  const [filterOptions7, setFilterOptions7] = useState(false)
+  const [filterOptions8, setFilterOptions8] = useState(false)
+  const [filterOptions9, setFilterOptions9] = useState(false)
 
 
-
-  // functions
   const fetchCars = async () => {
     try {
-      const response = await api.get('/cars/?condition=New&limit=10&' + window.location.href.split('/new-cars?')[1])
+      let url = ""
+      let params = "" 
+      if(conditionURL === 'New'){
+        url = '&condition=New'
+        params = window.location.href.split('/new-cars?')[1]
+      }else if(conditionURL === 'Used'){
+        url = '&condition=Used'
+        params = window.location.href.split('/used-cars?')[1]
+      }else{
+        params = window.location.href.split('/search?')[1]
+      }
+      const response = await api.get(`/cars?${url}&limit=10&` + params)
       setCarsToDisplay(response.data)
     }
     catch (err) {
@@ -262,26 +283,33 @@ export default function SearchCar({conditionURL}) {
     if (selectedCapacitys.length > 0 && selectedCapacitys.length !== passengerCapacity.length) {
       url = url + 'seat_count=' + selectedCapacitys + '&'
     }
-    if (selectedBodyTypes.length > 0 && selectedBodyTypes.length !== 2) {
+    if (selectedBodyTypes.length > 0 && selectedBodyTypes.length !== bodyTypesOptions.length) {
       url = url + 'vehicle-type=' + selectedBodyTypes + '&'
     }
-    if (selectedFuelTypes.length > 0 && selectedFuelTypes.length !== 8) {
+    if (selectedFuelTypes.length > 0 && selectedFuelTypes.length !== optionsFuelTypes.length) {
       url = url + 'fuel-type=' + selectedFuelTypes + '&'
     }
-    if (selectedDriverTrains.length > 0 && selectedDriverTrains.length !== 4) {
+    if (selectedDriverTrains.length > 0 && selectedDriverTrains.length !== optionsDrivetrains.length) {
       url = url + 'drivetrain=' + selectedDriverTrains + '&'
     }
-    if (selectedTransmissions.length > 0 && selectedTransmissions.length !== 4) {
+    if (selectedTransmissions.length > 0 && selectedTransmissions.length !== optionsTransmissions.length) {
       url = url + 'gear-type=' + selectedTransmissions + '&'
     }
-    if (selectedColors.length > 0) {
+    if (selectedColors.length > 0 && selectedColors.length !== exteriorColors.length) {
       url = url + 'color=' + selectedColors + '&'
     }
     if (selectedRange > 0) {
-      url = url + 'min-price=' + selectedRange + '&'
+      url = url + 'maxprice=' + selectedRange + '&'
     }
     if (searchInput.length > 0) {
-      url = url + 'name-search=' + searchInput + '&'
+      url = url + 'namesearch=' + searchInput + '&'
+    }
+    if(!condition1Field){
+      if(condition2Field){
+        url = url + 'condition=New&'
+      }else if(condition3Field){
+        url = url + 'condition=Used&'
+      }
     }
     setTimeout(() => {
       setSecondUrl(url)
@@ -353,6 +381,7 @@ export default function SearchCar({conditionURL}) {
   const changeOptions = (e, year) => {
     if (e.target.checked === true) {
       if (e.target.name === 'year') {
+        console.log(e.target.value)
         setSelectedYears(selectedYears => [...selectedYears, year])
       }
       else if (e.target.name === 'brand') {
@@ -379,108 +408,28 @@ export default function SearchCar({conditionURL}) {
       else if (e.target.name === 'drivertrain') {
         setSelectedDriverTrains([...selectedDriverTrains, year.value])
       }
-    }
-    else {
+    }else{
       if (e.target.name === 'year') {
-        let test = selectedYears
-        test.forEach((selectedBrand, index) => {
-          if (selectedBrand == year.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedYears(test)
-        }, 200);
-      }
-      else if (e.target.name === 'brand') {
-        let test = selectedBrands
-        test.forEach((selectedBrand, index) => {
-          if (selectedBrand === year.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedBrands([...test])
-        }, 100);
-      }
-      else if (e.target.name === 'body-type') {
-        let test = selectedBodyTypes
-        test.forEach((selectedBodyType, index) => {
-          if (selectedBodyType.replaceAll('=', '') == year.replaceAll('=', '')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedBodyTypes(test)
-        }, 100);
-      }
-      else if (e.target.name === 'capacity') {
-        let test = selectedCapacitys
-        test.forEach((selectedCapacity, index) => {
-          if (selectedCapacity === year.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedColors(test)
-        }, 200);
-      }
-      else if (e.target.name === 'color') {
-        let test = selectedColors
-        test.forEach((selectedColor, index) => {
-          if (selectedColor === year.value.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedColors(test)
-        }, 100);
-      }
-      else if (e.target.name === 'model') {
-        let test = selectedModels
-        test.forEach((selectedColor, index) => {
-          if (selectedColor === year.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedModels(test)
-        }, 100);
-      }
-      else if (e.target.name === 'transmission') {
-        let test = selectedTransmissions
-        test.forEach((selectedColor, index) => {
-          if (selectedColor.replaceAll('=', '') == year.value.replaceAll('=', '')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedTransmissions(test)
-        }, 100);
-      }
-      else if (e.target.name === 'fuel-type') {
-        let test = selectedFuelTypes
-        test.forEach((selectedColor, index) => {
-          if (selectedColor == year.value.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedFuelTypes(test)
-        }, 100);
-      }
-      else if (e.target.name === 'drivertrain') {
-        let test = selectedDriverTrains
-        test.forEach((selectedColor, index) => {
-          if (selectedColor == year.value.replaceAll(' ', '%20')) {
-            test.splice(index, 1)
-          }
-        })
-        setTimeout(() => {
-          setSelectedDriverTrains(test)
-        }, 100);
+        setSelectedYears(selectedYears.filter(el => el != year))
+      } else if (e.target.name === 'brand') {
+        setSelectedBrands(selectedBrands.filter(el => el != year))
+      } else if (e.target.name === 'body-type') {
+        setSelectedBodyTypes(selectedBodyTypes.filter(el => el != year))
+      } else if (e.target.name === 'transmission') {
+        setSelectedTransmissions(selectedTransmissions.filter(el => el != year.value))
+      } else if (e.target.name === 'fuel-type') {
+        setSelectedFuelTypes(selectedFuelTypes.filter(el => el != year.value))
+      } else if (e.target.name === 'drivertrain') {
+        setSelectedDriverTrains(selectedDriverTrains.filter(el => el != year.value))
+      } else if (e.target.name === 'capacity') {
+        setSelectedCapacitys(selectedCapacitys.filter(el => el != year))
+      } else if (e.target.name === 'model') {
+        setSelectedModels(selectedModels.filter(el => el != year))
+      } else if (e.target.name === 'color') {
+        setSelectedColors(selectedColors.filter(el => el != year.value))
       }
     }
+
   }
   const closePhoneFilter = () => {
     filterSection.current.style.cssText += 'margin-left: -100vw'
@@ -494,14 +443,14 @@ export default function SearchCar({conditionURL}) {
     }
   }
   //options 
-  let [optionsTransmissions, setOptionsTransmissions] = useState([])
-  let [exteriorColors, setExteriorColors] = useState([])
-  let [optionsDrivetrains, setOptionsDrivetrains] = useState([])
-  let [optionsBrands, setOptionsBrands] = useState([])
-  let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
-  let [yearsOptions, setYearsOptions] = useState([])
-  let [bodyTypesOptions, setBodyTypesOptions] = useState([])
-  let [modelOptions, setModelOptions] = useState([])
+  const [optionsTransmissions, setOptionsTransmissions] = useState([])
+  const [exteriorColors, setExteriorColors] = useState([])
+  const [optionsDrivetrains, setOptionsDrivetrains] = useState([])
+  const [optionsBrands, setOptionsBrands] = useState([])
+  const [optionsFuelTypes, setOptionsFuelTypes] = useState([])
+  const [yearsOptions, setYearsOptions] = useState([])
+  const [bodyTypesOptions, setBodyTypesOptions] = useState([])
+  const [modelOptions, setModelOptions] = useState([])
 
   return <div>
     <div className="usedCars">

@@ -13,11 +13,12 @@ import api from '../../api/apiCalls'
 
 export default function HomePage() {
 
-  let [threeNewCars, setThreeNewCars] = useState([1, 2, 3])
-  let [threeUsedCars, setThreeUsedCars] = useState([1, 2, 3])
-  let [selectedBrand, setSelectedBrand] = useState('')
-  let [selectedModel, setSelectedModel] = useState('')
-  let [selectedLocation, setSelectedLocation] = useState('')
+  const [threeNewCars, setThreeNewCars] = useState([1, 2, 3])
+  const [threeUsedCars, setThreeUsedCars] = useState([1, 2, 3])
+  const [selectedBrand, setSelectedBrand] = useState('')
+  const [selectedModel, setSelectedModel] = useState('')
+  const [selectedLocation, setSelectedLocation] = useState('')
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -162,15 +163,18 @@ export default function HomePage() {
       url = url + 'location=' + selectedLocation + '&'
     }
     if (selectedRange) {
-      url = url + 'min-price=' + selectedRange + '&'
+      url = url + 'maxprice=' + selectedRange + '&'
+    }
+    if (search.length > 0) {
+      url = url + 'namesearch=' + search + '&'
     }
     navigate(url)
   }
   //inputs
-  let [nameInput, setNameInput] = useState('')
-  let [emailInput, setEmailInput] = useState('')
-  let [phoneInput, setPhoneInput] = useState('')
-  let [commentInput, setCommentInput] = useState('')
+  const [nameInput, setNameInput] = useState('')
+  const [emailInput, setEmailInput] = useState('')
+  const [phoneInput, setPhoneInput] = useState('')
+  const [commentInput, setCommentInput] = useState('')
 
   // refs
   const refNameError = useRef()
@@ -179,18 +183,18 @@ export default function HomePage() {
   const refCommentError = useRef()
 
 
-  let [selectedAll, setSelectedAll] = useState(true)
-  let [selectedNew, setSelectedNew] = useState(false)
-  let [selectedUsed, setSelectedUsed] = useState(false)
-  let [selectedRange, setSelectedRange] = useState(0)
-  let [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
-  let [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
+  const [selectedAll, setSelectedAll] = useState(true)
+  const [selectedNew, setSelectedNew] = useState(false)
+  const [selectedUsed, setSelectedUsed] = useState(false)
+  const [selectedRange, setSelectedRange] = useState(0)
+  const [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
+  const [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
   const navigate = useNavigate()
 
   //options
-  let [optionsBrands, setOptionsBrands] = useState([])
-  let [optionsModels, setOptionsModels] = useState([])
-  let [optionsLocation, setOptionsLocation] = useState([])
+  const [optionsBrands, setOptionsBrands] = useState([])
+  const [optionsModels, setOptionsModels] = useState([])
+  const [optionsLocation, setOptionsLocation] = useState([])
 
   //styles
   const customStyles = {
@@ -337,7 +341,7 @@ export default function HomePage() {
           <div className="searchSecondDiv">
             <div className="searchSecondDivInput">
               <i className="fa fa-search" aria-hidden="true"></i>
-              <input placeholder='Search' type="text" />
+              <input onChange={(e) => { setSearch(e.target.value) }} value={search} placeholder='Search' type="text" />
             </div>
             <Select onChange={(e) => { setSelectedBrand(e.value);
               let modelsTest = optionsBrands.find(brand => brand.value === e.value).models
