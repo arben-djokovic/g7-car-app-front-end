@@ -1,24 +1,24 @@
 import { Route, Routes } from 'react-router';
-import './styles/AppStyle/AppStyle.css'
-import HomePage from './components/HomePage';
-import AboutPage from './components/AboutPage';
-import ComparePage from './components/ComparePage';
-import SellPage from './components/SellPage';
-import RegisterPage from './components/RegisterPage';
-import LogInPage from './components/LogInPage';
-import ProductPage from './components/ProductPage';
-import ContactPage from './components/ContactPage';
-import FaqPage from './components/FaqPage';
+import './AppStyle.scss'
+import HomePage from './pages/Home/HomePage';
+import AboutPage from './pages/About/AboutPage';
+import ComparePage from './pages/Compare/ComparePage';
+import SellPage from './pages/Sell/SellPage';
+import RegisterPage from './pages/Registration/RegisterPage';
+import LogInPage from './pages/Registration/LogInPage';
+import ProductPage from './pages/Product/ProductPage';
+import ContactPage from './pages/Contact/ContactPage';
+import FaqPage from './pages/Faq/FaqPage';
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import UserPage from './components/UserPage';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import UserPage from './pages/User/UserPage';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import { PrivateRoute } from './services/PrivateRoute'
 import { GuestRoute } from './services/GuestRoute';
-import SearchCar from './components/SearchCar';
+import SearchCar from './pages/Search/SearchCar';
 
 function App() {
   return (
