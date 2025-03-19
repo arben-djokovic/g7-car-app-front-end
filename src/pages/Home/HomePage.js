@@ -21,6 +21,7 @@ export default function HomePage() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
+    toast.warning("🚨If the content is not loading, the API server might be waking up. Please wait a moment and try again. 🚀")
     window.scrollTo(0, 0)
     fetchBrands()
     fetchThreeNewCars()

@@ -7,8 +7,8 @@ export default function Car({ car }) {
     const navigate = useNavigate()
 
 
-    return <div onClick={() => { navigate('/product/' + car.id) }} className="car">
-        <img className='carImages' src={"./assets/tesla-car.png"} alt="" />
+    return <div onClick={() => { navigate('/product/' + car._id) }} className="car">
+        <img className='carImages' src={"../assets/tesla-car.png"} alt="" />
         <div className="aboutCar">
             <p className="newBage">{car?.condition}</p>
             <h2 className="carName">{car?.title}</h2>
