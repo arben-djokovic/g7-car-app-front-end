@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const api = axios.create({
-    baseURL: 'https://bumpcarnodejs.onrender.com/',
+    baseURL: 'http://localhost:3000/', // http://localhost:3000/ https://bumpcarnodejs.onrender.com/ https://bumpcarnodejs-production.up.railway.app/
     headers: { "Content-Type": "application/json" },
 });
 
@@ -10,11 +11,11 @@ api.interceptors.response.use(
     response => response,
     error => {
         if (!error.response) {
-            alert("The server is currently unavailable. Please wait a moment and try again.");
+            toast.warning("The server is currently unavailable. Please wait a moment and try again.");
         } else if (error.response.status === 503) {
-            alert("The server is waking up. Please retry in a few seconds.");
+            toast.warning("The server is waking up. Please retry in a few seconds.");
         } else {
-            alert(`An error occurred: ${error.message}`);
+            toast.warning(`An error occurred: ${error.message}`);
         }
         return Promise.reject(error);
     }

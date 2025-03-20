@@ -18,6 +18,16 @@ export default function SearchCar({conditionURL}) {
   const [selectedTransmissions, setSelectedTransmissions] = useState([])
   const [selectedFuelTypes, setSelectedFuelTypes] = useState([])
   const [selectedDriverTrains, setSelectedDriverTrains] = useState([])
+
+  const [optionsTransmissions, setOptionsTransmissions] = useState([])
+  const [exteriorColors, setExteriorColors] = useState([])
+  const [optionsDrivetrains, setOptionsDrivetrains] = useState([])
+  const [optionsBrands, setOptionsBrands] = useState([])
+  const [optionsFuelTypes, setOptionsFuelTypes] = useState([])
+  const [yearsOptions, setYearsOptions] = useState([])
+  const [bodyTypesOptions, setBodyTypesOptions] = useState([])
+  const [modelOptions, setModelOptions] = useState([])
+
   let url = ''
   const [secondUrl, setSecondUrl] = useState('')
 
@@ -48,19 +58,6 @@ export default function SearchCar({conditionURL}) {
     fetchCars()
     getFiltersFromUrl()
   }, [window.location.href])
-
-  useEffect(() => {
-    let models = []
-    let optionsBrands2 = optionsBrands.filter(el => selectedBrands.includes(el.value))
-    optionsBrands2.forEach(el => {
-      el.models.forEach(el2 => {
-        models = [...models, { value: el2, label: el2 }]
-      })
-    })
-    let models2 = models.flat()
-    setModelOptions(models2)
-    console.log(models2)
-  }, [selectedBrands])
 
 
   const conditionChange = (e) => {
@@ -106,10 +103,12 @@ export default function SearchCar({conditionURL}) {
       setSelectedYears(filterUrl.split('year=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('seat_count=')) {
+      console.log(filterUrl.split('seat_count=')[1].split('&')[0].split(","))
       setSelectedCapacitys(filterUrl.split('seat_count=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('brand=')) {
-      setSelectedBrands(filterUrl.split('brand=')[1].split('&')[0].split(","))
+      const selectedBrands2 = filterUrl.split('brand=')[1].split('&')[0].split(",")
+      setSelectedBrands(selectedBrands2)
     }
     
     if (filterUrl.includes('model=')) {
@@ -121,8 +120,8 @@ export default function SearchCar({conditionURL}) {
     if (filterUrl.includes('gear-type=')) {
       setSelectedTransmissions(filterUrl.split('gear-type=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('fuel-type=')) {
-      setSelectedFuelTypes(filterUrl.split('fuel-type=')[1].split('&')[0].split(","))
+    if (filterUrl.includes('fueltype=')) {
+      setSelectedFuelTypes(filterUrl.split('fueltype=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('drivetrain=')) {
       setSelectedDriverTrains(filterUrl.split('drivetrain=')[1].split('&')[0].split(","))
@@ -277,7 +276,7 @@ export default function SearchCar({conditionURL}) {
     else if(selectedBrands.length === 0){
       setSelectedModels([])
     }
-    if ((selectedModels.length > 0 && selectedModels.length !== modelOptions.length) && selectedBrands.length > 0) {
+    if (selectedModels.length > 0 && selectedBrands.length > 0) {
       url = url + 'model=' + selectedModels + '&'
     }
     if (selectedCapacitys.length > 0 && selectedCapacitys.length !== passengerCapacity.length) {
@@ -287,7 +286,7 @@ export default function SearchCar({conditionURL}) {
       url = url + 'vehicle-type=' + selectedBodyTypes + '&'
     }
     if (selectedFuelTypes.length > 0 && selectedFuelTypes.length !== optionsFuelTypes.length) {
-      url = url + 'fuel-type=' + selectedFuelTypes + '&'
+      url = url + 'fueltype=' + selectedFuelTypes + '&'
     }
     if (selectedDriverTrains.length > 0 && selectedDriverTrains.length !== optionsDrivetrains.length) {
       url = url + 'drivetrain=' + selectedDriverTrains + '&'
@@ -402,7 +401,7 @@ export default function SearchCar({conditionURL}) {
       else if (e.target.name === 'transmission') {
         setSelectedTransmissions([...selectedTransmissions, year.value])
       }
-      else if (e.target.name === 'fuel-type') {
+      else if (e.target.name === 'fueltype') {
         setSelectedFuelTypes([...selectedFuelTypes, year.value])
       }
       else if (e.target.name === 'drivertrain') {
@@ -417,7 +416,7 @@ export default function SearchCar({conditionURL}) {
         setSelectedBodyTypes(selectedBodyTypes.filter(el => el != year))
       } else if (e.target.name === 'transmission') {
         setSelectedTransmissions(selectedTransmissions.filter(el => el != year.value))
-      } else if (e.target.name === 'fuel-type') {
+      } else if (e.target.name === 'fueltype') {
         setSelectedFuelTypes(selectedFuelTypes.filter(el => el != year.value))
       } else if (e.target.name === 'drivertrain') {
         setSelectedDriverTrains(selectedDriverTrains.filter(el => el != year.value))
@@ -442,15 +441,24 @@ export default function SearchCar({conditionURL}) {
       applyFilters()
     }
   }
-  //options 
-  const [optionsTransmissions, setOptionsTransmissions] = useState([])
-  const [exteriorColors, setExteriorColors] = useState([])
-  const [optionsDrivetrains, setOptionsDrivetrains] = useState([])
-  const [optionsBrands, setOptionsBrands] = useState([])
-  const [optionsFuelTypes, setOptionsFuelTypes] = useState([])
-  const [yearsOptions, setYearsOptions] = useState([])
-  const [bodyTypesOptions, setBodyTypesOptions] = useState([])
-  const [modelOptions, setModelOptions] = useState([])
+
+  useEffect(() => {
+    if(optionsBrands == []){
+      fetchBrands()
+    }else{
+      let models = []
+      let optionsBrands2 = optionsBrands.filter(el => selectedBrands.includes(el.value))
+      optionsBrands2.forEach(el => {
+        el.models.forEach(el2 => {
+          models = [...models, { value: el2, label: el2 }]
+        })
+      })
+      let models2 = models.flat()
+      console.log(optionsBrands)
+      console.log(models)
+      setModelOptions(models2)
+    }
+  }, [selectedBrands, optionsBrands])
 
   return <div>
     <div className="usedCars">
@@ -584,7 +592,7 @@ export default function SearchCar({conditionURL}) {
               <div className={filterOptions6 ? 'optionsOpen' : 'optionsClosed'} >
                 {optionsFuelTypes.map(fuelType => {
                   return (<div key={'fuelType' + fuelType.value}>
-                    <input defaultChecked={selectedFuelTypes.includes(fuelType.value.replaceAll(" ", '%20'))} onChange={(e) => { changeOptions(e, fuelType) }} type="checkbox" name="fuel-type" id={'fuelType' + fuelType.value} />
+                    <input defaultChecked={selectedFuelTypes.includes(fuelType.value.replaceAll(" ", '%20'))} onChange={(e) => { changeOptions(e, fuelType) }} type="checkbox" name="fueltype" id={'fuelType' + fuelType.value} />
                     <label htmlFor={'fuelType' + fuelType.value}>
                       <p>{fuelType.value}</p>
                     </label>
@@ -617,7 +625,7 @@ export default function SearchCar({conditionURL}) {
                 {
                   passengerCapacity.map((capacity, i) => {
                     return (<div key={'capacity' + i}>
-                      <input defaultChecked={selectedCapacitys.includes(String(capacity))} type="checkbox" name="capacity" onChange={(e) => { changeOptions(e, capacity) }} id={'capacity' + i} />
+                      <input checked={selectedCapacitys.includes(String(capacity))} type="checkbox" name="capacity" onChange={(e) => { changeOptions(e, capacity) }} id={'capacity' + i} />
                       <label htmlFor={'capacity' + i}>
                         <p>{capacity}</p>
                       </label>

@@ -20,20 +20,6 @@ export default function HomePage() {
   const [selectedLocation, setSelectedLocation] = useState('')
   const [search, setSearch] = useState('')
 
-  useEffect(() => {
-    toast.warning("🚨If the content is not loading, the API server might be waking up. Please wait a moment and try again. 🚀")
-    window.scrollTo(0, 0)
-    fetchBrands()
-    fetchThreeNewCars()
-    fetchThreeUsedCars()
-    fetchLocation()
-  }, [])
-
-  useEffect(() => {
-    fetchModels()
-  }, [selectedBrand])
-
-  //functions
   const fetchThreeUsedCars = async () => {
     try {
       const response = await api.get('/cars?limit=3&condition=Used')
@@ -67,24 +53,6 @@ export default function HomePage() {
     }
     catch (err) {
       console.log(err)
-    }
-  }
-  const fetchModels = async () => {
-    if (selectedBrand.length) {
-      console.log(selectedBrand)
-      try {
-        const response = await api.get('/models/' + selectedBrand)
-        let models = []
-        response.data.forEach(element => {
-          models.push({ value: element.value, label: element.value })
-        });
-        setTimeout(() => {
-          setOptionsModels(models)
-        }, 100);
-      }
-      catch (err) {
-        console.log(err)
-      }
     }
   }
   const fetchLocation = async () => {
@@ -226,7 +194,14 @@ export default function HomePage() {
     }
   }
 
-
+  useEffect(() => {
+    // toast.warning("🚨If the content is not loading, the API server might be waking up. Please wait a moment and try again. 🚀")
+    window.scrollTo(0, 0)
+    fetchBrands()
+    fetchThreeNewCars()
+    fetchThreeUsedCars()
+    fetchLocation()
+  }, [])
 
   return <div className='homePage'>
     <div className="firstSection">
