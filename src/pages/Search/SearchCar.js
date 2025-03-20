@@ -114,8 +114,8 @@ export default function SearchCar({conditionURL}) {
     if (filterUrl.includes('model=')) {
       setSelectedModels(filterUrl.split('model=')[1].split('&')[0].split(","))
     }
-    if (filterUrl.includes('vehicle-type=')) {
-      setSelectedBodyTypes(filterUrl.split('vehicle-type=')[1].split('&')[0].split(","))
+    if (filterUrl.includes('body_type=')) {
+      setSelectedBodyTypes(filterUrl.split('body_type=')[1].split('&')[0].split(","))
     }
     if (filterUrl.includes('gear-type=')) {
       setSelectedTransmissions(filterUrl.split('gear-type=')[1].split('&')[0].split(","))
@@ -283,7 +283,7 @@ export default function SearchCar({conditionURL}) {
       url = url + 'seat_count=' + selectedCapacitys + '&'
     }
     if (selectedBodyTypes.length > 0 && selectedBodyTypes.length !== bodyTypesOptions.length) {
-      url = url + 'vehicle-type=' + selectedBodyTypes + '&'
+      url = url + 'body_type=' + selectedBodyTypes + '&'
     }
     if (selectedFuelTypes.length > 0 && selectedFuelTypes.length !== optionsFuelTypes.length) {
       url = url + 'fueltype=' + selectedFuelTypes + '&'
@@ -304,9 +304,12 @@ export default function SearchCar({conditionURL}) {
       url = url + 'namesearch=' + searchInput + '&'
     }
     if(!condition1Field){
+      console.log("nije all")
       if(condition2Field){
+        console.log("new")
         url = url + 'condition=New&'
       }else if(condition3Field){
+        console.log("Used")
         url = url + 'condition=Used&'
       }
     }
@@ -390,7 +393,7 @@ export default function SearchCar({conditionURL}) {
         setSelectedBodyTypes([...selectedBodyTypes, year])
       }
       else if (e.target.name === 'capacity') {
-        setSelectedCapacitys([...selectedCapacitys, year])
+        setSelectedCapacitys([...selectedCapacitys, String(year)])
       }
       else if (e.target.name === 'color') {
         setSelectedColors([...selectedColors, year.value])
@@ -459,6 +462,10 @@ export default function SearchCar({conditionURL}) {
       setModelOptions(models2)
     }
   }, [selectedBrands, optionsBrands])
+
+  useEffect(() => {
+    console.log("State updated:", selectedCapacitys);
+  }, [selectedCapacitys]);
 
   return <div>
     <div className="usedCars">
@@ -623,7 +630,7 @@ export default function SearchCar({conditionURL}) {
               </div>
               <div className={filterOptions8 ? 'optionsOpen' : 'optionsClosed'} >
                 {
-                  passengerCapacity.map((capacity, i) => {
+                  selectedCapacitys && passengerCapacity.map((capacity, i) => {
                     return (<div key={'capacity' + i}>
                       <input checked={selectedCapacitys.includes(String(capacity))} type="checkbox" name="capacity" onChange={(e) => { changeOptions(e, capacity) }} id={'capacity' + i} />
                       <label htmlFor={'capacity' + i}>
@@ -664,7 +671,6 @@ export default function SearchCar({conditionURL}) {
                 <input defaultValue={selectedRange} name='range' step={1000} onChange={(e) => { setSelectedRange(e.target.value) }} type="range" min={0} max={300000} />
               </div>
             </div>
-            {/* class is resetFilters because it was supposed to be Reset Filters btn but we changed it */}
             <div onClick={applyFilters} className="resetFilters">
               <h3>Apply Filters</h3>
             </div>
@@ -674,13 +680,11 @@ export default function SearchCar({conditionURL}) {
         <div className="mainSeciton">
           <div className="searchSection">
             <i onClick={applyFilters} className="fa fa-search"></i>
-            <input name="search" onChange={(e) => { setSearchInput(e.target.value) }} onKeyPress={checkEnter} placeholder='Search' type="text" />
+            <input name="search" value={searchInput} onChange={(e) => { setSearchInput(e.target.value) }} onKeyPress={checkEnter} placeholder='Search' type="text" />
           </div>
-          {/* version 2 => */}
           <div className="sortSection">
             <div className="result"></div>
             <div className="second">
-              {/* <Select placeholder='Sort by' className='select' options={modelOptions} /> */}
               <div className="filterIcon">
                 <div onClick={openPhoneFilter} className="icon">
                   <i className="fa fa-filter"></i>
