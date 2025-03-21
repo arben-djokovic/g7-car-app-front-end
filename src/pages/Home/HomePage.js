@@ -416,7 +416,7 @@ export default function HomePage() {
         <div className="versus">VS</div>
         <Car car={threeNewCars[1]} />
       </div>
-      <div onClick={() => { navigate('/compare/' + threeNewCars[0].id + '&' + threeNewCars[1].id) }} className="compareBtn">
+      <div onClick={() => { navigate('/compare/' + threeNewCars[0]._id + '&' + threeNewCars[1]._id) }} className="compareBtn">
         <h2>Compare Car</h2>
       </div>
     </div>

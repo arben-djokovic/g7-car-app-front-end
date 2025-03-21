@@ -23,6 +23,7 @@ export default function RegisterPage() {
   let [usernameInput, setUsernameInput] = useState('')
   let [optionsLocation, setOptionsLocation] = useState([])
   let [location, setLocation] = useState('')
+  let [locationId, setLocationId] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -33,7 +34,7 @@ export default function RegisterPage() {
       const response = await api.get('/locations')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+        brands.push({ id: element._id, value: element.name, label: element.name, latitude: element.latitude, longitude: element.longitude })
       });
       setTimeout(() => {
         setOptionsLocation(brands)
@@ -43,6 +44,15 @@ export default function RegisterPage() {
       console.log(err)
     }
   }
+
+
+  useEffect(() => {
+    optionsLocation.forEach(element => {
+      if (element.value === location) {
+        setLocationId(element.id)
+      }
+    })
+  }, [location])
   const navigate = useNavigate()
   const customStyles = {
     option: (provided, state) => ({
@@ -124,25 +134,24 @@ export default function RegisterPage() {
       refPassword.current.style.color = 'transparent'
       refUsername.current.style.color = 'transparent'
       let newUser = {
-        user: {
-          email: String(emailInput),
-          password: String(passwordInput),
-          username: String(usernameInput)
-        },
-        location: String(location),
+        name: nameInput,
         phone: String(numberInput),
-        full_name: nameInput
+        email: String(emailInput),
+        username: String(usernameInput),
+        password: String(passwordInput)
       }
       addNewUser(newUser)
     }
   }
   const addNewUser = async (newUser) => {
     try {
-      const response = await api.post('/user/create/', newUser)
+      const response = await api.post('/register', {...newUser, location: locationId})
+      console.log(response.data)
       navigate('/log-in')
     }
     catch (error) {
-      console.log(error)
+      console.log(error.response.data)
+      toast.error(error.response.data.error)
     }
   }
 

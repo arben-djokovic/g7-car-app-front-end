@@ -11,9 +11,8 @@ class AuthService {
   setJWT = (token) =>
     (api.defaults.headers.common["Authorization"] = `Bearer ${token}`);
 
-  login = (access, refresh, username /*, admin */) => {
+  login = (access, username) => {
     localStorage.setItem("accessToken", access);
-    localStorage.setItem("refreshToken", refresh);
     localStorage.setItem("username", username);
     this.setJWT(access);
   };

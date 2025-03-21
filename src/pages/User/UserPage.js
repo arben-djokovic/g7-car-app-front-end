@@ -13,31 +13,22 @@ export default function UserPage() {
     fetchLocation()
   }, [])
 
-  let [editProfile, setEditProfile] = useState(false)
-  let [optionsLocation, setOptionsLocation] = useState([])
-  let [city, setCity] = useState('')
-  let [changePhoneNumber, setChangePhoneNumber] = useState(0)
-  let [changeFullName, setChangeFullName] = useState('')
+  const [editProfile, setEditProfile] = useState(false)
+  const [optionsLocation, setOptionsLocation] = useState([])
+  const [city, setCity] = useState('')
+  const [changePhoneNumber, setChangePhoneNumber] = useState(0)
+  const [changeFullName, setChangeFullName] = useState('')
 
   const navigate = useNavigate()
-  let [myCars, setMyCars] = useState([])
-  let [userInfo, setUserInfo] = useState({
-    "user": {
-      "email": "",
-      "password": "",
-      "username": ""
-    },
-    "location": "",
-    "phone": "",
-    "full_name": "",
-    "id": 1
+  const [myCars, setMyCars] = useState([])
+  const [userInfo, setUserInfo] = useState({
   })
   const fetchLocation = async () => {
     try {
       const response = await api.get('/locations')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+        brands.push({ id: element._id, value: element.name, label: element.name, latitude: element.latitude, longitude: element.longitude })
       });
       setTimeout(() => {
         setOptionsLocation(brands)
@@ -76,8 +67,8 @@ export default function UserPage() {
   };
   const fetchUser = async () => {
     try {
-      const response = await api('/user/' + localStorage.getItem("username"))
-      setUserInfo(response.data[0])
+      const response = await api('/user/me')
+      setUserInfo(response.data)
     }
     catch (error) {
       console.log(error)
@@ -86,7 +77,8 @@ export default function UserPage() {
 
   const fetchMyCars = async () => {
     try {
-      const response = await api.get('/vehicle/user/' + localStorage.getItem("username"))
+      const response = await api.get('/cars/mine')
+      console.log(response.data)
       setMyCars(response.data)
     }
     catch (error) {
@@ -154,30 +146,30 @@ export default function UserPage() {
         <img src="../assets/logo.png" alt="" />
         {!editProfile ? <div className="infos">
           <div className="info">
-            <h2>{userInfo.full_name}</h2>
+            <h2>{userInfo?.name}</h2>
             <p>Full Name</p>
           </div>
           <div className="info">
-            <h2>{userInfo.phone}</h2>
+            <h2>{userInfo?.phone}</h2>
             <p>Phone Number</p>
           </div>
           <div className="info">
-            <h2>{userInfo.user.email}</h2>
+            <h2>{userInfo?.email}</h2>
             <p>Email</p>
           </div>
           <div className="info">
-            <h2>{userInfo.location}</h2>
+            <h2>{userInfo?.location?.name}</h2>
             <p>Location</p>
           </div>
           <div className="info">
-            <h2>{userInfo.user.username}</h2>
+            <h2>{userInfo?.username}</h2>
             <p>Username</p>
           </div>
           <div className="logOut">
             <h2 onClick={() => { localStorage.clear(); navigate('/') }}><i className="fa fa-sign-out" aria-hidden="true"></i>Log out</h2>
           </div>
           <div className="delete">
-            <p onClick={() => { deleteUser(userInfo.id) }}>Delete this account</p>
+            <p onClick={() => { deleteUser(userInfo?._id) }}>Delete this account</p>
           </div>
         </div> : <div className='editProfile'>
           <h3>Edit Profile</h3>
@@ -199,8 +191,8 @@ export default function UserPage() {
       <div className="cars">
         <h2>My Cars</h2>
         <div className="carsList">
-          {myCars.length ? myCars.map(car => {
-            return (<div key={car.id} className='carDiv'>
+          {myCars.length ? myCars.map((car, i) => {
+            return (<div key={car.id + "" + i + "" + Math.random()} className='carDiv'>
               <p onClick={() => { answer(car.id) }} className='deleteBtn'><span>X</span></p>
               <Car car={car} />
             </div>

@@ -8,10 +8,8 @@ import { useNavigate } from 'react-router';
 
 export default function SellPage() {
 
-  // refs
   const refTitle = useRef()
   const refCondition = useRef()
-  // version 2 => const refImages = useRef()
   const refPrice = useRef()
   const refCity = useRef()
   const refFuelType = useRef()
@@ -30,7 +28,6 @@ export default function SellPage() {
   const navigate = useNavigate()
 
   let [passengerCapacity, setPassengerCapacity] = useState(2)
-  let [images, setImages] = useState([]);
   let [titleField, setTitleField] = useState('')
   let [condition1Field, setCondition1Field] = useState('off')
   let [condition2Field, setCondition2Field] = useState('off')
@@ -53,8 +50,8 @@ export default function SellPage() {
   let [description, setDescription] = useState('')
   let [year, setYear] = useState('')
   let [fuelType, setFuelType] = useState('')
-  // let [vehicleHistoryFile, setVehicleHistoryFile] = useState('');
   let [position, setPosition] = useState([42.768804, 19.263593])
+
 
 
   useEffect(() => {
@@ -66,32 +63,15 @@ export default function SellPage() {
     fetchFuelTypes()
     fetchTransmissions()
     fetchLocation()
-    fetchUserInfo()
     setTimeout(() => {
       setYearsOptions(yearsOptionFirst)
     }, 500);
   }, [])
 
-  useEffect(() => {
-    selectedBrand && fetchModels()
-  }, [selectedBrand])
 
-  let inputImage = (e) => {
-    for (let i = 0; i <= e.target.files.length; i++) {
-      if (e.target.files && e.target.files[i]) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          setImages(images => [...images, e.target.result])
-        };
-        reader.readAsDataURL(e.target.files[i]);
-      }
-    }
-
-
-  }
 
   let yearsOptionFirst = []
-  for (let i = 2022; i > 1980; i--) {
+  for (let i = 2025; i > 1980; i--) {
     yearsOptionFirst = [...yearsOptionFirst, { label: i, value: i }]
   }
   //options 
@@ -102,7 +82,6 @@ export default function SellPage() {
   let [optionsLocation, setOptionsLocation] = useState([])
   let [optionsModels, setOptionsModels] = useState([])
   let [optionsFuelTypes, setOptionsFuelTypes] = useState([])
-  let [userInfo, setUserInfo] = useState({})
   let [yearsOptions, setYearsOptions] = useState([])
   let [bodyTypesOptions, setBodyTypesOptions] = useState([])
   let featuresOptions = ['Power Steering', 'Heated Seats', 'Rear Parking Sensor', 'USB Port', 'AC', 'Wifi', 'Roof Rack', 'Sound System', 'Alarm', 'Cruise Control', 'Power Windows', 'Memory Seat', 'Bluetooth', 'Front Parking Sensor', 'Sunroof', 'Other']
@@ -111,9 +90,9 @@ export default function SellPage() {
   const fetchBodyTypes = async () => {
     try {
       let brands = []
-      const response = await api.get('/vehicle-types')
+      const response = await api.get('/body-types')
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element._id })
       });
       setTimeout(() => {
         setBodyTypesOptions(brands)
@@ -128,25 +107,10 @@ export default function SellPage() {
       const response = await api.get('/brands')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, models: element.models, id: element._id })
       });
       setTimeout(() => {
         setOptionsBrands(brands)
-      }, 100);
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-  const fetchModels = async () => {
-    try {
-      const response = await api.get('/models/' + selectedBrand)
-      let models = []
-      response.data.forEach(element => {
-        models.push({ value: element.value, label: element.value })
-      });
-      setTimeout(() => {
-        setOptionsModels(models)
       }, 100);
     }
     catch (err) {
@@ -158,7 +122,7 @@ export default function SellPage() {
       const response = await api.get('/colors')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element._id })
       });
       setTimeout(() => {
         setExteriorColors(brands)
@@ -170,10 +134,10 @@ export default function SellPage() {
   }
   const fetchDrivetrains = async () => {
     try {
-      const response = await api.get('/drivetrains')
+      const response = await api.get('/drive-trains')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element._id })
       });
       setTimeout(() => {
         setOptionsDrivetrains(brands)
@@ -188,7 +152,7 @@ export default function SellPage() {
       const response = await api.get('/fuel-types')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element._id })
       });
       setTimeout(() => {
         setOptionsFuelTypes(brands)
@@ -200,10 +164,10 @@ export default function SellPage() {
   }
   const fetchTransmissions = async () => {
     try {
-      const response = await api.get('/gear-types')
+      const response = await api.get('/transmissions')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value })
+        brands.push({ value: element.name, label: element.name, id: element._id })
       });
       setTimeout(() => {
         setOptionsTransmissions(brands)
@@ -218,7 +182,7 @@ export default function SellPage() {
       const response = await api.get('/locations')
       let brands = []
       response.data.forEach(element => {
-        brands.push({ value: element.value, label: element.value, latitude: element.latitude, longitude: element.longitude })
+        brands.push({ value: element.name, label: element.name, latitude: element.latitude, longitude: element.longitude, id: element._id })
       });
       setTimeout(() => {
         setOptionsLocation(brands)
@@ -262,29 +226,6 @@ export default function SellPage() {
     setPosition([Number(e.latitude), Number(e.longitude)])
   }
 
-  // version 2 =>  const removeImage = (img1) => {
-  //   let newArray = [...images]
-
-  //   for( var i = 0; i < newArray.length; i++){               
-  //     if ( newArray[i] === img1) { 
-  //         newArray.splice(i, 1); 
-  //         i--; 
-  //     }
-  //   } 
-  //   setTimeout(() => {
-  //     setImages([...newArray])
-  //   }, 200);
-  // }
-  const fetchUserInfo = async () => {
-    try {
-      const response = await api.get('/user/' + localStorage.getItem('username'))
-      setUserInfo(response.data[0])
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
 
   const checkFields = () => {
     if (titleField.length < 2 || (condition1Field == 'off' && condition2Field == 'off') || price.length === 0 /* || images.length < 3 */ || city.length === 0 || selectedBrand.length === 0 || selectedModel.length === 0 || bodyType.length === 0 || year.length === 0 || selectedColor.length === 0 || power.length === 0 || engineCapacity.length === 0 || selectedDrivetrain.length === 0 || description.length === 0 || selectedColor.length === 0 || selectedTransmission.length === 0 || fuelType.length === 0) {
@@ -306,13 +247,6 @@ export default function SellPage() {
       else {
         refPrice.current.style.color = 'transparent'
       }
-      // version2 =>  if(images.length < 3){
-      //   refImages.current.style.color = 'red'
-      //   toast.error('Add minimum 3 images of your car')
-      // }
-      // else{
-      //   refImages.current.style.color = 'transparent'
-      // }
       if (city.length === 0) {
         refCity.current.style.color = 'red'
       }
@@ -394,7 +328,6 @@ export default function SellPage() {
       toast.error('Check fields!')
     }
     else {
-      // refImages.current.style.color = 'transparent'
       refCity.current.style.color = 'transparent'
       refCondition.current.style.color = 'transparent'
       refPrice.current.style.color = 'transparent'
@@ -403,45 +336,46 @@ export default function SellPage() {
       refModel.current.style.color = 'transparent'
       refBodyType.current.style.color = 'transparent'
       refYear.current.style.color = 'transparent'
+
       let newCar = {
         description: description,
-        name: titleField,
+        title: titleField,
         condition: condition1Field ? 'New' : 'Used',
         brand: selectedBrand,
-        brand_model: selectedModel.value,
-        vehicle_type: bodyType,
-        horse_power: Number(power),
-        seat_count: Number(passengerCapacity),
+        model: selectedModel,
+        body_type: bodyType,
+        power: Number(power),
+        passenger_capacity: Number(passengerCapacity),
         location: city,
-        engine_capacity: Number(engineCapacity),//
+        engine_capacity: Number(engineCapacity),
         price: Number(price),
         color: selectedColor,
-        gear_type: selectedTransmission,
+        transmission: selectedTransmission,
         year: Number(year),
         fuel_type: fuelType,
         drivetrain: selectedDrivetrain,
-        //version2 =>  features: [...selectedFeatures],
-        length: Number(length),//
-        mileage: Number(mileage),//
-        width: Number(width),    //
-        height: Number(height),  //
-        cargo_volume: Number(cargoVolume),//
-        user: userInfo.user.id
+        length: Number(length),
+        mileage: Number(mileage),
+        width: Number(width),
+        height: Number(height),
+        cargo_volume: Number(cargoVolume),
       }
+      console.log(newCar)
       addVehicleToBackend(newCar)
     }
   }
   const addVehicleToBackend = async (newCar) => {
     try {
-      const response = await api.post('/vehicle/', newCar)
+      const response = await api.post('/cars/', newCar)
       toast.success('Yeyyyyy')
-      navigate('/user/' + userInfo.user.username )
+      navigate('/user/' + localStorage.getItem('username'))
     }
     catch (error) {
-      toast.error('Try again after refreshing page')
+      toast.error(error.response.data.error)
       console.log(error.response)
     }
   }
+
   const addOrRemoveFeature = (featureClicked) => {
     if (selectedFeatures.includes(featureClicked)) {
       let testArray = [...selectedFeatures]
@@ -456,6 +390,21 @@ export default function SellPage() {
       setSelectedFeatures([...selectedFeatures, featureClicked])
     }
   }
+
+  useEffect(() => {
+    if(optionsBrands == []) return fetchBrands()
+    if(selectedBrand == '') return
+    let brand2 = { models: []}
+    brand2 = optionsBrands.filter(el => el.value === selectedBrand)[0]
+    let optionModelsTest = []
+    console.log(brand2)
+    brand2?.models.forEach(element => {
+      optionModelsTest.push({ value: element, label: element })
+    })
+    setOptionsModels(optionModelsTest)
+    setSelectedModel('')
+  }, [selectedBrand])
+
 
   return <div>
     <form className="sellPage">
@@ -474,13 +423,13 @@ export default function SellPage() {
             <p>Condition<span ref={refCondition} className='required'>*required</span></p>
             <div className='radioBtns'>
               <div className="radioBtn">
-                <input onChange={(e) => { setCondition1Field(true) }} type="radio" id='1' name="radioBtn" />
+                <input onChange={(e) => { setCondition1Field(true); setCondition2Field(false) }} type="radio" id='1' name="radioBtn" />
                 <label htmlFor="1">
                   <p>New</p>
                 </label>
               </div>
               <div className="radioBtn">
-                <input onChange={(e) => { setCondition1Field(false) }} type="radio" id='2' name="radioBtn" />
+                <input onChange={(e) => { setCondition1Field(false); setCondition2Field(true) }} type="radio" id='2' name="radioBtn" />
                 <label htmlFor="2">
                   <p>Used</p>
                 </label>
@@ -497,7 +446,7 @@ export default function SellPage() {
           </div>
           <div className="section5">
             <p>Model<span ref={refModel} className='required'>*required</span></p>
-            <Select className='select' onChange={(e) => { setSelectedModel(e) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
+            <Select className='select' onChange={(e) => { setSelectedModel(e.value) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="section6">
             <p>Year<span ref={refYear} className='required'>*required</span></p>
@@ -604,9 +553,9 @@ export default function SellPage() {
       <div className="features">
         <h2>Features</h2>
         <div className="checkList">
-          {featuresOptions.map(featureOption => {
+          {featuresOptions.map((featureOption, i) => {
             return (
-              <div key={featureOption} className="checkDiv">
+              <div key={featureOption + i} className="checkDiv">
                 <input type="checkbox" onClick={() => { addOrRemoveFeature(featureOption) }} name="featuresCheckbox" id={'featuresOptions' + featureOption} />
                 <label htmlFor={'featuresOptions' + featureOption}>
                   <p>{featureOption}</p>
@@ -651,38 +600,6 @@ export default function SellPage() {
 
         </div>
       </div>
-
-      {/*version2 =>  <div className="images">
-        <h2>Images<span ref={refImages} className='required'>*required (min 3)</span></h2>
-        <div className="content">
-          <div className="displayImages">
-            {images.length ? images.map((img1, i) => {
-              return(<div className='imagesDiv' key={i}>
-                <img src={img1} alt="" />
-                <i onClick={()=>{removeImage(img1)}} className='fa fa-close'></i>
-              </div>)
-            }) : <p>No image is selected</p>}
-          </div>
-          <input className='fileInput' id='fileInput' multiple type="file" onChange={inputImage} accept="image/gif, image/jpeg, image/png" />
-          <label className='labelInput' htmlFor="fileInput">
-            <p className='inputBtn'>Chose image</p>
-          </label>
-        </div>
-      </div> */}
-
-      {/* <div className="vehicleHistory">
-        <h2>Vehicle History</h2>
-        <div className="selectInput">
-          <input className='fileInput' onChange={(e)=>{setVehicleHistoryFile(e.target.files[0].name)}} id='fileInputHistory' type="file" />
-          <label htmlFor="fileInputHistory">
-            <p className="choseFile">Chose File</p>
-          </label>
-          <div className="chosenFile">
-            <p>{vehicleHistoryFile ? vehicleHistoryFile : 'No file selected'}</p>
-          </div>
-        </div>
-      </div> */}
-
       <div className="sellMyCar">
         <p onClick={checkFields}>Sell My Car</p>
       </div>

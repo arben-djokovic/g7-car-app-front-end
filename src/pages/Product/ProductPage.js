@@ -25,7 +25,6 @@ export default function ProductPage() {
   const [commentInput, setCommentInput] = useState('')
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [car, setCar] = useState({ length: 2, city: { latitude: 42.779289, longitude: 19.209843} })
-  const [userInfo, setUserInfo] = useState({ user: { email: '' } })
   const [images, setImages] = useState([])
 
   useEffect(() => {
@@ -35,7 +34,6 @@ export default function ProductPage() {
 
   useEffect(() => {
     if (car.created_by) {
-      fetchUserInfo()
       fetchModelImages()
     }
   }, [car])
@@ -59,15 +57,6 @@ export default function ProductPage() {
     }
     else {
       navigate('/compare/' + id + '&' + compareCar2)
-    }
-  }
-
-  const fetchUserInfo = async () => {
-    try {
-      const response = await api.get('/user/' + car?.created_by)
-      setUserInfo(response.data[0])
-    }
-    catch (error) {
     }
   }
 
@@ -171,16 +160,16 @@ export default function ProductPage() {
           <h2>Dealer Info</h2>
           <div className="dealerInfo">
             <div className="name">
-              <h3>{userInfo.full_name}</h3>
+              <h3>{car?.user?.name}</h3>
               <p>Dealer</p>
             </div>
             <div className="phone">
               <i className="fa fa-phone"></i>
-              <h3>{userInfo.phone}</h3>
+              <h3>{car?.user?.phone}</h3>
             </div>
             <div className="mail">
               <i className="fa fa-envelope"></i>
-              <h3>{userInfo.user.email}</h3>
+              <h3>{car?.user?.email}</h3>
             </div>
           </div>
         </div>

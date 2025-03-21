@@ -21,18 +21,16 @@ export default function LogInPage() {
     }
     else {
       let userInfos = {
-        requestBody: {
-          username: String(usernameInput),
-          password: String(passwordInput)
-        }
+        username: String(usernameInput),
+        password: String(passwordInput)
       }
       try {
-        const response = await api.post('/auth/jwt/create/', userInfos)
-        auth.login(response.data.access, response.data.refresh, usernameInput)
+        const response = await api.post('/login', userInfos)
+        auth.login(response.data.token, usernameInput)
         navigate('/')
       }
       catch (error) {
-        if (error.response.data.detail === 'No active account found with the given credentials') {
+        if (error.response.data.message === 'Invalid password' || error.response.data.message === 'User not found') {
           toast.error('Uncorrect password or username')
         }
         else {

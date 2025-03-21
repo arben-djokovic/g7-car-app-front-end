@@ -1,4 +1,4 @@
-export var compareCar2 = (state = 27, action) => {
+export var compareCar2 = (state = '', action) => {
     if (action.type === 'changeCompareCar2') {
         return action.playload
     }

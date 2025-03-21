@@ -533,12 +533,14 @@ export default function SearchCar({conditionURL}) {
               </div>
               <div className={filterOptions2 ? 'optionsOpen' : 'optionsClosed'} >
                 {optionsBrands.map(brand => {
+                  if(brand && brand.value){    
                   return (<div key={'brand' + brand.value}>
-                    <input defaultChecked={selectedBrands.includes(brand.value.replaceAll(" ", '%20'))} type="checkbox" name="brand" onChange={(e) => { changeOptions(e, brand.value) }} id={'brand' + brand.value} />
+                    <input defaultChecked={selectedBrands.includes(brand?.value.replaceAll(" ", '%20'))} type="checkbox" name="brand" onChange={(e) => { changeOptions(e, brand.value) }} id={'brand' + brand.value} />
                     <label htmlFor={'brand' + brand.value}>
                       <p>{brand.value}</p>
                     </label>
                   </div>)
+                  }
                 })}
               </div>
             </div>
