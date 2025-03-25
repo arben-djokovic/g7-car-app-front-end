@@ -425,7 +425,7 @@
         }   
         .sponsors{
             justify-content: flex-start;
-            width: 100vw;
+            width: calc(100vw - 20px);
             overflow-x: auto;
             padding: 10px;
         }

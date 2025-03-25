@@ -337,12 +337,14 @@ export default function SellPage() {
       refBodyType.current.style.color = 'transparent'
       refYear.current.style.color = 'transparent'
 
+      console.log(selectedModel)
+
       let newCar = {
         description: description,
         title: titleField,
         condition: condition1Field ? 'New' : 'Used',
         brand: selectedBrand,
-        model: selectedModel,
+        model: selectedModel?.value,
         body_type: bodyType,
         power: Number(power),
         passenger_capacity: Number(passengerCapacity),
@@ -446,7 +448,7 @@ export default function SellPage() {
           </div>
           <div className="section5">
             <p>Model<span ref={refModel} className='required'>*required</span></p>
-            <Select className='select' onChange={(e) => { setSelectedModel(e.value) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
+            <Select className='select' onChange={(e) => { setSelectedModel(e) }} value={selectedModel} styles={customStyles} placeholder={'Models...'} options={optionsModels} />
           </div>
           <div className="section6">
             <p>Year<span ref={refYear} className='required'>*required</span></p>

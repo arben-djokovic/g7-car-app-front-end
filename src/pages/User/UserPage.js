@@ -4,6 +4,7 @@ import api from '../../api/apiCalls'
 import Car from '../../components/Car/Car'
 import { useNavigate } from 'react-router';
 import Select from 'react-select'
+import { toast } from 'react-toastify';
 
 export default function UserPage() {
   useEffect(() => {
@@ -94,20 +95,29 @@ export default function UserPage() {
 
   const deleteMyCar = async (id) => {
     try {
-      const response = await api.delete('/vehicle/delete/' + id)
-      fetchMyCars()
+      const response = await api.delete('/cars/' + id)
+      if(response.status === 200){
+        toast.success('Car deleted')
+        fetchMyCars()
+      }
     }
     catch (error) {
       console.log(error.response.data)
     }
   }
-  const deleteUser = async (id) => {
+  const deleteUser = async () => {
     let question = window.confirm('ARE YOU SURE?')
     if (question) {
       try {
-        const response = await api.delete('/user/delete/' + id)
-        localStorage.clear()
-        navigate("/log-in")
+        const response = await api.delete('/user/me')
+        console.log(response)
+        if(response.data.success){
+          toast.success('User deleted')
+          localStorage.clear()
+          navigate("/log-in")
+        }else{
+          toast.error('Something went wrong')
+        }
       }
       catch (error) {
         console.log(error)
@@ -115,13 +125,13 @@ export default function UserPage() {
     }
   }
   const changeCity = (e) => {
-    setCity(e.value)
+    setCity(e.id)
   }
 
   const editUser = async () => {
     let userTest = {}
     if (changeFullName.length) {
-      userTest.full_name = String(changeFullName)
+      userTest.name = String(changeFullName)
     }
     if (city.length) {
       userTest.location = String(city)
@@ -129,8 +139,9 @@ export default function UserPage() {
     if (changePhoneNumber.length) {
       userTest.phone = String(changePhoneNumber)
     }
+    console.log(userTest)
     try {
-      const response = await api.put('/user/update/' + userInfo.id + '/', userTest)
+      const response = await api.put('/user/me', userTest)
       setEditProfile(false)
       fetchUser()
     }
@@ -193,7 +204,7 @@ export default function UserPage() {
         <div className="carsList">
           {myCars.length ? myCars.map((car, i) => {
             return (<div key={car.id + "" + i + "" + Math.random()} className='carDiv'>
-              <p onClick={() => { answer(car.id) }} className='deleteBtn'><span>X</span></p>
+              <p onClick={() => { answer(car._id) }} className='deleteBtn'><span>X</span></p>
               <Car car={car} />
             </div>
             )
