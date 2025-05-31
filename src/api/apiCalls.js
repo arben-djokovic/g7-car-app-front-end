@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-    baseURL: 'https://bumpcarnodejs-production.up.railway.app/', // http://localhost:3000/ https://bumpcarnodejs.onrender.com/ https://bumpcarnodejs-production.up.railway.app/
+    baseURL: 'https://bumpcarnodejs-1.onrender.com/', // http://localhost:3000/ https://bumpcarnodejs-1.railway.app/
     headers: { "Content-Type": "application/json" },
 });
 

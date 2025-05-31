@@ -3,6 +3,7 @@ import './SearchCar.scss'
 import Car from '../../components/Car/Car';
 import api from '../../api/apiCalls'
 import { useNavigate } from 'react-router';
+import {auth} from '../../services/AuthService'
 
 export default function SearchCar({conditionURL}) {
   const [condition1Field, setCondition1Field] = useState(true)
@@ -696,7 +697,7 @@ export default function SearchCar({conditionURL}) {
           </div>
           <div className="carsSection">
             {carsToDisplay.map(car => {
-              return (<Car key={car._id} car={car} />)
+              return (<Car key={car._id} car={car} canDelete={auth.isAdmin()} />)
             })}
 
           </div>

@@ -214,7 +214,7 @@ export default function ComparePage() {
                 </div>
                 <div className="infos">
                   <p>{car1?.height} mm</p>
-                  <p>{car1?.height} mm</p>
+                  <p>{car2?.height} mm</p>
                 </div>
               </div>
               <div className="section">

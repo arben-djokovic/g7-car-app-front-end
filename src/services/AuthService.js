@@ -1,5 +1,5 @@
-
 import api from '../api/apiCalls'
+import { jwtDecode } from "jwt-decode";
 
 class AuthService {
   getAuthStatus = () => {
@@ -15,6 +15,25 @@ class AuthService {
     localStorage.setItem("accessToken", access);
     localStorage.setItem("username", username);
     this.setJWT(access);
+  };
+
+  getToken = () => localStorage.getItem("accessToken");
+
+  isAuthenticated = () => {
+    return !!this.getDecodedToken();
+  };
+  isAdmin = () => this.getDecodedToken()?.role === "admin";
+
+  getDecodedToken = () => {
+    let token = this.getToken();
+    if (!token) return null;
+    try {
+      const decoded = jwtDecode(token);
+      return decoded;
+    } catch (error) {
+      console.error("Invalid token", error);
+      return null;
+    }
   };
 
   logout = () => localStorage.clear();

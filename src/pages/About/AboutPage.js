@@ -19,15 +19,15 @@ export default function AboutPage() {
     <div className="ourService">
       <h2>Our Service</h2>
       <div className="second">
-        <div onClick={() => { navigate('new-cars') }}>
+        <div onClick={() => { navigate('/new-cars') }}>
           <img src="./assets/buy-car-icon.png" alt="" />
           <p>Buy a new car</p>
         </div>
-        <div onClick={() => { navigate('used-cars') }}>
+        <div onClick={() => { navigate('/used-cars') }}>
           <img src="./assets/buy-used-car-icon.png" alt="" />
           <p>Buy an used car</p>
         </div>
-        <div onClick={() => { navigate('sell') }}>
+        <div onClick={() => { navigate('/sell') }}>
           <img src="./assets/sell-car-icon.png" alt="" />
           <p>Sell my car</p>
         </div>

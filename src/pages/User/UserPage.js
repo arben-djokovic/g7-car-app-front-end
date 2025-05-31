@@ -86,25 +86,7 @@ export default function UserPage() {
       console.log(error)
     }
   }
-  const answer = (id) => {
-    let question = window.confirm('ARE YOU SURE?')
-    if (question) {
-      deleteMyCar(id)
-    }
-  }
 
-  const deleteMyCar = async (id) => {
-    try {
-      const response = await api.delete('/cars/' + id)
-      if(response.status === 200){
-        toast.success('Car deleted')
-        fetchMyCars()
-      }
-    }
-    catch (error) {
-      console.log(error.response.data)
-    }
-  }
   const deleteUser = async () => {
     let question = window.confirm('ARE YOU SURE?')
     if (question) {
@@ -203,11 +185,7 @@ export default function UserPage() {
         <h2>My Cars</h2>
         <div className="carsList">
           {myCars.length ? myCars.map((car, i) => {
-            return (<div key={car.id + "" + i + "" + Math.random()} className='carDiv'>
-              <p onClick={() => { answer(car._id) }} className='deleteBtn'><span>X</span></p>
-              <Car car={car} />
-            </div>
-            )
+            return (<Car car={car} canDelete={true} />)
           }) : <p>You didnt post any car</p>}
         </div>
       </div>
