@@ -12,14 +12,68 @@ import { toast, ToastContainer } from 'react-toastify';
 import api from '../../api/apiCalls'
 
 export default function HomePage() {
-
+  
   const [threeNewCars, setThreeNewCars] = useState([1, 2, 3])
   const [threeUsedCars, setThreeUsedCars] = useState([1, 2, 3])
   const [selectedBrand, setSelectedBrand] = useState('')
   const [selectedModel, setSelectedModel] = useState('')
   const [selectedLocation, setSelectedLocation] = useState('')
   const [search, setSearch] = useState('')
-
+  //inputs
+  const [nameInput, setNameInput] = useState('')
+  const [emailInput, setEmailInput] = useState('')
+  const [phoneInput, setPhoneInput] = useState('')
+  const [commentInput, setCommentInput] = useState('')
+  
+  // refs
+  const refNameError = useRef()
+  const refEmailError = useRef()
+  const refPhoneError = useRef()
+  const refCommentError = useRef()
+  
+  
+  const [selectedAll, setSelectedAll] = useState(true)
+  const [selectedNew, setSelectedNew] = useState(false)
+  const [selectedUsed, setSelectedUsed] = useState(false)
+  const [selectedRange, setSelectedRange] = useState(0)
+  const [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
+  const [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
+  const navigate = useNavigate()
+  
+  //options
+  const [optionsBrands, setOptionsBrands] = useState([])
+  const [optionsModels, setOptionsModels] = useState([])
+  const [optionsLocation, setOptionsLocation] = useState([])
+  
+  //styles
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: '1px dotted pink',
+      color: 'white',
+      backgroundColor: '#152836',
+      padding: 20,
+      margin: 0,
+      cursor: 'pointer'
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      color: 'white'
+    }),
+    control: () => ({
+      // // none of react-select's styles are passed to <Control />
+      // width: 200,
+      display: 'flex',
+      color: 'white',
+    }),
+    singleValue: (provided, state) => {
+      const transition = 'opacity 300ms';
+      const color = 'color: white'
+  
+      return { ...provided, transition, color };
+    }
+  }
+  
   const fetchThreeUsedCars = async () => {
     try {
       const response = await api.get('/cars?limit=3&condition=Used')
@@ -40,6 +94,7 @@ export default function HomePage() {
       console.log(err)
     }
   }
+
   const fetchBrands = async () => {
     try {
       const response = await api.get('/brands')
@@ -139,63 +194,8 @@ export default function HomePage() {
     }
     navigate(url)
   }
-  //inputs
-  const [nameInput, setNameInput] = useState('')
-  const [emailInput, setEmailInput] = useState('')
-  const [phoneInput, setPhoneInput] = useState('')
-  const [commentInput, setCommentInput] = useState('')
 
-  // refs
-  const refNameError = useRef()
-  const refEmailError = useRef()
-  const refPhoneError = useRef()
-  const refCommentError = useRef()
-
-
-  const [selectedAll, setSelectedAll] = useState(true)
-  const [selectedNew, setSelectedNew] = useState(false)
-  const [selectedUsed, setSelectedUsed] = useState(false)
-  const [selectedRange, setSelectedRange] = useState(0)
-  const [selectedRecomendedNew, setSelectedRecomendedNew] = useState(true)
-  const [selectedRecomendedUsed, setSelectedRecomendedUsed] = useState(false)
-  const navigate = useNavigate()
-
-  //options
-  const [optionsBrands, setOptionsBrands] = useState([])
-  const [optionsModels, setOptionsModels] = useState([])
-  const [optionsLocation, setOptionsLocation] = useState([])
-
-  //styles
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: '1px dotted pink',
-      color: 'white',
-      backgroundColor: '#152836',
-      padding: 20,
-      margin: 0,
-      cursor: 'pointer'
-    }),
-    menu: (provided, state) => ({
-      ...provided,
-      color: 'white'
-    }),
-    control: () => ({
-      // // none of react-select's styles are passed to <Control />
-      // width: 200,
-      display: 'flex',
-      color: 'white',
-    }),
-    singleValue: (provided, state) => {
-      const transition = 'opacity 300ms';
-      const color = 'color: white'
-
-      return { ...provided, transition, color };
-    }
-  }
-
-  useEffect(() => {
-    // toast.warning("🚨If the content is not loading, the API server might be waking up. Please wait a moment and try again. 🚀")
+  useEffect(async() => {
     window.scrollTo(0, 0)
     fetchBrands()
     fetchThreeNewCars()
